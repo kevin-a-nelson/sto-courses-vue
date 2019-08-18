@@ -1,10 +1,11 @@
 <template>
   <div>
+    <router-link :to="{path: `/stolaf/${this.year}/${this.semester}/${this.draftNum}/class` }">See User Courses</router-link>
     <div>
       <button v-on:click="test()">Test</button>
       <h1>{{ this.year }} {{ this.semester }} </h1>
-      <button>Prev</button>
-      <button>Next</button>
+      <button v-on:click="changeSemester(-1)">Prev</button>
+      <button v-on:click="changeSemester(1)">Next</button>
     </div>
     <div>
       <span>Draft: </span>
@@ -43,24 +44,27 @@ export default {
   },
   data() {
     return {
-      year: 2019,
-      semester: 1,
+      year: Number(this.$route.params.year) || 2019,
+      semester: Number(this.$route.params.semester) || 1,
+      draftNum: Number(this.$route.params.draftNum) || 1,
       selectedCourseType: 'class',
       columns: columns,
       rows: [],
       draftNums: [1, 2, 3, 4, 5],
-      draftNum: 1,
     }
   },
   methods: {
     getUserTermCourses() {
       axios.get(`api/terms?term=${this.year}${this.semester}&order=${this.draftNum}`).then(response => {
-        this.rows = response.data[0].courses 
+        this.rows = response.data[0].courses
       })
     },
+    changeSemester(change) {
+      this.semester += change
+    },
     test() {
-      console.log(this.$route.params.term)
-    }
+      console.log('hello')
+    },
   }
 }
 </script>

@@ -9,12 +9,17 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/stolaf/:term',
+      path: '/',
       name: 'home',
       component: Home
     },
     {
-      path: '/me/:term/:order',
+      path: '/stolaf/:year/:semester/:draftNum/:courseType',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/me/:year/:semester/:draftNum/:courseType',
       name: 'about',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
