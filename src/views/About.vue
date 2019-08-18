@@ -1,16 +1,16 @@
 <template>
   <div class="about">
-    <courses-table />
+    <user-courses-table />
   </div>
 </template>
 
 <script>
-import CoursesTable from '@/components/CoursesTable.vue'
+import UserCoursesTable from '@/components/UserCoursesTable.vue'
 
 export default {
   name: 'home',
   components: {
-    CoursesTable
+    UserCoursesTable
   }
 }
 </script>

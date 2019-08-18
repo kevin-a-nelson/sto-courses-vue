@@ -1,16 +1,16 @@
 <template>
   <div class="home">
-    <courses-table />
+    <stolaf-courses-table />
   </div>
 </template>
 
 <script>
-import CoursesTable from '@/components/CoursesTable.vue'
+import StolafCoursesTable from '@/components/StolafCoursesTable.vue'
 
 export default {
   name: 'home',
   components: {
-    CoursesTable
+    StolafCoursesTable
   }
 }
 </script>

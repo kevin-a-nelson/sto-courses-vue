@@ -4,6 +4,7 @@ import { ges } from './dropDownItems/Ges'
 export default [
   { label: 'Status', 
     field: 'status',
+    hidden: true,
     filterOptions: {
       placeholder: 'All',
       enabled: true,

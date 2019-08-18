@@ -9,11 +9,13 @@
 </template>
 
 <script>
-import CoursesTable from './components/CoursesTable.vue'
+// import CoursesTable from './components/CoursesTable.vue'
 
 export default {
-  components: {
-    CoursesTable
+  data() {
+    return {
+      test: 'this is global'
+    }
   }
 }
 </script>

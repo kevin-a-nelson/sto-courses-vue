@@ -1,8 +1,13 @@
 <template>
   <div>
     <div>
+      <h1>{{ this.year }} {{ this.semester }} </h1>
+      <button>Prev</button>
+      <button>Next</button>
+    </div>
+    <div>
       <form>
-        <select v-model="selectedCourseType">
+        <select v-model="selectedCourseType" v-on:change="getStolafTermCourses()">
           <option v-for="type in courseTypes" v-bind:value="type.value">
             {{ type.text }}
           </option>
@@ -16,7 +21,6 @@
         <div v-if="props.column.field == 'actions'">
           <button>View</button>
           <button>Add</button>
-          <button>Remove</button>
         </div>
       </template>
     </vue-good-table>
@@ -30,7 +34,7 @@ import ActionButtons from './ActionButtons.vue'
 import courseTypes from './dropDownItems/CourseTypes.js'
 
 export default {
-  name: 'courses-table',
+  name: 'stolaf-courses-table',
   components: {
     ActionButtons
   },
@@ -52,7 +56,7 @@ export default {
       axios.get(`api/courses?term=${this.year}${this.semester}&type=${this.selectedCourseType}`).then(response => {
         this.rows = response.data.courses 
       })
-    }
+    },
   }
 }
 </script>
