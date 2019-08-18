@@ -1,6 +1,5 @@
 export function ges() {
   return [
-    {text: 'any GE', value: ''},
     {text: 'WRI', value: 'WRI'},
     {text: 'ALS-L', value: 'ALS-L'},
     {text: 'ALS-A', value: 'ALS-A'},

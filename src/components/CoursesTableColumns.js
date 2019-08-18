@@ -31,7 +31,7 @@ export default [
   { label: 'Gereqs', 
     field: 'gereqs',
     filterOptions: {
-      placeholder: 'All',
+      placeholder: 'Any',
       enabled: true,
       filterDropdownItems: ges()
     }
