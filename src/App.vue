@@ -8,6 +8,16 @@
   </div>
 </template>
 
+<script>
+import CoursesTable from './components/CoursesTable.vue'
+
+export default {
+  components: {
+    CoursesTable
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
