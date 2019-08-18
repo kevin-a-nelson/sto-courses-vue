@@ -1,12 +1,13 @@
 <template>
   <div>
     <div>
+      <button v-on:click="test()">Test</button>
       <h1>{{ this.year }} {{ this.semester }} </h1>
       <button>Prev</button>
       <button>Next</button>
     </div>
     <div>
-      <p>Draft: </p>
+      <span>Draft: </span>
       <form>
         <select v-model="draftNum" v-on:change="getUserTermCourses()">
           <option v-for="draftNum in draftNums">{{ draftNum }}</option>
@@ -57,6 +58,9 @@ export default {
         this.rows = response.data[0].courses 
       })
     },
+    test() {
+      console.log(this.$route.params.term)
+    }
   }
 }
 </script>

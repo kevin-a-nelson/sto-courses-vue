@@ -8,7 +8,7 @@
 import UserCoursesTable from '@/components/UserCoursesTable.vue'
 
 export default {
-  name: 'home',
+  name: 'about',
   components: {
     UserCoursesTable
   }
