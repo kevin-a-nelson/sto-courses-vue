@@ -1,15 +1,99 @@
+import { departments } from './dropDownItems/Departments'
+import { ges } from './dropDownItems/Ges'
+
 export default [
-  { label: 'Status', field: 'status' },
-  { label: 'Name', field: 'name' },
-  { label: 'Dept', field: 'dept_num_sec' },
-  { label: 'Days', field: 'days' },
-  { label: 'Gereqs', field: 'gereqs' },
-  { label: 'Days', field: 'days' },
-  { label: 'Times', field: 'times' },
-  { label: 'Prof', field: 'prof' },
-  { label: 'Rating', field: 'rating' },
-  { label: 'Difficulty', field: 'difficulty' },
-  { label: 'Reviews', field: 'reviews' },
-  { label: 'Prereqs', field: 'has_prereqs' },
-  { label: 'Actions', field: 'actions' },
+  { label: 'Status', 
+    field: 'status',
+    filterOptions: {
+      placeholder: 'All',
+      enabled: true,
+      filterDropdownItems: [
+        {text: 'Open', value: 'O'},
+        {text: 'Closed', value: 'C'}
+      ],
+    }
+  },
+  { label: 'Name', 
+    field: 'name',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    }
+  },
+  { label: 'Dept', 
+    field: 'dept_num_sec',
+    filterOptions: {
+      placeholder: 'All',
+      enabled: true,
+      filterDropdownItems: departments()
+    }
+  },
+  { label: 'Gereqs', 
+    field: 'gereqs',
+    filterOptions: {
+      placeholder: 'All',
+      enabled: true,
+      filterDropdownItems: ges()
+    }
+  },
+  {
+    label: 'Days', 
+    field: 'days',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    }
+  },
+  { label: 'Times', 
+    field: 'times',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    }
+  },
+  { label: 'Prof', 
+    field: 'prof',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    }
+  },
+  { label: 'Rating', 
+    field: 'rating',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    },
+    type: 'number'
+  },
+  { label: 'Difficulty', 
+    field: 'difficulty',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    },
+    type: 'number'
+  },
+  { label: 'Reviews', 
+    field: 'reviews',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    },
+    type: 'number'
+  },
+  { label: 'Prereqs', 
+    field: 'has_prereqs',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    }
+  },
+  { label: 'Actions', 
+    field: 'actions',
+    filterOptions: {
+      placeHolder: 'All',
+      enabled: true,
+    }
+  },
 ]
