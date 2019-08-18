@@ -1,5 +1,16 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <courses-table />
   </div>
 </template>
+
+<script>
+import CoursesTable from '@/components/CoursesTable.vue'
+
+export default {
+  name: 'home',
+  components: {
+    CoursesTable
+  }
+}
+</script>
