@@ -18,15 +18,13 @@ import CoursesTableColumns from './CoursesTableColumns.js'
     data() {
       return {
         columns: CoursesTableColumns,
-        rows: [
-          { id:1, name: 'John' }
-        ]
+        rows: []
       }
     },
     methods: {
       getStolafCourses() {
         axios.get(`api/courses?term=20191&type=class`).then(response => {
-          console.log(response.data.courses)
+          this.rows = response.data.courses 
         })
       }
     }
