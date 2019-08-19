@@ -1,11 +1,23 @@
 <template>
   <div>
-    <router-link :to="{path: `/me/${this.year}/${this.semester}/${this.draftNum}/class` }">See User Courses</router-link>
+    <router-link :to="{path: `/me/${this.year}/${this.semester}/${this.draftNum}/class` }">See My Courses</router-link>
     <div>
-      <h1>{{ this.year }} {{ this.semester }} </h1>
-      <button>Prev</button>
-      <button>Next</button>
-    <button v-on:click="test()">test</button>
+      <form>
+        <select v-model="year" v-on:change="getStolafTermCourses()">
+          <option v-for="year in years">
+            {{ year }}
+          </option>
+        </select>
+      </form>
+    </div>
+    <div>
+      <form>
+        <select v-model="semester" v-on:change="getStolafTermCourses()">
+          <option v-for="semester in semesters" v-bind:value="semester.value">
+            {{ semester.text }}
+          </option>
+        </select>
+      </form>
     </div>
     <div>
       <form>
@@ -18,11 +30,13 @@
     </div>
     <vue-good-table
       :columns="columns"
-      :rows="rows">
+      :rows="rows"
+      :height="600"
+      >
       <template slot="table-row" slot-scope="props">
         <div v-if="props.column.field == 'actions'">
           <button>View</button>
-          <button>Add</button>
+          <button v-on:click="addCourse(props.row.id)">Add</button>
         </div>
       </template>
     </vue-good-table>
@@ -51,19 +65,28 @@ export default {
       courseType: Number(this.$route.params.courseType) || 'class',
       columns: columns,
       rows: [],
-      courseTypes: courseTypes
+      courseTypes: courseTypes,
+      years: ['2019', '2018', '2017', '2016', '2015'],
+      semesters: [
+        { text: 'Fall', value: 1 },
+        { text: 'Interim', value: 2 },
+        { text: 'Spring', value: 3 },
+        { text: 'Summer Session 1', value: 4 },
+        { text: 'Summer Session 2', value: 5 },
+      ]
     }
   },
   methods: {
     getStolafTermCourses() {
-      `me/${this.year}/${this.semester}/${this.draftNum}/${this.courseType}`
-      axios.get(`api/courses?term=${this.year}${this.semester}&type=${this.selectedCourseType}`).then(response => {
+      axios.get(`api/courses?term=${this.year}${this.semester}&type=${this.courseType}`).then(response => {
         this.rows = response.data.courses 
       })
     },
-    test() {
-      console.log(this.$route.params.draftNum)
-    }
+    addCourse(course_id) {
+      axios.post(`api/courses?term=${this.year}${this.semester}&type=${this.courseType}`).then(response => {
+        this.rows = response.data.courses 
+      })
+    },
   }
 }
 </script>

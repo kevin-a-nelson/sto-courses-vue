@@ -4,13 +4,12 @@ import { ges } from './dropDownItems/Ges'
 export default [
   { label: 'Status', 
     field: 'status',
-    hidden: true,
     filterOptions: {
       placeholder: 'All',
       enabled: true,
       filterDropdownItems: [
         {text: 'Open', value: 'O'},
-        {text: 'Closed', value: 'C'}
+        {text: 'Closed', value: 'C'},
       ],
     }
   },
