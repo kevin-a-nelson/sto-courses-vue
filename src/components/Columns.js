@@ -53,6 +53,7 @@ export default [
   },
   { label: 'Prof', 
     field: 'prof',
+    hidden: true,
     filterOptions: {
       placeHolder: 'All',
       enabled: true,
@@ -60,6 +61,7 @@ export default [
   },
   { label: 'Rating', 
     field: 'rating',
+    hidden: false,
     filterOptions: {
       placeHolder: 'All',
       enabled: true,
@@ -68,6 +70,7 @@ export default [
   },
   { label: 'Difficulty', 
     field: 'difficulty',
+    hidden: false,
     filterOptions: {
       placeHolder: 'All',
       enabled: true,
@@ -76,6 +79,7 @@ export default [
   },
   { label: 'Reviews', 
     field: 'reviews',
+    hidden: false,
     filterOptions: {
       placeHolder: 'All',
       enabled: true,

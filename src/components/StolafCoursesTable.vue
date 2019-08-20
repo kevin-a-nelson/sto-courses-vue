@@ -1,43 +1,58 @@
 <template>
-  <div>
-    <router-link :to="{path: `/me/${this.year}/${this.semester}/${this.draftNum}/class` }">See My Courses</router-link>
-    <div>
-      <form>
-        <select v-model="year" v-on:change="getStolafTermCourses()">
-          <option v-for="year in years">
-            {{ year }}
-          </option>
-        </select>
-      </form>
-    </div>
-    <div>
-      <form>
-        <select v-model="semester" v-on:change="getStolafTermCourses()">
-          <option v-for="semester in semesters" v-bind:value="semester.value">
-            {{ semester.text }}
-          </option>
-        </select>
-      </form>
-    </div>
-    <div>
-      <form>
-        <select v-model="courseType" v-on:change="getStolafTermCourses()">
-          <option v-for="type in courseTypes" v-bind:value="type.value">
-            {{ type.text }}
-          </option>
-        </select>
-      </form>
+  <div id="stolaf-courses-table">
+    <router-link style="background: white;color: black;":to="{path: `/me/${this.year}/${this.semester}/${this.draftNum}/class` }">See My Courses</router-link>
+    <div>    
+      <div>
+        <form>
+          <select v-model="year" v-on:change="getStolafTermCourses()">
+            <option v-for="year in years">
+              {{ year }}
+            </option>
+          </select>
+        </form>
+      </div>
+      <div>
+        <form>
+          <select v-model="semester" v-on:change="getStolafTermCourses()">
+            <option v-for="semester in semesters" v-bind:value="semester.value">
+              {{ semester.text }}
+            </option>
+          </select>
+        </form>
+      </div>
+      <div>
+        <form>
+          <select v-model="courseType" v-on:change="getStolafTermCourses()">
+            <option v-for="type in courseTypes" v-bind:value="type.value">
+              {{ type.text }}
+            </option>
+          </select>
+        </form>
+      </div>
     </div>
     <vue-good-table
       :columns="columns"
       :rows="rows"
-      :height="600"
+      :fixed-header="false"
+      styleClass="vgt-table condensed bordered">
       >
       <template slot="table-row" slot-scope="props">
+        <!-- Action Column -->
         <div v-if="props.column.field == 'actions'">
           <button>View</button>
           <button v-on:click="addCourse(props.row.id)">Add</button>
         </div>
+        <span v-else>
+          {{props.formattedRow[props.column.field]}}
+        </span>
+      </template>
+      <template slot="table-column" slot-scope="props" style="width: 10px">
+         <span style="width: 10px" v-if="props.column.label =='Name'">
+            {{props.column.label}}
+         </span>
+         <span v-else>
+            {{props.column.label}}
+         </span>
       </template>
     </vue-good-table>
   </div>
@@ -83,11 +98,18 @@ export default {
       })
     },
     addCourse(course_id) {
-      axios.post(`api/courses?term=${this.year}${this.semester}&type=${this.courseType}`).then(response => {
-        this.rows = response.data.courses 
-      })
+      axios.post(`api/course_terms?term=${this.year}${this.semester}&order=${this.draftNum}&course_id=${course_id}`)
     },
   }
 }
 </script>
+
+<style>
+
+vue-good-table {
+  font-size: 5px;
+  background: blue;
+}
+  
+</style>
 

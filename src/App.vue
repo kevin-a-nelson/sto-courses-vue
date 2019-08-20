@@ -27,17 +27,28 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  /*background: navy;*/
 }
-#nav {
+
+.vgt-table{ 
+  overflow-y: auto; height: 100px; 
+}
+.vgt-table th { 
+  position: sticky; top: 0; 
+}
+
+
+/*#nav {
   padding: 30px;
-}
+}*/
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: white;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: white;
 }
+
 </style>

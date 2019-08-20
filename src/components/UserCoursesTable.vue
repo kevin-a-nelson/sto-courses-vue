@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{path: `/stolaf/${this.year}/${this.semester}/${this.draftNum}/class` }">See Stolaf Courses</router-link>
+    <router-link style="background: white;color: black;" :to="{path: `/stolaf/${this.year}/${this.semester}/${this.draftNum}/class` }">See Stolaf Courses</router-link>
     <div>
       <form>
         <select v-model="year" v-on:change="getUserTermCourses()">
@@ -34,7 +34,7 @@
       <template slot="table-row" slot-scope="props">
         <div v-if="props.column.field == 'actions'">
           <button>View</button>
-          <button>Remove</button>
+          <button v-on:click="removeCourse(props.row.id)">Remove</button>
         </div>
       </template>
     </vue-good-table>
@@ -90,9 +90,11 @@ export default {
     changeSemester(change) {
       this.semester += change
     },
-    test() {
-      console.log('hello')
-    },
+    removeCourse(course_id) {
+      axios.delete(`api/course_terms?term=${this.year}${this.semester}&order=${this.draftNum}&course_id=${course_id}`).then(response => {
+        this.getUserTermCourses()
+      })
+    }
   }
 }
 </script>
