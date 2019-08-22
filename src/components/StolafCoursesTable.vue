@@ -1,6 +1,7 @@
 <template>
   <div id="stolaf-courses-table">
     <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
+    <button v-on:click="test()">test</button>
     <div>
       <div>
         <form>
@@ -60,9 +61,12 @@
 
 <script>
 import axios from 'axios'
-import columns from './Columns.js'
+// import columns from './Columns.js'
 import ActionButtons from './ActionButtons.vue'
 import courseTypes from './dropDownItems/CourseTypes.js'
+
+import { departments } from './dropDownItems/Departments'
+import { ges } from './dropDownItems/Ges'
 
 export default {
   name: 'stolaf-courses-table',
@@ -79,7 +83,112 @@ export default {
       semester: Number(this.$route.query.semester) || 1,
       draftNum: Number(this.$route.query.draft) || 1,
       courseType: this.$route.query.type || 'class',
-      columns: columns,
+      filters: {},
+      columns: [
+        {
+          label: 'Status', 
+          field: 'status',
+          filterOptions: {
+            placeholder: 'All',
+            enabled: true,
+            filterDropdownItems: [
+              {text: 'Open', value: 'O'},
+              {text: 'Closed', value: 'C'},
+            ],
+          }
+        },
+        { label: 'Name', 
+          field: 'name',
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          }
+        },
+        { 
+          label: 'Dept', 
+          field: 'dept_num_sec',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'All',
+            filterValue: '',
+            filterDropdownItems: departments(),
+            filterFn: this.deptFilterFn
+          }
+        },
+        {
+          label: 'Gereqs', 
+          field: 'gereqs',
+          filterOptions: {
+            placeholder: 'Any',
+            enabled: true,
+            filterDropdownItems: ges()
+          }
+        },
+        {
+          label: 'Days', 
+          field: 'days',
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          }
+        },
+        { label: 'Times', 
+          field: 'times',
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          }
+        },
+        { label: 'Prof', 
+          field: 'prof',
+          hidden: true,
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          }
+        },
+        { label: 'Rating', 
+          field: 'rating',
+          hidden: false,
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          },
+          type: 'number'
+        },
+        { label: 'Difficulty', 
+          field: 'difficulty',
+          hidden: false,
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          },
+          type: 'number'
+        },
+        { label: 'Reviews', 
+          field: 'reviews',
+          hidden: false,
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          },
+          type: 'number'
+        },
+        { label: 'Prereqs', 
+          field: 'has_prereqs',
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          }
+        },
+        { label: 'Actions', 
+          field: 'actions',
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: true,
+          }
+        },
+      ],
       rows: [],
       courseTypes: courseTypes,
       years: ['2019', '2018', '2017', '2016', '2015'],
@@ -93,9 +202,21 @@ export default {
     }
   },
   methods: {
+    deptFilterFn(data, filterString) {
+      console.log(filterString)
+      if (this.filters['Dept'] !== filterString) {
+        this.filters['Dept'] = filterString
+        console.log(this.filters)
+      }
+      return data.includes(filterString)
+    },
+    test() {
+      console.log(columns[2].filterOptions.filterValue)
+    },
     url() {
-      console.log('running')
-      return `me/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.courseType}`
+      var url = `me/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.courseType}&`
+      url += `keys=${Object.keys(this.filters)}`
+      return url
     },
     getStolafTermCourses() {
       this.rows = []
