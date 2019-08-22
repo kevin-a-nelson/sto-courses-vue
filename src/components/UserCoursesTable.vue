@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="{path: `${this.url1()}`}" >See Stolaf Courses</router-link>
+    <router-link :to="{path: `${this.url()}`}" >See Stolaf Courses</router-link>
     <div>
       <form>
         <select v-model="year" v-on:change="getUserTermCourses()">
@@ -82,7 +82,7 @@ export default {
     }
   },
   methods: {
-    url1() {
+    url() {
       return `/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.selectedCourseType}`
     },
     getUserTermCourses() {

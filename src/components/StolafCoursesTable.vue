@@ -74,7 +74,6 @@ export default {
     ActionButtons
   },
   created() {
-    console.log(Number(this.$route.query.draft))
     this.getStolafTermCourses()
   },
   data() {
@@ -83,7 +82,7 @@ export default {
       semester: Number(this.$route.query.semester) || 1,
       draftNum: Number(this.$route.query.draft) || 1,
       courseType: this.$route.query.type || 'class',
-      filters: {},
+      deptFilterValue: '',
       columns: [
         {
           label: 'Status', 
@@ -110,7 +109,6 @@ export default {
           filterOptions: {
             enabled: true,
             placeholder: 'All',
-            filterValue: '',
             filterDropdownItems: departments(),
             filterFn: this.deptFilterFn
           }
@@ -203,25 +201,22 @@ export default {
   },
   methods: {
     deptFilterFn(data, filterString) {
-      console.log(filterString)
-      if (this.filters['Dept'] !== filterString) {
-        this.filters['Dept'] = filterString
-        console.log(this.filters)
+      if (this.deptFilterValue !== filterString) {
+        this.deptFilterValue = filterString
       }
       return data.includes(filterString)
     },
     test() {
-      console.log(columns[2].filterOptions.filterValue)
+      console.log(this.deptFilterValue)
     },
     url() {
-      var url = `me/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.courseType}&`
-      url += `keys=${Object.keys(this.filters)}`
+      var url = `me/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.courseType}&dept=${this.deptFilterValue}`
       return url
     },
     getStolafTermCourses() {
       this.rows = []
       axios.get(`api/courses?term=${this.year}${this.semester}&type=${this.courseType}`).then(response => {
-        this.rows = response.data.courses 
+        this.rows = response.data.courses
       })
     },
     addCourse(course_id) {

@@ -26,7 +26,7 @@ export default [
     filterOptions: {
       enabled: true,
       placeholder: 'All',
-      filterValue: 'CSCI',
+      filterValue: '',
       filterDropdownItems: departments()
     }
   },
