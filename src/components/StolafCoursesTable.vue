@@ -1,7 +1,7 @@
 <template>
   <div id="stolaf-courses-table">
-    <router-link style="background: white;color: black;":to="{path: `/me/${this.year}/${this.semester}/${this.draftNum}/class` }">See My Courses</router-link>
-    <div>    
+    <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
+    <div>
       <div>
         <form>
           <select v-model="year" v-on:change="getStolafTermCourses()">
@@ -70,14 +70,15 @@ export default {
     ActionButtons
   },
   created() {
+    console.log(Number(this.$route.query.draft))
     this.getStolafTermCourses()
   },
   data() {
     return {
-      year: Number(this.$route.params.year) || 2019,
-      semester: Number(this.$route.params.semester) || 1,
-      draftNum: Number(this.$route.params.draftNum) || 1,
-      courseType: Number(this.$route.params.courseType) || 'class',
+      year: Number(this.$route.query.year) || 2019,
+      semester: Number(this.$route.query.semester) || 1,
+      draftNum: Number(this.$route.query.draft) || 1,
+      courseType: this.$route.query.type || 'class',
       columns: columns,
       rows: [],
       courseTypes: courseTypes,
@@ -92,7 +93,12 @@ export default {
     }
   },
   methods: {
+    url() {
+      console.log('running')
+      return `me/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.courseType}`
+    },
     getStolafTermCourses() {
+      this.rows = []
       axios.get(`api/courses?term=${this.year}${this.semester}&type=${this.courseType}`).then(response => {
         this.rows = response.data.courses 
       })

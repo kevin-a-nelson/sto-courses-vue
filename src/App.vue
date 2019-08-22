@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-<!--       <router-link to="/stolaf/20191">Stolaf</router-link> |
-      <router-link to="/me/20191/1">Me</router-link> -->
+      <router-link to="/signup">Signup</router-link> |
+      <router-link to="/login">Login</router-link> |
     </div>
     <router-view/>
   </div>
@@ -44,11 +44,11 @@ export default {
 
 #nav a {
   font-weight: bold;
-  color: white;
+  color: black;
 }
 
 #nav a.router-link-exact-active {
-  color: white;
+  color: black;
 }
 
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link style="background: white;color: black;" :to="{path: `/stolaf/${this.year}/${this.semester}/${this.draftNum}/class` }">See Stolaf Courses</router-link>
+    <router-link :to="{path: `${this.url1()}`}" >See Stolaf Courses</router-link>
     <div>
       <form>
         <select v-model="year" v-on:change="getUserTermCourses()">
@@ -57,10 +57,10 @@ export default {
   },
   data() {
     return {
-      year: Number(this.$route.params.year) || 2019,
-      semester: Number(this.$route.params.semester) || 1,
-      draftNum: Number(this.$route.params.draftNum) || 1,
-      selectedCourseType: 'class',
+      year: Number(this.$route.query.year) || 2019,
+      semester: Number(this.$route.query.semester) || 1,
+      draftNum: Number(this.$route.query.draft) || 1,
+      selectedCourseType: this.$route.query.type || 'class',
       columns: columns,
       rows: [],
       draftNums: [1, 2, 3, 4, 5],
@@ -82,13 +82,13 @@ export default {
     }
   },
   methods: {
+    url1() {
+      return `/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.selectedCourseType}`
+    },
     getUserTermCourses() {
       axios.get(`api/terms?term=${this.year}${this.semester}&order=${this.draftNum}`).then(response => {
         this.rows = response.data[0].courses
       })
-    },
-    changeSemester(change) {
-      this.semester += change
     },
     removeCourse(course_id) {
       axios.delete(`api/course_terms?term=${this.year}${this.semester}&order=${this.draftNum}&course_id=${course_id}`).then(response => {

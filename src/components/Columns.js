@@ -1,6 +1,20 @@
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
 
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    console.log(url)
+    name = name.replace(/[\[\]]/g, '\\$&');
+    console.log(name)
+
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
 export default [
   { label: 'Status', 
     field: 'status',
@@ -23,7 +37,6 @@ export default [
   { label: 'Dept', 
     field: 'dept_num_sec',
     filterOptions: {
-      placeholder: 'All',
       enabled: true,
       filterDropdownItems: departments()
     }
