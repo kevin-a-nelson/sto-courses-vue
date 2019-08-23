@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    {{ selectedYear }}
-    <year-selector v-on:newYearSelected="newYearSelected"/>
     <stolaf-courses-table />
   </div>
 </template>
@@ -17,14 +15,8 @@ export default {
     YearSelector
   },
   data() {
-    return {
-      selectedYear: 2019
-    }
+    return {}
   },
-  methods: {
-    newYearSelected(newSelectedYear) {
-      this.selectedYear = newSelectedYear
-    }
-  }
+  methods: {}
 }
 </script>

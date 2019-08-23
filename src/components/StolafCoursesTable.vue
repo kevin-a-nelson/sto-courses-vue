@@ -1,5 +1,6 @@
 <template>
   <div id="stolaf-courses-table">
+    <year-selector v-on:newYearSelected="getStolafTermCourses"/>
     <modal name="more-info"
            :height="700"
     >
@@ -17,15 +18,6 @@
     </modal>
     <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
     <div>
-      <div>
-        <form>
-          <select v-model="year" v-on:change="getStolafTermCourses()">
-            <option v-for="year in years">
-              {{ year }}
-            </option>
-          </select>
-        </form>
-      </div>
       <div>
         <form>
           <select v-model="semester" v-on:change="getStolafTermCourses()">
@@ -75,9 +67,9 @@
 
 <script>
 import axios from 'axios'
-// import columns from './Columns.js'
 import ActionButtons from './ActionButtons.vue'
 import courseTypes from './dropDownItems/CourseTypes.js'
+import YearSelector from './YearSelector.vue'
 
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
@@ -85,14 +77,14 @@ import { ges } from './dropDownItems/Ges'
 export default {
   name: 'stolaf-courses-table',
   components: {
-    ActionButtons
+    ActionButtons,
+    YearSelector
   },
   created() {
-    this.getStolafTermCourses()
+    this.getStolafTermCourses(2019)
   },
   data() {
     return {
-      year: Number(this.$route.query.year) || 2019,
       semester: Number(this.$route.query.semester) || 1,
       draftNum: Number(this.$route.query.draft) || 1,
       courseType: this.$route.query.type || 'class',
@@ -244,9 +236,9 @@ export default {
       var url = `me/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.courseType}&dept=${this.deptFilterValue}`
       return url
     },
-    getStolafTermCourses() {
+    getStolafTermCourses(newSelectedYear) {
       this.rows = []
-      axios.get(`api/courses?term=${this.year}${this.semester}&type=${this.courseType}`).then(response => {
+      axios.get(`api/courses?term=${newSelectedYear}${this.semester}&type=${this.courseType}`).then(response => {
         this.rows = response.data.courses
       })
     },
