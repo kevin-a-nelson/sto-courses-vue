@@ -4,14 +4,15 @@
            :height="700"
     >
       <div style="padding: 30px;">
+        <h3 style="text-align: center;">{{ moreInfoData.name }}</h3>
+        <h3>Prereqs</h3>
+          {{ moreInfoData.prereqs }}
         <h3>Description</h3>
           {{ moreInfoData.description }}
         <h3>Notes</h3>
           {{ moreInfoData.notes }}
-        <h3>Prereqs</h3>
-          {{ moreInfoData.prereqs }}
         <h3>Prof</h3>
-          <router-link to=""> {{ moreInfoData.prof }} </router-link>
+          <router-link :to="{ path: `${ moreInfoData.prof_url }`}"> {{ moreInfoData.prof }} </router-link>
       </div>
     </modal>
     <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
@@ -98,10 +99,12 @@ export default {
       courseType: this.$route.query.type || 'class',
       deptFilterValue: '',
       moreInfoData: {
+        name: '',
         description: '',
         prereqs: '',
         notes: '',
-        prof: ''
+        prof: '',
+        prof_url: ''
       },
       columns: [
         {
@@ -225,6 +228,8 @@ export default {
       this.moreInfoData.prereqs = row.prereqs
       this.moreInfoData.notes = row.notes
       this.moreInfoData.prof = row.prof
+      this.moreInfoData.name = row.name
+      this.moreInfoData.prof_url = row.prof_url
       this.$modal.show('more-info')
     },
     deptFilterFn(data, filterString) {

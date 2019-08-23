@@ -4,12 +4,12 @@
            :height="700"
     >
       <div style="padding: 30px;">
+        <h3>Prereqs</h3>
+          {{ moreInfoData.prereqs }}
         <h3>Description</h3>
           {{ moreInfoData.description }}
         <h3>Notes</h3>
           {{ moreInfoData.notes }}
-        <h3>Prereqs</h3>
-          {{ moreInfoData.prereqs }}
         <h3>Prof</h3>
           <router-link to=""> {{ moreInfoData.prof }} </router-link>
       </div>
