@@ -1,42 +1,11 @@
 <template>
   <div id="stolaf-courses-table">
-    <year-selector v-on:newYearSelected="getStolafTermCourses"/>
-    <modal name="more-info"
-           :height="700"
-    >
-      <div style="padding: 30px;">
-        <h3 style="text-align: center;">{{ moreInfoData.name }}</h3>
-        <h3>Prereqs</h3>
-          {{ moreInfoData.prereqs }}
-        <h3>Description</h3>
-          {{ moreInfoData.description }}
-        <h3>Notes</h3>
-          {{ moreInfoData.notes }}
-        <h3>Prof</h3>
-          <router-link :to="{ path: `${ moreInfoData.prof_url }`}"> {{ moreInfoData.prof }} </router-link>
-      </div>
-    </modal>
     <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
-    <div>
-      <div>
-        <form>
-          <select v-model="semester" v-on:change="getStolafTermCourses()">
-            <option v-for="semester in semesters" v-bind:value="semester.value">
-              {{ semester.text }}
-            </option>
-          </select>
-        </form>
-      </div>
-      <div>
-        <form>
-          <select v-model="courseType" v-on:change="getStolafTermCourses()">
-            <option v-for="type in courseTypes" v-bind:value="type.value">
-              {{ type.text }}
-            </option>
-          </select>
-        </form>
-      </div>
-    </div>
+
+    <year-selector v-on:newYearSelected="setSelectedValues"/>
+    <semester-selector v-on:newSemesterSelected="setSelectedValues"/>
+    <type-selector v-on:newTypeSelected="setSelectedValues"/>
+    <more-info-modal />
     <vue-good-table
       :columns="columns"
       :rows="rows"
@@ -70,18 +39,25 @@ import axios from 'axios'
 import ActionButtons from './ActionButtons.vue'
 import courseTypes from './dropDownItems/CourseTypes.js'
 import YearSelector from './YearSelector.vue'
+import TypeSelector from './TypeSelector.vue'
+import MoreInfoModal from './MoreInfoModal.vue'
 
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
 
+import SemesterSelector from './SemesterSelector.vue'
+
 export default {
   name: 'stolaf-courses-table',
   components: {
+    MoreInfoModal,
+    TypeSelector,
+    SemesterSelector,
     ActionButtons,
     YearSelector
   },
   created() {
-    this.getStolafTermCourses(2019)
+    this.getStolafTermCourses()
   },
   data() {
     return {
@@ -89,6 +65,12 @@ export default {
       draftNum: Number(this.$route.query.draft) || 1,
       courseType: this.$route.query.type || 'class',
       deptFilterValue: '',
+      selectedValues: {
+        year: 2019,
+        semester: 1,
+        draft: 1,
+        type: 'class',
+      },
       moreInfoData: {
         name: '',
         description: '',
@@ -233,18 +215,30 @@ export default {
       console.log(this.deptFilterValue)
     },
     url() {
-      var url = `me/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.courseType}&dept=${this.deptFilterValue}`
-      return url
+      return '/'
     },
-    getStolafTermCourses(newSelectedYear) {
+    getStolafTermCourses() {
+      var year =  this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var type = this.selectedValues.type
+      var term = `${year}${semester}`
+
       this.rows = []
-      axios.get(`api/courses?term=${newSelectedYear}${this.semester}&type=${this.courseType}`).then(response => {
+      axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
         this.rows = response.data.courses
       })
     },
     addCourse(course_id) {
-      axios.post(`api/course_terms?term=${this.year}${this.semester}&order=${this.draftNum}&course_id=${course_id}`)
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
+      axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
     },
+    setSelectedValues(key, value) {
+      this.selectedValues[key] = value
+      this.getStolafTermCourses()
+    }
   }
 }
 </script>
