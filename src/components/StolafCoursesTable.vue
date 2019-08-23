@@ -5,7 +5,7 @@
     <year-selector v-on:newYearSelected="setSelectedValues"/>
     <semester-selector v-on:newSemesterSelected="setSelectedValues"/>
     <type-selector v-on:newTypeSelected="setSelectedValues"/>
-    <more-info-modal />
+    <more-info-modal v-bind:moreInfoData="moreInfoData" />
     <vue-good-table
       :columns="columns"
       :rows="rows"

@@ -3,23 +3,18 @@
     <modal name="more-info"
            :height="700"
     >
-      <div style="padding: 30px;">
-        <h3 style="text-align: center;">
-          name
-          <!-- {{ moreInfoData.name }} -->
+      <div id="info-container">
+        <h3 id="name">
+          {{ moreInfoData.name }}
         </h3>
         <h3>Prereqs</h3>
-          prereqs
-          <!-- {{ moreInfoData.prereqs }} -->
+          {{ moreInfoData.prereqs }}
         <h3>Description</h3>
-          description
-          <!-- {{ moreInfoData.description }} -->
+          {{ moreInfoData.description }}
         <h3>Notes</h3>
-          notes
-          <!-- {{ moreInfoData.notes }} -->
+          {{ moreInfoData.notes }}
         <h3>Prof</h3>
-          prof
-          <!-- <router-link :to="{ path: `${ moreInfoData.prof_url }`}"> {{ moreInfoData.prof }} </router-link> -->
+          <router-link :to="{ path: `${ moreInfoData.prof_url }`}"> {{ moreInfoData.prof }} </router-link>
       </div>
     </modal>
   </div>
@@ -27,6 +22,19 @@
 
 <script>
   export default {
-    name: 'more-info-modal'
+    name: 'more-info-modal',
+    props: ['moreInfoData']
   }
 </script>
+
+<style>
+
+#name {
+  text-align: center;
+}
+
+#info-container {
+  padding: 30px;
+}
+
+</style>
