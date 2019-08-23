@@ -1,5 +1,19 @@
 <template>
   <div id="stolaf-courses-table">
+    <modal name="more-info"
+           :height="700"
+    >
+      <div style="padding: 30px;">
+        <h3>Description</h3>
+          {{ moreInfoData.description }}
+        <h3>Notes</h3>
+          {{ moreInfoData.notes }}
+        <h3>Prereqs</h3>
+          {{ moreInfoData.prereqs }}
+        <h3>Prof</h3>
+          <router-link to=""> {{ moreInfoData.prof }} </router-link>
+      </div>
+    </modal>
     <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
     <button v-on:click="test()">test</button>
     <div>
@@ -40,7 +54,7 @@
       <template slot="table-row" slot-scope="props">
         <!-- Action Column -->
         <div v-if="props.column.field == 'actions'">
-          <button>View</button>
+          <button v-on:click="moreInfo(props.row)">View</button>
           <button v-on:click="addCourse(props.row.id)">Add</button>
         </div>
         <span v-else>
@@ -83,6 +97,12 @@ export default {
       draftNum: Number(this.$route.query.draft) || 1,
       courseType: this.$route.query.type || 'class',
       deptFilterValue: '',
+      moreInfoData: {
+        description: '',
+        prereqs: '',
+        notes: '',
+        prof: ''
+      },
       columns: [
         {
           label: 'Status', 
@@ -200,6 +220,13 @@ export default {
     }
   },
   methods: {
+    moreInfo(row) {
+      this.moreInfoData.description = row.description
+      this.moreInfoData.prereqs = row.prereqs
+      this.moreInfoData.notes = row.notes
+      this.moreInfoData.prof = row.prof
+      this.$modal.show('more-info')
+    },
     deptFilterFn(data, filterString) {
       if (this.deptFilterValue !== filterString) {
         this.deptFilterValue = filterString
