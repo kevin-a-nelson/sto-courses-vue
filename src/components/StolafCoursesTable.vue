@@ -16,7 +16,6 @@
       </div>
     </modal>
     <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
-    <button v-on:click="test()">test</button>
     <div>
       <div>
         <form>
