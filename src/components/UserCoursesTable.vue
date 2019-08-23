@@ -1,5 +1,19 @@
 <template>
   <div>
+    <modal name="more-info"
+           :height="700"
+    >
+      <div style="padding: 30px;">
+        <h3>Description</h3>
+          {{ moreInfoData.description }}
+        <h3>Notes</h3>
+          {{ moreInfoData.notes }}
+        <h3>Prereqs</h3>
+          {{ moreInfoData.prereqs }}
+        <h3>Prof</h3>
+          <router-link to=""> {{ moreInfoData.prof }} </router-link>
+      </div>
+    </modal>
     <router-link :to="{path: `${this.url()}`}" >See Stolaf Courses</router-link>
     <div>
       <form>
@@ -33,7 +47,7 @@
       :rows="rows">
       <template slot="table-row" slot-scope="props">
         <div v-if="props.column.field == 'actions'">
-          <button>View</button>
+          <button v-on:click="moreInfo(props.row)">View</button>
           <button v-on:click="removeCourse(props.row.id)">Remove</button>
         </div>
       </template>
@@ -62,6 +76,12 @@ export default {
       draftNum: Number(this.$route.query.draft) || 1,
       selectedCourseType: this.$route.query.type || 'class',
       columns: columns,
+      moreInfoData: {
+        description: '',
+        prereqs: '',
+        notes: '',
+        prof: ''
+      },
       rows: [],
       draftNums: [1, 2, 3, 4, 5],
       years: ['2019', '2018', '2017', '2016', '2015'],
@@ -82,6 +102,13 @@ export default {
     }
   },
   methods: {
+    moreInfo(row) {
+      this.moreInfoData.description = row.description
+      this.moreInfoData.prereqs = row.prereqs
+      this.moreInfoData.notes = row.notes
+      this.moreInfoData.prof = row.prof
+      this.$modal.show('more-info')
+    },
     url() {
       return `/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.selectedCourseType}`
     },
