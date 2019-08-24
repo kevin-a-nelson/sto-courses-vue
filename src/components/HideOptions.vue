@@ -1,6 +1,13 @@
 <template>
-  <div>’
-    <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag" label="text" track-by="value" :options="options" :multiple="true" :taggable="true" @tag="addTag"></multiselect>
+  <div>
+    <!-- <label class="typo__label">Hide Columns</label> -->
+    <multiselect v-model="hiddenColumns" 
+                 placeholder="Search a Tag"
+                 :options="options" 
+                 :multiple="true" 
+                 :taggable="true" 
+                 @input="newHideOptions">
+    </multiselect>
   </div>
 </template>
 
@@ -9,24 +16,26 @@
     name: 'hide-options',
     data() {
       return {
-        value: [
-          { text: 'Javascript', value: 'js' }
-        ],
+        hiddenColumns: [],
         options: [
-          { text: 'Vue.js', value: 'vu' },
-          { text: 'Javascript', value: 'js' },
-          { text: 'Open Source', value: 'os' }
+          'Status',
+          'Name',
+          'Dept',
+          'Gereqs',
+          'Days',
+          'Times',
+          'Prof',
+          'Rating',
+          'Difficulty',
+          'Reviews',
+          'Prereqs',
+          'Actions',
         ]
       }
     },
     methods: {
-      addTag (newTag) {
-        const tag = {
-          text: newTag,
-          value: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
-        }
-        this.options.push(tag)
-        this.value.push(tag)
+      newHideOptions() {
+        this.$emit('newHideOptions', this.hiddenColumns )
       }
     }
   }

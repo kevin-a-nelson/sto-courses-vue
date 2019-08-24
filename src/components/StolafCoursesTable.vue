@@ -6,7 +6,7 @@
     <semester-selector v-on:newSemesterSelected="setSelectedValues" v-bind:querySelectedSemester="selectedValues.semester"/>
     <type-selector v-on:newTypeSelected="setSelectedValues" v-bind:querySelectedType="selectedValues.type"/>
     <!-- Table -->
-    <hide-options />
+    <hide-options v-on:newHideOptions="setHiddenColumns"/>
     <vue-good-table
       :columns="columns"
       :rows="rows"
@@ -62,6 +62,19 @@ export default {
         draft: '',
         type: '',
       },
+      hiddenColumns: {
+        status: true,
+        name: true,
+        dept: true,
+        gereqs: true,
+        days: true,
+        times: true,
+        rating: true,
+        difficulty: true,
+        reviews: true,
+        prereqs: true,
+        actions: true
+      },
       moreInfoData: {
         name: '',
         description: '',
@@ -74,6 +87,7 @@ export default {
         {
           label: 'Status', 
           field: 'status',
+          hidden: false,
           filterOptions: {
             placeholder: 'All',
             enabled: true,
@@ -85,6 +99,7 @@ export default {
         },
         { label: 'Name', 
           field: 'name',
+          hidden: false,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
@@ -93,6 +108,7 @@ export default {
         { 
           label: 'Dept', 
           field: 'dept_num_sec',
+          hidden: false,
           filterOptions: {
             enabled: true,
             placeholder: 'All',
@@ -103,6 +119,7 @@ export default {
         {
           label: 'Gereqs', 
           field: 'gereqs',
+          hidden: false,
           filterOptions: {
             placeholder: 'Any',
             enabled: true,
@@ -112,6 +129,7 @@ export default {
         {
           label: 'Days', 
           field: 'days',
+          hidden: false,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
@@ -119,6 +137,7 @@ export default {
         },
         { label: 'Times', 
           field: 'times',
+          hidden: false,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
@@ -126,7 +145,7 @@ export default {
         },
         { label: 'Prof', 
           field: 'prof',
-          hidden: true,
+          hidden: false,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
@@ -161,6 +180,7 @@ export default {
         },
         { label: 'Prereqs', 
           field: 'has_prereqs',
+          hidden: false,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
@@ -168,6 +188,7 @@ export default {
         },
         { label: 'Actions', 
           field: 'actions',
+          hidden: false,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
@@ -178,6 +199,14 @@ export default {
     }
   },
   methods: {
+    setHiddenColumns(newHiddenColumns) {
+      this.columns.forEach(function(column) {
+        column.hidden = false
+        if(newHiddenColumns.includes(column.label)) {
+          column.hidden = true
+        }
+      })
+    },
     getSelectedValues() {
       var query = this.$route.query
       this.selectedValues.year = query.year || 2019
