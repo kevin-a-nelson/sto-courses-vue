@@ -1,51 +1,40 @@
 <template>
   <div id="stolaf-courses-table">
     <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
-
-    <year-selector v-on:newYearSelected="setSelectedValues"/>
-    <semester-selector v-on:newSemesterSelected="setSelectedValues"/>
-    <type-selector v-on:newTypeSelected="setSelectedValues"/>
-    <more-info-modal v-bind:moreInfoData="moreInfoData" />
+    <!-- Selectors -->
+    <year-selector v-on:newYearSelected="setSelectedValues" v-bind:querySelectedYear="selectedValues.year"/>
+    <semester-selector v-on:newSemesterSelected="setSelectedValues" v-bind:querySelectedSemester="selectedValues.semester"/>
+    <type-selector v-on:newTypeSelected="setSelectedValues" v-bind:querySelectedType="selectedValues.type"/>
+    <!-- Table -->
     <vue-good-table
       :columns="columns"
       :rows="rows"
       :fixed-header="false"
       styleClass="vgt-table condensed bordered">
       >
+    <!-- Table Modifications -->
       <template slot="table-row" slot-scope="props">
-        <!-- Action Column -->
+    <!-- Actions Column -->
         <div v-if="props.column.field == 'actions'">
           <button v-on:click="moreInfo(props.row)">View</button>
           <button v-on:click="addCourse(props.row.id)">Add</button>
         </div>
-        <span v-else>
-          {{props.formattedRow[props.column.field]}}
-        </span>
-      </template>
-      <template slot="table-column" slot-scope="props" style="width: 10px">
-         <span style="width: 10px" v-if="props.column.label =='Name'">
-            {{props.column.label}}
-         </span>
-         <span v-else>
-            {{props.column.label}}
-         </span>
       </template>
     </vue-good-table>
+    <!-- More Info Modal -->
+    <more-info-modal v-bind:moreInfoData="moreInfoData" />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import ActionButtons from './ActionButtons.vue'
-import courseTypes from './dropDownItems/CourseTypes.js'
-import YearSelector from './YearSelector.vue'
-import TypeSelector from './TypeSelector.vue'
 import MoreInfoModal from './MoreInfoModal.vue'
+import YearSelector from './YearSelector.vue'
+import SemesterSelector from './SemesterSelector.vue'
+import TypeSelector from './TypeSelector.vue'
 
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
-
-import SemesterSelector from './SemesterSelector.vue'
 
 export default {
   name: 'stolaf-courses-table',
@@ -53,23 +42,20 @@ export default {
     MoreInfoModal,
     TypeSelector,
     SemesterSelector,
-    ActionButtons,
     YearSelector
   },
   created() {
+    this.getSelectedValues()
     this.getStolafTermCourses()
   },
   data() {
     return {
-      semester: Number(this.$route.query.semester) || 1,
-      draftNum: Number(this.$route.query.draft) || 1,
-      courseType: this.$route.query.type || 'class',
       deptFilterValue: '',
       selectedValues: {
-        year: 2019,
-        semester: 1,
-        draft: 1,
-        type: 'class',
+        year: '',
+        semester: '',
+        draft: '',
+        type: '',
       },
       moreInfoData: {
         name: '',
@@ -184,18 +170,16 @@ export default {
         },
       ],
       rows: [],
-      courseTypes: courseTypes,
-      years: ['2019', '2018', '2017', '2016', '2015'],
-      semesters: [
-        { text: 'Fall', value: 1 },
-        { text: 'Interim', value: 2 },
-        { text: 'Spring', value: 3 },
-        { text: 'Summer Session 1', value: 4 },
-        { text: 'Summer Session 2', value: 5 },
-      ]
     }
   },
   methods: {
+    getSelectedValues() {
+      var query = this.$route.query
+      this.selectedValues.year = query.year || 2019
+      this.selectedValues.semester = query.semester || 1
+      this.selectedValues.draft = query.draft || 1
+      this.selectedValues.type = query.type || 'class'
+    },
     moreInfo(row) {
       this.moreInfoData.description = row.description
       this.moreInfoData.prereqs = row.prereqs
@@ -215,7 +199,12 @@ export default {
       console.log(this.deptFilterValue)
     },
     url() {
-      return '/'
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var type = this.selectedValues.type
+
+      return `/me?year=${year}&semester=${semester}&type=${type}&draft=${draft}`
     },
     getStolafTermCourses() {
       var year =  this.selectedValues.year

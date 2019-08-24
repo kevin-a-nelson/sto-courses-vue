@@ -1,47 +1,9 @@
 <template>
   <div>
-    <modal name="more-info"
-           :height="700"
-    >
-      <div style="padding: 30px;">
-        <h3>Prereqs</h3>
-          {{ moreInfoData.prereqs }}
-        <h3>Description</h3>
-          {{ moreInfoData.description }}
-        <h3>Notes</h3>
-          {{ moreInfoData.notes }}
-        <h3>Prof</h3>
-          <router-link to=""> {{ moreInfoData.prof }} </router-link>
-      </div>
-    </modal>
     <router-link :to="{path: `${this.url()}`}" >See Stolaf Courses</router-link>
-    <div>
-      <form>
-        <select v-model="year" v-on:change="getUserTermCourses()">
-          <option v-for="year in years">
-            {{ year }}
-          </option>
-        </select>
-      </form>
-    </div>
-    <div>
-      <form>
-        <select v-model="semester" v-on:change="getUserTermCourses()">
-          <option v-for="semester in semesters" v-bind:value="semester.value">
-            {{ semester.text }}
-          </option>
-        </select>
-      </form>
-    </div>
-    <div>
-      <form>
-        <select v-model="draftNum" v-on:change="getUserTermCourses()">
-          <option v-for="draft in drafts" v-bind:value="draft.value">
-            {{ draft.text }}
-          </option>
-        </select>
-      </form>
-    </div>
+    <year-selector v-on:newYearSelected="setSelectedValue" v-bind:querySelectedYear="selectedValues.year"/>
+    <semester-selector v-on:newSemesterSelected="setSelectedValue" v-bind:querySelectedSemester="selectedValues.semester"/>
+    <draft-selector v-on:newDraftSelected="setSelectedValue" v-bind:querySelectedDraft="selectedValues.draft"/>
     <vue-good-table
       :columns="columns"
       :rows="rows">
@@ -52,30 +14,39 @@
         </div>
       </template>
     </vue-good-table>
+    <more-info-modal v-bind:moreInfoData="moreInfoData"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import columns from './Columns.js'
-import ActionButtons from './ActionButtons.vue'
-import courseTypes from './dropDownItems/CourseTypes.js'
+import MoreInfoModal from './MoreInfoModal.vue'
+import YearSelector from './YearSelector.vue'
+import SemesterSelector from './SemesterSelector.vue'
+import DraftSelector from './DraftSelector.vue'
 
 export default {
   name: 'user-courses-table',
   components: {
-    ActionButtons
+    DraftSelector,
+    MoreInfoModal,
+    YearSelector,
+    SemesterSelector
   },
   created() {
+    this.getSelectedValues()
     this.getUserTermCourses()
   },
   data() {
     return {
-      year: Number(this.$route.query.year) || 2019,
-      semester: Number(this.$route.query.semester) || 1,
-      draftNum: Number(this.$route.query.draft) || 1,
-      selectedCourseType: this.$route.query.type || 'class',
       columns: columns,
+      selectedValues: {
+        year: '',
+        semester: '',
+        draft: '',
+        type: '',
+      },
       moreInfoData: {
         description: '',
         prereqs: '',
@@ -83,25 +54,20 @@ export default {
         prof: ''
       },
       rows: [],
-      draftNums: [1, 2, 3, 4, 5],
-      years: ['2019', '2018', '2017', '2016', '2015'],
-      semesters: [
-        { text: 'Fall', value: 1 },
-        { text: 'Interim', value: 2 },
-        { text: 'Spring', value: 3 },
-        { text: 'Summer Session 1', value: 4 },
-        { text: 'Summer Session 2', value: 5 },
-      ],
-      drafts: [
-        { text: 'Draft 1', value: 1 },
-        { text: 'Draft 2', value: 2 },
-        { text: 'Draft 3', value: 3 },
-        { text: 'Draft 4', value: 4 },
-        { text: 'Draft 5', value: 5 },
-      ]
     }
   },
   methods: {
+    getSelectedValues() {
+      var query = this.$route.query
+      this.selectedValues.year = query.year || 2019
+      this.selectedValues.semester = query.semester || 1
+      this.selectedValues.draft = query.draft || 1
+      this.selectedValues.type = query.type || 'class'
+    },
+    setSelectedValue(key, value) {
+      this.selectedValues[key] = value
+      this.getUserTermCourses()
+    },
     moreInfo(row) {
       this.moreInfoData.description = row.description
       this.moreInfoData.prereqs = row.prereqs
@@ -110,15 +76,30 @@ export default {
       this.$modal.show('more-info')
     },
     url() {
-      return `/?year=${this.year}&semester=${this.semester}&draft=${this.draftNum}&type=${this.selectedCourseType}`
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var type = this.selectedValues.type
+
+      return `/?year=${year}&semester=${semester}&type=${type}&draft=${draft}`
     },
     getUserTermCourses() {
-      axios.get(`api/terms?term=${this.year}${this.semester}&order=${this.draftNum}`).then(response => {
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
+
+      axios.get(`api/terms?term=${term}&order=${draft}`).then(response => {
         this.rows = response.data[0].courses
       })
     },
     removeCourse(course_id) {
-      axios.delete(`api/course_terms?term=${this.year}${this.semester}&order=${this.draftNum}&course_id=${course_id}`).then(response => {
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
+
+      axios.delete(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`).then(response => {
         this.getUserTermCourses()
       })
     }
