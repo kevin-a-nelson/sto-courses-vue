@@ -4,17 +4,29 @@
            :height="700"
     >
       <div id="info-container">
-        <h3 id="name">
-          {{ moreInfoData.name }}
-        </h3>
-        <h3>Prereqs</h3>
-          {{ moreInfoData.prereqs }}
-        <h3>Description</h3>
+        <div class="spacing">
+          <h5 id="name">
+            {{ moreInfoData.name }}
+          </h5>
+        </div>
+        <div class="spacing">
+          <h5>Prereqs</h5>
+            {{ moreInfoData.prereqs }}
+        </div>
+        <div class="spacing">
+          <h5>Description</h5>
           {{ moreInfoData.description }}
-        <h3>Notes</h3>
+        </div>
+
+        <div class="spacing">
+          <h5>Notes</h5>
           {{ moreInfoData.notes }}
-        <h3>Prof</h3>
+        </div>
+
+        <div class="spacing">
+          <h5>Prof</h5>
           <router-link :to="{ path: `${ moreInfoData.prof_url }`}"> {{ moreInfoData.prof }} </router-link>
+        </div>
       </div>
     </modal>
   </div>
@@ -29,8 +41,13 @@
 
 <style>
 
+.spacing {
+  margin-bottom: 40px;
+}
+
 #name {
   text-align: center;
+  /*font-size: 10px;*/
 }
 
 #info-container {
