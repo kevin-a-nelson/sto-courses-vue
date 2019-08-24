@@ -6,6 +6,7 @@
     <semester-selector v-on:newSemesterSelected="setSelectedValues" v-bind:querySelectedSemester="selectedValues.semester"/>
     <type-selector v-on:newTypeSelected="setSelectedValues" v-bind:querySelectedType="selectedValues.type"/>
     <!-- Table -->
+    <hide-options />
     <vue-good-table
       :columns="columns"
       :rows="rows"
@@ -32,6 +33,7 @@ import MoreInfoModal from './MoreInfoModal.vue'
 import YearSelector from './YearSelector.vue'
 import SemesterSelector from './SemesterSelector.vue'
 import TypeSelector from './TypeSelector.vue'
+import HideOptions from './HideOptions.vue'
 
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
@@ -39,6 +41,7 @@ import { ges } from './dropDownItems/Ges'
 export default {
   name: 'stolaf-courses-table',
   components: {
+    HideOptions,
     MoreInfoModal,
     TypeSelector,
     SemesterSelector,
@@ -50,6 +53,8 @@ export default {
   },
   data() {
     return {
+      value: null,
+      options: ['list', 'of', 'options'],
       deptFilterValue: '',
       selectedValues: {
         year: '',
