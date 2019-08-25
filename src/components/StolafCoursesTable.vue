@@ -1,12 +1,24 @@
 <template>
   <div id="stolaf-courses-table">
-    <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link>
+    <!-- <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link> -->
     <!-- Selectors -->
-    <year-selector v-on:newYearSelected="setSelectedValues" v-bind:querySelectedYear="selectedValues.year"/>
-    <semester-selector v-on:newSemesterSelected="setSelectedValues" v-bind:querySelectedSemester="selectedValues.semester"/>
-    <type-selector v-on:newTypeSelected="setSelectedValues" v-bind:querySelectedType="selectedValues.type"/>
+    <div id="selectors">
+      <year-selector v-on:newYearSelected="setSelectedValues" v-bind:querySelectedYear="selectedValues.year"/>
+      <form>
+        <select v-model="whosCourses" v-on:change="setNewCourses">
+          <option>
+            Stolaf Courses
+          </option>
+          <option>
+            My Courses
+          </option>
+        </select>
+      </form>
+      <semester-selector v-on:newSemesterSelected="setSelectedValues" v-bind:querySelectedSemester="selectedValues.semester"/>
+      <type-selector v-on:newTypeSelected="setSelectedValues" v-bind:querySelectedType="selectedValues.type"/>
+      <!-- <hide-options v-on:newHideOptions="setHiddenColumns"/> -->
+    </div>
     <!-- Table -->
-    <hide-options v-on:newHideOptions="setHiddenColumns"/>
     <vue-good-table
       :columns="columns"
       :rows="rows"
@@ -18,7 +30,8 @@
     <!-- Actions Column -->
         <div v-if="props.column.field == 'actions'">
           <button v-on:click="moreInfo(props.row)">View</button>
-          <button v-on:click="addCourse(props.row.id)">Add</button>
+          <button v-if="whosCourses === 'Stolaf Courses'" v-on:click="addCourse(props.row.id)">Add</button>
+          <button v-if="whosCourses === 'My Courses'" v-on:click="removeCourse(props.row.id)">Remove</button>
         </div>
       </template>
     </vue-good-table>
@@ -53,6 +66,7 @@ export default {
   },
   data() {
     return {
+      whosCourses: 'Stolaf Courses', 
       value: null,
       options: ['list', 'of', 'options'],
       deptFilterValue: '',
@@ -199,6 +213,19 @@ export default {
     }
   },
   methods: {
+    setNewCourses() {
+      this.whosCourses === 'Stolaf Courses' ? this.getStolafTermCourses() : this.getUserTermCourses()
+    },
+    getUserTermCourses() {
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
+
+      axios.get(`api/terms?term=${term}&order=${draft}`).then(response => {
+        this.rows = response.data[0].courses
+      })
+    },
     setHiddenColumns(newHiddenColumns) {
       this.columns.forEach(function(column) {
         column.hidden = false
@@ -258,15 +285,40 @@ export default {
       var term = `${year}${semester}`
       axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
     },
+    removeCourse(course_id) {
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
+
+      axios.delete(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`).then(response => {
+        this.getUserTermCourses()
+      })
+    },
     setSelectedValues(key, value) {
       this.selectedValues[key] = value
-      this.getStolafTermCourses()
+      this.setNewCourses()
     }
   }
 }
 </script>
 
 <style>
+
+#stolaf-courses-table {
+  padding: 30px;
+}
+
+#selectors {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#selectors * {
+  /*float: left;*/
+  /*margin-bottom: 5px;*/
+  margin-right: 5px;
+}
 
 vue-good-table {
   font-size: 5px;

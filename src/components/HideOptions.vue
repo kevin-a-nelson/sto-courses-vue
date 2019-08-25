@@ -16,7 +16,20 @@
     name: 'hide-options',
     data() {
       return {
-        hiddenColumns: [],
+        hiddenColumns: [
+          'Status',
+          'Name',
+          'Dept',
+          'Gereqs',
+          'Days',
+          'Times',
+          'Prof',
+          'Rating',
+          'Difficulty',
+          'Reviews',
+          'Prereqs',
+          'Actions',
+        ],
         options: [
           'Status',
           'Name',
