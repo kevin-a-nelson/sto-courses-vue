@@ -339,17 +339,14 @@ export default {
       var term = `${year}${semester}`
       axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
            .then(response => {
-              this.showNotification('foo', 'success' ,'added')
+            var course_name = row.name
+            var semesterStr = this.intSemesterToStr(semester)
+            var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
+              this.showNotification('foo', 'success' , text)
            })
            .catch(error => {
               this.showNotification('foo', 'error' , 'you already have that course')
            })
-      // this.showNotification('foo','warn','hello')
-      // this.$notify({
-      //   group: 'foo',
-      //   type: 'warn',
-      //   text: 'hello'
-      // });
     },
     removeCourse(course_id) {
       var year = this.selectedValues.year
