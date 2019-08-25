@@ -25,7 +25,8 @@
 
         <div class="spacing">
           <h5>Prof</h5>
-          <router-link :to="{ path: `${ moreInfoData.prof_url }`}"> {{ moreInfoData.prof }} </router-link>
+          <a target="_blank" :href="`${moreInfoData.prof_url}`">{{ moreInfoData.prof }} </a>
+          <!-- // <router-link :to="{ path: `${ moreInfoData.prof_url }`}"> {{ moreInfoData.prof }} </router-link> -->
         </div>
       </div>
     </modal>
