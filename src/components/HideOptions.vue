@@ -12,24 +12,13 @@
 </template>
 
 <script>
+
   export default {
+    props: ['defaultHiddenColumns'],
     name: 'hide-options',
     data() {
       return {
-        hiddenColumns: [
-          'Status',
-          'Name',
-          'Dept',
-          'Gereqs',
-          'Days',
-          'Times',
-          'Prof',
-          'Rating',
-          'Difficulty',
-          'Reviews',
-          'Prereqs',
-          'Actions',
-        ],
+        hiddenColumns: this.defaultHiddenColumns,
         options: [
           'Status',
           'Name',

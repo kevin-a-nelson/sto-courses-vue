@@ -12,7 +12,11 @@
         v-if="selectedValues.mode === 'user'"
         v-bind:defaultDraft="selectedValues.draft"
       />
-      <hide-options v-on:newHideOptions="setHiddenColumns"/>
+      <button style="max-height: 30px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Toggle</button>
+      <hide-options 
+        v-if="showShownColumns" 
+        v-on:newHideOptions="setHiddenColumns"
+        v-bind:defaultHiddenColumns="hiddenColumns"/>
     </div>
     <!-- Table -->
     <vue-good-table
@@ -25,7 +29,7 @@
         mode: 'records',
         perPage: 5,
         position: 'top',
-        perPageDropdown: [3, 7, 9],
+        perPageDropdown: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         dropdownAllowAll: false,
         setCurrentPage: 2,
         nextLabel: 'next',
@@ -90,19 +94,21 @@ export default {
         draft: 1,
         type: 'class',
       },
-      hiddenColumns: {
-        status: true,
-        name: true,
-        dept: true,
-        gereqs: true,
-        days: true,
-        times: true,
-        rating: true,
-        difficulty: true,
-        reviews: true,
-        prereqs: true,
-        actions: true
-      },
+      showShownColumns: true,
+      hiddenColumns: [
+        'Status',
+        'Name',
+        'Dept',
+        'Gereqs',
+        'Days',
+        'Times',
+        'Prof',
+        'Rating',
+        'Difficulty',
+        'Reviews',
+        'Prereqs',
+        'Actions',
+      ],
       moreInfoData: {
         name: '',
         description: '',
@@ -223,6 +229,9 @@ export default {
     }
   },
   methods: {
+    toggleShowShownColumns() {
+      this.showShownColumns = !this.showShownColumns
+    },
     getUserTermCourses() {
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester
@@ -234,6 +243,8 @@ export default {
       })
     },
     setHiddenColumns(newHiddenColumns) {
+      this.hiddenColumns = newHiddenColumns
+
       this.columns.forEach(function(column) {
         column.hidden = true
         if(newHiddenColumns.includes(column.label)) {
