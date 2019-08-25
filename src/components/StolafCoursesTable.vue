@@ -1,6 +1,9 @@
 <template>
+      <!-- classes="my-notification" -->
   <div id="stolaf-courses-table">
-    <!-- <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link> -->
+    <notifications 
+      position="top left" 
+      group="foo" />
     <!-- Selectors -->
     <div id="selectors">
       <year-selector v-on:newYearSelected="setSelectedValues"/>
@@ -45,7 +48,7 @@
     <!-- Actions Column -->
         <div v-if="props.column.field == 'actions'">
           <button v-on:click="moreInfo(props.row)">View</button>
-          <button v-if="selectedValues.mode !== 'user'" v-on:click="addCourse(props.row.id)">Add</button>
+          <button v-if="selectedValues.mode !== 'user'" v-on:click="addCourse(props.row)">Add</button>
           <button v-if="selectedValues.mode === 'user'" v-on:click="removeCourse(props.row.id)">Remove</button>
         </div>
       </template>
@@ -86,7 +89,6 @@ export default {
     return {
       value: null,
       options: ['list', 'of', 'options'],
-      deptFilterValue: '',
       selectedValues: {
         mode: 'stolaf',
         year: 2019,
@@ -109,6 +111,21 @@ export default {
         'Prereqs',
         'Actions',
       ],
+      stoDeptFilterValue: '',
+      stoCoursesTableFilterValues: {
+        status: '',
+        name: '',
+        dept: '',
+        gereqs: '',
+        days: '',
+        times: '',
+        prof: '',
+        rating: '',
+        difficulty: '',
+        reviews: '',
+        prereqs: '',
+        actions: '',
+      },
       moreInfoData: {
         name: '',
         description: '',
@@ -147,7 +164,7 @@ export default {
             enabled: true,
             placeholder: 'All',
             filterDropdownItems: departments(),
-            filterFn: this.deptFilterFn
+            filterFn: this.deptFilterFn('arg')
           }
         },
         {
@@ -226,9 +243,17 @@ export default {
         },
       ],
       rows: [],
+      notificationType: ''
     }
   },
   methods: {
+    test() {
+      this.$notify({
+        group: 'foo',
+        title: 'Important message',
+        text: 'Hello user! This is a notification!'
+      });
+    },
     toggleShowShownColumns() {
       this.showShownColumns = !this.showShownColumns
     },
@@ -244,7 +269,6 @@ export default {
     },
     setHiddenColumns(newHiddenColumns) {
       this.hiddenColumns = newHiddenColumns
-
       this.columns.forEach(function(column) {
         column.hidden = true
         if(newHiddenColumns.includes(column.label)) {
@@ -262,21 +286,11 @@ export default {
       this.$modal.show('more-info')
     },
     deptFilterFn(data, filterString) {
-      if (this.deptFilterValue !== filterString) {
-        this.deptFilterValue = filterString
+      return true
+      if (this.stoDeptFilterValue.dept !== filterString) {
+        this.stoCoursesTableFilterValues.dept = filterString
       }
       return data.includes(filterString)
-    },
-    test() {
-      console.log(this.deptFilterValue)
-    },
-    url() {
-      var year = this.selectedValues.year
-      var semester = this.selectedValues.semester
-      var draft = this.selectedValues.draft
-      var type = this.selectedValues.type
-
-      return `/me?year=${year}&semester=${semester}&type=${type}&draft=${draft}`
     },
     getStolafTermCourses() {
       var year =  this.selectedValues.year
@@ -289,12 +303,53 @@ export default {
         this.rows = response.data.courses
       })
     },
-    addCourse(course_id) {
+    intSemesterToStr(semesterInt) {
+      var semesterStr = ''
+      switch(semesterInt) {
+        case 1:
+          semesterStr = 'Fall'
+          break;
+        case 2:
+          semesterStr = 'Interim'
+          break;
+        case 3:
+          semesterStr = 'Spring'
+          break;
+        case 4:
+          semesterStr = 'Summer Session 1'
+          break;
+        case 5:
+          semesterStr = 'Summer Session 2'
+          break;
+      }
+      return semesterStr
+    },
+    showNotification(group, type, text) {
+      this.$notify({
+        group: group,
+        type: type,
+        text: text
+      });
+    },
+    addCourse(row) {
+      var course_id = row.id
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester
       var draft = this.selectedValues.draft
       var term = `${year}${semester}`
       axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
+           .then(response => {
+              this.showNotification('foo', 'success' ,'added')
+           })
+           .catch(error => {
+              this.showNotification('foo', 'error' , 'you already have that course')
+           })
+      // this.showNotification('foo','warn','hello')
+      // this.$notify({
+      //   group: 'foo',
+      //   type: 'warn',
+      //   text: 'hello'
+      // });
     },
     removeCourse(course_id) {
       var year = this.selectedValues.year
@@ -315,6 +370,32 @@ export default {
 </script>
 
 <style>
+
+/*.my-notification {
+  padding: 10px;
+  margin: 0 5px 5px;
+
+  font-size: 12px;
+
+  color: #ffffff;
+  background: #44A4FC;
+  border-left: 5px solid #187FE7;
+
+  &.warn {
+    background: #ffb648;
+    border-left-color: #f48a06;
+  }
+
+  &.error {
+    background: #E54D42;
+    border-left-color: #B82E24;
+  }
+
+  &.success {
+    background: #68CD86;
+    border-left-color: #42A85F;
+  }
+}*/
 
 #stolaf-courses-table {
   padding: 30px;

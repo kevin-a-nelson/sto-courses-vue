@@ -6,10 +6,10 @@ import VueGoodTablePlugin from 'vue-good-table';
 import axios from 'axios'
 import VModal from 'vue-js-modal'
 import Multiselect from 'vue-multiselect'
-// import "https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css"
-// import 'buefy/dist/buefy.css'
+import Notifications from 'vue-notification'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 
 
 axios.defaults.baseURL =
@@ -19,6 +19,7 @@ Vue.config.productionTip = false
 Vue.use(VueGoodTablePlugin);
 Vue.use(VModal)
 Vue.component('multiselect', Multiselect) 
+Vue.use(Notifications)
 
 new Vue({
   router,
