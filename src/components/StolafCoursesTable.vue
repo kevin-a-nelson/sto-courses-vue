@@ -12,14 +12,29 @@
         v-if="selectedValues.mode === 'user'"
         v-bind:defaultDraft="selectedValues.draft"
       />
-      <!-- <hide-options v-on:newHideOptions="setHiddenColumns"/> -->
+      <hide-options v-on:newHideOptions="setHiddenColumns"/>
     </div>
     <!-- Table -->
     <vue-good-table
       :columns="columns"
       :rows="rows"
       :fixed-header="false"
-      styleClass="vgt-table condensed bordered">
+      styleClass="vgt-table condensed bordered"
+      :pagination-options="{
+        enabled: true,
+        mode: 'records',
+        perPage: 5,
+        position: 'top',
+        perPageDropdown: [3, 7, 9],
+        dropdownAllowAll: false,
+        setCurrentPage: 2,
+        nextLabel: 'next',
+        prevLabel: 'prev',
+        rowsPerPageLabel: 'Rows per page',
+        ofLabel: 'of',
+        pageLabel: 'page', // for 'pages' mode
+        allLabel: 'All',
+      }"
       >
     <!-- Table Modifications -->
       <template slot="table-row" slot-scope="props">
@@ -201,11 +216,7 @@ export default {
         },
         { label: 'Actions', 
           field: 'actions',
-          hidden: false,
-          filterOptions: {
-            placeHolder: 'All',
-            enabled: true,
-          }
+          hidden: false
         },
       ],
       rows: [],
@@ -224,9 +235,9 @@ export default {
     },
     setHiddenColumns(newHiddenColumns) {
       this.columns.forEach(function(column) {
-        column.hidden = false
+        column.hidden = true
         if(newHiddenColumns.includes(column.label)) {
-          column.hidden = true
+          column.hidden = false
         }
       })
     },
