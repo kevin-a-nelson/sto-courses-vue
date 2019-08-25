@@ -13,10 +13,9 @@
 <script>
   export default {
     name: 'type-selector',
-    props: ['querySelectedType'],
     data() {
       return {
-        selectedType: this.querySelectedType,
+        selectedType: 'class',
         types: [
           { text: 'Class', value: 'class' },
           { text: 'Lab', value: 'lab' },

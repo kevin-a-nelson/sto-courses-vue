@@ -13,10 +13,9 @@
 <script>
   export default {
     name: 'year-selector',
-    props: ['querySelectedYear'],
     data() {
         return {
-        selectedYear: this.querySelectedYear,
+        selectedYear: 2019,
         years: [ 2015, 2016, 2017, 2018, 2019 ]
       }
     },

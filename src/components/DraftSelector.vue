@@ -12,11 +12,11 @@
 
 <script>
   export default {
+    props: ['defaultDraft'],
     name: 'draft-selector',
-    props: ['querySelectedDraft'],
     data() {
       return {
-        selectedDraft: this.querySelectedDraft,
+        selectedDraft: this.defaultDraft,
         drafts: [
           { text: 'Draft 1', value: 1 },
           { text: 'Draft 2', value: 2 },

@@ -3,19 +3,15 @@
     <!-- <router-link :to="{ path: `${this.url()}` }">See My Courses</router-link> -->
     <!-- Selectors -->
     <div id="selectors">
-      <year-selector v-on:newYearSelected="setSelectedValues" v-bind:querySelectedYear="selectedValues.year"/>
-      <form>
-        <select v-model="whosCourses" v-on:change="setNewCourses">
-          <option>
-            Stolaf Courses
-          </option>
-          <option>
-            My Courses
-          </option>
-        </select>
-      </form>
-      <semester-selector v-on:newSemesterSelected="setSelectedValues" v-bind:querySelectedSemester="selectedValues.semester"/>
-      <type-selector v-on:newTypeSelected="setSelectedValues" v-bind:querySelectedType="selectedValues.type"/>
+      <year-selector v-on:newYearSelected="setSelectedValues"/>
+      <whos-courses-selector v-on:newPersonSelected="setSelectedValues"/>
+      <semester-selector v-on:newSemesterSelected="setSelectedValues"/>
+      <type-selector v-if="selectedValues.mode !== 'user'" v-on:newTypeSelected="setSelectedValues"/>
+      <draft-selector 
+        v-on:newDraftSelected="setSelectedValues" 
+        v-if="selectedValues.mode === 'user'"
+        v-bind:defaultDraft="selectedValues.draft"
+      />
       <!-- <hide-options v-on:newHideOptions="setHiddenColumns"/> -->
     </div>
     <!-- Table -->
@@ -30,8 +26,8 @@
     <!-- Actions Column -->
         <div v-if="props.column.field == 'actions'">
           <button v-on:click="moreInfo(props.row)">View</button>
-          <button v-if="whosCourses === 'Stolaf Courses'" v-on:click="addCourse(props.row.id)">Add</button>
-          <button v-if="whosCourses === 'My Courses'" v-on:click="removeCourse(props.row.id)">Remove</button>
+          <button v-if="selectedValues.mode !== 'user'" v-on:click="addCourse(props.row.id)">Add</button>
+          <button v-if="selectedValues.mode === 'user'" v-on:click="removeCourse(props.row.id)">Remove</button>
         </div>
       </template>
     </vue-good-table>
@@ -47,6 +43,8 @@ import YearSelector from './YearSelector.vue'
 import SemesterSelector from './SemesterSelector.vue'
 import TypeSelector from './TypeSelector.vue'
 import HideOptions from './HideOptions.vue'
+import WhosCoursesSelector from './WhosCoursesSelector.vue'
+import DraftSelector from './DraftSelector.vue'
 
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
@@ -54,27 +52,28 @@ import { ges } from './dropDownItems/Ges'
 export default {
   name: 'stolaf-courses-table',
   components: {
+    WhosCoursesSelector,
     HideOptions,
     MoreInfoModal,
     TypeSelector,
     SemesterSelector,
-    YearSelector
+    YearSelector,
+    DraftSelector
   },
   created() {
-    this.getSelectedValues()
     this.getStolafTermCourses()
   },
   data() {
     return {
-      whosCourses: 'Stolaf Courses', 
       value: null,
       options: ['list', 'of', 'options'],
       deptFilterValue: '',
       selectedValues: {
-        year: '',
-        semester: '',
-        draft: '',
-        type: '',
+        mode: 'stolaf',
+        year: 2019,
+        semester: 1,
+        draft: 1,
+        type: 'class',
       },
       hiddenColumns: {
         status: true,
@@ -213,9 +212,6 @@ export default {
     }
   },
   methods: {
-    setNewCourses() {
-      this.whosCourses === 'Stolaf Courses' ? this.getStolafTermCourses() : this.getUserTermCourses()
-    },
     getUserTermCourses() {
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester
@@ -233,13 +229,6 @@ export default {
           column.hidden = true
         }
       })
-    },
-    getSelectedValues() {
-      var query = this.$route.query
-      this.selectedValues.year = query.year || 2019
-      this.selectedValues.semester = query.semester || 1
-      this.selectedValues.draft = query.draft || 1
-      this.selectedValues.type = query.type || 'class'
     },
     moreInfo(row) {
       this.moreInfoData.description = row.description
@@ -297,7 +286,7 @@ export default {
     },
     setSelectedValues(key, value) {
       this.selectedValues[key] = value
-      this.setNewCourses()
+      this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
     }
   }
 }
@@ -315,8 +304,6 @@ export default {
 }
 
 #selectors * {
-  /*float: left;*/
-  /*margin-bottom: 5px;*/
   margin-right: 5px;
 }
 

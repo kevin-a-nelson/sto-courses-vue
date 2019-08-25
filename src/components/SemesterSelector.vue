@@ -13,10 +13,9 @@
 <script>
 export default {
   name: 'semester-selector',
-  props: ['querySelectedSemester'],
   data() {
     return {
-      selectedSemester: this.querySelectedSemester,
+      selectedSemester: 1,
       semesters: [
         { text: 'Fall', value: 1 },
         { text: 'Interim', value: 2 },
