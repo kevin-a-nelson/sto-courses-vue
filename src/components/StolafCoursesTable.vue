@@ -6,21 +6,21 @@
       group="foo" />
     <!-- Selectors -->
     <div id="selectors">
-      <year-selector v-on:newYearSelected="setSelectedValues"/>
-      <whos-courses-selector v-on:newPersonSelected="setSelectedValues"/>
-      <semester-selector v-on:newSemesterSelected="setSelectedValues"/>
-      <type-selector v-if="selectedValues.mode !== 'user'" v-on:newTypeSelected="setSelectedValues"/>
-      <draft-selector 
+      <year-selector class="selector" v-on:newYearSelected="setSelectedValues"/>
+      <whos-courses-selector class="selector" v-on:newPersonSelected="setSelectedValues"/>
+      <semester-selector class="selector" v-on:newSemesterSelected="setSelectedValues"/>
+      <type-selector class="selector" v-if="selectedValues.mode !== 'user'" v-on:newTypeSelected="setSelectedValues"/>
+      <draft-selector class="selector"
         v-on:newDraftSelected="setSelectedValues" 
         v-if="selectedValues.mode === 'user'"
         v-bind:defaultDraft="selectedValues.draft"
       />
       <button style="max-height: 60px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Columns Shown</button>
-      <hide-options 
-        v-if="showShownColumns" 
-        v-on:newHideOptions="setHiddenColumns"
-        v-bind:defaultHiddenColumns="hiddenColumns"/>
     </div>
+    <hide-options 
+      v-if="showShownColumns" 
+      v-on:newHideOptions="setHiddenColumns"
+      v-bind:defaultHiddenColumns="hiddenColumns"/>
     <!-- Table -->
     <vue-good-table
       :columns="columns"
@@ -51,13 +51,19 @@
           <button v-if="selectedValues.mode !== 'user'" v-on:click="addCourse(props.row)">Add</button>
           <button v-if="selectedValues.mode === 'user'" v-on:click="removeCourse(props.row.id)">Remove</button>
         </div>
-        <span v-if="props.column.field == 'prof'">
-
-          <a v-if="props.row.prof_url" style="" target="_blank" :href="`${props.row.prof_url}`">{{ props.row.prof }} </a>
-          <span v-else>
-            {{ props.row.prof }}
-          </span>
-        </span>
+        <div v-else-if="props.column.field == 'prof'">
+            <a v-if="props.row.prof_url" 
+               target="_blank" 
+               :href="`${props.row.prof_url}`">
+               {{ props.row.prof }}
+            </a>
+            <span v-else>
+              {{ props.row.prof }}
+            </span>
+        </div>
+        <div style="min-width: 100px;" v-else-if="props.column.field == 'rating_difference_reviews'">
+          {{ props.row.rating_difference_reviews }}
+        </div>
         <span v-else>
           {{props.formattedRow[props.column.field]}}
         </span>
@@ -462,6 +468,20 @@ export default {
 
 #selectors * {
   margin-right: 5px;
+}
+
+@media (max-width: 600px) {
+  #selectors {
+    display: block;
+  }
+
+  #selectors button {
+    width: 100%;
+  }
+
+  .selector * {
+    width: 100%;
+  }
 }
 
 vue-good-table {

@@ -20,11 +20,12 @@
       return {
         hiddenColumns: this.defaultHiddenColumns,
         options: [
-          'Sec',
           'Status',
           'Name',
           'Dept Num Sec',
           'Dept',
+          'Num',
+          'Sec',
           'Gereqs',
           'Days',
           'Times',
