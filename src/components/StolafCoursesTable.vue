@@ -1,8 +1,8 @@
 <template>
       <!-- classes="my-notification" -->
   <div id="stolaf-courses-table">
-    <notifications 
-      position="top left" 
+    <notifications
+      position="top right" 
       group="foo" />
     <!-- Selectors -->
     <div id="selectors">
@@ -15,7 +15,7 @@
         v-if="selectedValues.mode === 'user'"
         v-bind:defaultDraft="selectedValues.draft"
       />
-      <button style="max-height: 30px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Toggle</button>
+      <button style="max-height: 60px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Columns Shown</button>
       <hide-options 
         v-if="showShownColumns" 
         v-on:newHideOptions="setHiddenColumns"
@@ -29,7 +29,7 @@
       styleClass="vgt-table condensed bordered"
       :pagination-options="{
         enabled: true,
-        mode: 'records',
+        mode: 'pages',
         perPage: 5,
         position: 'top',
         perPageDropdown: [1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -51,6 +51,16 @@
           <button v-if="selectedValues.mode !== 'user'" v-on:click="addCourse(props.row)">Add</button>
           <button v-if="selectedValues.mode === 'user'" v-on:click="removeCourse(props.row.id)">Remove</button>
         </div>
+        <span v-if="props.column.field == 'prof'">
+
+          <a v-if="props.row.prof_url" style="" target="_blank" :href="`${props.row.prof_url}`">{{ props.row.prof }} </a>
+          <span v-else>
+            {{ props.row.prof }}
+          </span>
+        </span>
+        <span v-else>
+          {{props.formattedRow[props.column.field]}}
+        </span>
       </template>
     </vue-good-table>
     <!-- More Info Modal -->
@@ -98,9 +108,9 @@ export default {
       },
       showShownColumns: true,
       hiddenColumns: [
+        'Dept Num Sec',
         'Status',
         'Name',
-        'Dept',
         'Gereqs',
         'Days',
         'Times',
@@ -157,14 +167,44 @@ export default {
           }
         },
         { 
-          label: 'Dept', 
+          label: 'Dept Num Sec', 
           field: 'dept_num_sec',
           hidden: false,
           filterOptions: {
             enabled: true,
             placeholder: 'All',
             filterDropdownItems: departments(),
-            filterFn: this.deptFilterFn('arg')
+          }
+        },
+        { 
+          label: 'Dept', 
+          field: 'dept',
+          hidden: true,
+          filterOptions: {
+            enabled: true,
+            placeholder: 'All',
+            filterDropdownItems: departments(),
+          }
+        },
+        { 
+          label: 'Num', 
+          field: 'num',
+          hidden: true,
+          type: 'number',
+          filterOptions: {
+            enabled: true,
+            placeholder: 'All',
+            filterDropdownItems: [ 100, 200, 300 ],
+            filterFn: this.numFilterFn
+          }
+        },
+        {
+          label: 'Sec',
+          field: 'sec',
+          hidden: true,
+          filterOptions: {
+            enabled: true,
+            placeHolder: 'All'
           }
         },
         {
@@ -220,7 +260,8 @@ export default {
           },
           type: 'number'
         },
-        { label: 'Reviews', 
+        { 
+          label: 'Reviews', 
           field: 'reviews',
           hidden: false,
           filterOptions: {
@@ -228,6 +269,11 @@ export default {
             enabled: true,
           },
           type: 'number'
+        },
+        {
+          label: 'Rating Difficulty Reviews',
+          field: 'rating_difference_reviews',
+          hidden: true
         },
         { label: 'Prereqs', 
           field: 'has_prereqs',
@@ -247,13 +293,6 @@ export default {
     }
   },
   methods: {
-    test() {
-      this.$notify({
-        group: 'foo',
-        title: 'Important message',
-        text: 'Hello user! This is a notification!'
-      });
-    },
     toggleShowShownColumns() {
       this.showShownColumns = !this.showShownColumns
     },
@@ -345,7 +384,7 @@ export default {
               this.showNotification('foo', 'success' , text)
            })
            .catch(error => {
-              this.showNotification('foo', 'error' , 'you already have that course')
+              this.showNotification('foo', 'warn' , 'you already have that course')
            })
     },
     removeCourse(course_id) {
@@ -361,6 +400,24 @@ export default {
     setSelectedValues(key, value) {
       this.selectedValues[key] = value
       this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
+      this.selectedValues.mode === 'stolaf' ? this.enableTableFilters() : this.disableTableFilters()
+    },
+    disableTableFilters() {
+      this.columns.forEach(column => {
+        if (column.filterOptions) {
+          column.filterOptions.enabled = false
+        }
+      })
+    },
+    enableTableFilters() {
+      this.columns.forEach(column => {
+        if (column.filterOptions) {
+          column.filterOptions.enabled = true
+        }
+      })
+    },
+    numFilterFn(data, filterString) {
+      return data.toString()[0] === filterString[0]
     }
   }
 }

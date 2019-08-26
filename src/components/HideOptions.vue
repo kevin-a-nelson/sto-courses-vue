@@ -20,8 +20,10 @@
       return {
         hiddenColumns: this.defaultHiddenColumns,
         options: [
+          'Sec',
           'Status',
           'Name',
+          'Dept Num Sec',
           'Dept',
           'Gereqs',
           'Days',
@@ -31,6 +33,7 @@
           'Difficulty',
           'Reviews',
           'Prereqs',
+          'Rating Difficulty Reviews',
           'Actions',
         ]
       }

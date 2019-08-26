@@ -22,12 +22,6 @@
           <h5>Notes</h5>
           {{ moreInfoData.notes }}
         </div>
-
-        <div class="spacing">
-          <h5>Prof</h5>
-          <a target="_blank" :href="`${moreInfoData.prof_url}`">{{ moreInfoData.prof }} </a>
-          <!-- // <router-link :to="{ path: `${ moreInfoData.prof_url }`}"> {{ moreInfoData.prof }} </router-link> -->
-        </div>
       </div>
     </modal>
   </div>
