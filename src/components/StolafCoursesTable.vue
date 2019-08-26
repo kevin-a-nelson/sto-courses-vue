@@ -15,7 +15,7 @@
         v-if="selectedValues.mode === 'user'"
         v-bind:defaultDraft="selectedValues.draft"
       />
-      <button style="max-height: 60px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Columns Shown</button>
+      <button style="max-height: 60px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Options</button>
     </div>
     <hide-options 
       v-if="showShownColumns" 
@@ -27,21 +27,7 @@
       :rows="rows"
       :fixed-header="false"
       styleClass="vgt-table condensed bordered"
-      :pagination-options="{
-        enabled: true,
-        mode: 'pages',
-        perPage: 5,
-        position: 'top',
-        perPageDropdown: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        dropdownAllowAll: false,
-        setCurrentPage: 2,
-        nextLabel: 'next',
-        prevLabel: 'prev',
-        rowsPerPageLabel: 'Rows per page',
-        ofLabel: 'of',
-        pageLabel: 'page', // for 'pages' mode
-        allLabel: 'All',
-      }"
+      :pagination-options="paginationOptions"
       >
     <!-- Table Modifications -->
       <template slot="table-row" slot-scope="props">
@@ -61,7 +47,7 @@
               {{ props.row.prof }}
             </span>
         </div>
-        <div style="min-width: 100px;" v-else-if="props.column.field == 'rating_difference_reviews'">
+        <div style="min-width: 105px;" v-else-if="props.column.field == 'rating_difference_reviews'">
           {{ props.row.rating_difference_reviews }}
         </div>
         <span v-else>
@@ -103,14 +89,27 @@ export default {
   },
   data() {
     return {
-      value: null,
-      options: ['list', 'of', 'options'],
       selectedValues: {
         mode: 'stolaf',
         year: 2019,
         semester: 1,
         draft: 1,
         type: 'class',
+      },
+      paginationOptions: {
+        enabled: true,
+        mode: 'pages',
+        perPage: 5,
+        position: 'top',
+        perPageDropdown: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        dropdownAllowAll: false,
+        setCurrentPage: 1,
+        nextLabel: 'next',
+        prevLabel: 'prev',
+        rowsPerPageLabel: 'Rows per page',
+        ofLabel: 'of',
+        pageLabel: 'page', // for 'pages' mode
+        allLabel: 'All',
       },
       showShownColumns: true,
       hiddenColumns: [
@@ -121,9 +120,7 @@ export default {
         'Days',
         'Times',
         'Prof',
-        'Rating',
-        'Difficulty',
-        'Reviews',
+        'Rating Difficulty Reviews',
         'Prereqs',
         'Actions',
       ],
@@ -164,6 +161,16 @@ export default {
             ],
           }
         },
+        {
+          label: 'Seats',
+          field: 'seats',
+          hidden: true,
+        },
+        {
+          label: 'Credits',
+          field: 'credits',
+          hidden: true,
+        },
         { label: 'Name', 
           field: 'name',
           hidden: false,
@@ -175,7 +182,7 @@ export default {
         { 
           label: 'Dept Num Sec', 
           field: 'dept_num_sec',
-          hidden: false,
+          hidden: true,
           filterOptions: {
             enabled: true,
             placeholder: 'All',
@@ -185,7 +192,7 @@ export default {
         { 
           label: 'Dept', 
           field: 'dept',
-          hidden: true,
+          hidden: false,
           filterOptions: {
             enabled: true,
             placeholder: 'All',
@@ -195,7 +202,7 @@ export default {
         { 
           label: 'Num', 
           field: 'num',
-          hidden: true,
+          hidden: false,
           type: 'number',
           filterOptions: {
             enabled: true,
@@ -209,7 +216,7 @@ export default {
           field: 'sec',
           hidden: true,
           filterOptions: {
-            enabled: true,
+            enabled: false,
             placeHolder: 'All'
           }
         },
@@ -250,7 +257,7 @@ export default {
         },
         { label: 'Rating', 
           field: 'rating',
-          hidden: false,
+          hidden: true,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
@@ -259,17 +266,17 @@ export default {
         },
         { label: 'Difficulty', 
           field: 'difficulty',
-          hidden: false,
+          hidden: true,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
           },
           type: 'number'
         },
-        { 
+        {
           label: 'Reviews', 
           field: 'reviews',
-          hidden: false,
+          hidden: true,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
@@ -279,7 +286,7 @@ export default {
         {
           label: 'Rating Difficulty Reviews',
           field: 'rating_difference_reviews',
-          hidden: true
+          hidden: false
         },
         { label: 'Prereqs', 
           field: 'has_prereqs',
@@ -287,6 +294,89 @@ export default {
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
+          }
+        },
+        { label: 'Actions', 
+          field: 'actions',
+          hidden: false
+        },
+      ],
+      userColumns: [
+        {
+          label: 'Status', 
+          field: 'status',
+          hidden: false
+        },
+        { label: 'Name', 
+          field: 'name',
+          hidden: false
+        },
+        { 
+          label: 'Dept Num Sec', 
+          field: 'dept_num_sec',
+          hidden: false
+        },
+        { 
+          label: 'Dept', 
+          field: 'dept',
+          hidden: true
+        },
+        { 
+          label: 'Num', 
+          field: 'num',
+          hidden: true,
+          type: 'number'
+        },
+        {
+          label: 'Sec',
+          field: 'sec',
+          hidden: true
+        },
+        {
+          label: 'Gereqs', 
+          field: 'gereqs',
+          hidden: false
+        },
+        {
+          label: 'Days', 
+          field: 'days',
+          hidden: false
+        },
+        { label: 'Times', 
+          field: 'times',
+          hidden: false
+        },
+        { label: 'Prof', 
+          field: 'prof',
+          hidden: false
+        },
+        { label: 'Rating', 
+          field: 'rating',
+          hidden: true,
+          type: 'number'
+        },
+        { label: 'Difficulty', 
+          field: 'difficulty',
+          hidden: true,
+          type: 'number'
+        },
+        { 
+          label: 'Reviews', 
+          field: 'reviews',
+          hidden: true,
+          type: 'number'
+        },
+        {
+          label: 'Rating Difficulty Reviews',
+          field: 'rating_difference_reviews',
+          hidden: false
+        },
+        { label: 'Prereqs', 
+          field: 'has_prereqs',
+          hidden: false,
+          filterOptions: {
+            placeHolder: 'All',
+            enabled: false,
           }
         },
         { label: 'Actions', 
@@ -405,6 +495,7 @@ export default {
     },
     setSelectedValues(key, value) {
       this.selectedValues[key] = value
+      this.paginationOptions.enabled  = this.selectedValues.mode === 'stolaf' ? true : false
       this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
       this.selectedValues.mode === 'stolaf' ? this.enableTableFilters() : this.disableTableFilters()
     },
@@ -470,7 +561,7 @@ export default {
   margin-right: 5px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
   #selectors {
     display: block;
   }

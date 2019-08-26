@@ -20,6 +20,8 @@
       return {
         hiddenColumns: this.defaultHiddenColumns,
         options: [
+          'Seats',
+          'Credits',
           'Status',
           'Name',
           'Dept Num Sec',
@@ -30,11 +32,11 @@
           'Days',
           'Times',
           'Prof',
+          'Rating Difficulty Reviews',
           'Rating',
           'Difficulty',
           'Reviews',
           'Prereqs',
-          'Rating Difficulty Reviews',
           'Actions',
         ]
       }
