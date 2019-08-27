@@ -1,11 +1,5 @@
 <template>
   <div id="user-courses-table">
-    <router-link :to="{path: `${this.url()}`}" >See Stolaf Courses</router-link>
-    <div id="selectors">
-      <year-selector v-on:newYearSelected="setSelectedValue" v-bind:querySelectedYear="selectedValues.year"/>
-      <semester-selector v-on:newSemesterSelected="setSelectedValue" v-bind:querySelectedSemester="selectedValues.semester"/>
-      <draft-selector v-on:newDraftSelected="setSelectedValue" v-bind:querySelectedDraft="selectedValues.draft"/>
-    </div>
     <vue-good-table
       :columns="columns"
       :rows="rows">
@@ -27,6 +21,7 @@ import MoreInfoModal from './MoreInfoModal.vue'
 import YearSelector from './YearSelector.vue'
 import SemesterSelector from './SemesterSelector.vue'
 import DraftSelector from './DraftSelector.vue'
+import HideOptions from './HideOptions.vue'
 
 export default {
   name: 'user-courses-table',
@@ -34,7 +29,8 @@ export default {
     DraftSelector,
     MoreInfoModal,
     YearSelector,
-    SemesterSelector
+    SemesterSelector,
+    HideOptions
   },
   created() {
     this.getSelectedValues()
@@ -111,7 +107,7 @@ export default {
 
 <style>
 
-#user-courses-table {
+/*#user-courses-table {
   margin: 30px;
-}
+}*/
 </style>

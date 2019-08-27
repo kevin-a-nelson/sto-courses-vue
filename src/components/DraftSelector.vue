@@ -16,7 +16,7 @@
     name: 'draft-selector',
     data() {
       return {
-        selectedDraft: this.defaultDraft,
+        selectedDraft: 1,
         drafts: [
           { text: 'Draft 1', value: 1 },
           { text: 'Draft 2', value: 2 },

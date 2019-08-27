@@ -1,34 +1,8 @@
 <template>
       <!-- classes="my-notification" -->
   <div id="stolaf-courses-table">
-    <notifications
-      position="top right" 
-      group="foo" />
-    <!-- Selectors -->
-    <div id="selectors">
-      <year-selector class="selector" v-on:newYearSelected="setSelectedValues"/>
-      <whos-courses-selector class="selector" v-on:newPersonSelected="setSelectedValues"/>
-      <semester-selector class="selector" v-on:newSemesterSelected="setSelectedValues"/>
-      <type-selector class="selector" v-if="selectedValues.mode !== 'user'" v-on:newTypeSelected="setSelectedValues"/>
-      <draft-selector class="selector"
-        v-on:newDraftSelected="setSelectedValues" 
-        v-if="selectedValues.mode === 'user'"
-        v-bind:defaultDraft="selectedValues.draft"
-      />
-
-      <div style="margin-left: 399px">
-        <button style="max-height: 60px; border-radius: 10px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Hidden Columns</button>
-        <button style="max-height: 60px; border-radius: 10px;"v-on:click="resetColumns" >Reset Columns</button>
-        <button style="max-height: 60px; border-radius: 10px;"v-on:click="resetFilters" >Reset Filters</button>
-      </div>
-    </div>
-    <hide-options 
-      v-if="showShownColumns" 
-      v-on:newHideOptions="setHiddenColumns"
-      v-bind:defaultHiddenColumns="hiddenColumns"/>
     <!-- Table -->
     <vue-good-table
-      theme="nocturnal"
       :columns="selectedColumn()"
       :rows="rows"
       :fixed-header="false"
@@ -107,7 +81,7 @@ export default {
         enabled: true,
         mode: 'pages',
         perPage: 5,
-        position: 'top',
+        position: 'bottom',
         perPageDropdown: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         dropdownAllowAll: false,
         setCurrentPage: 1,
@@ -731,7 +705,7 @@ export default {
     border-left-color: #42A85F;
   }
 }*/
-
+/*
 #stolaf-courses-table {
   padding: 30px;
 }
@@ -759,7 +733,7 @@ export default {
     width: 100%;
   }
 }
-
+*/
 vue-good-table {
   height: 100%;
   font-size: 5px;

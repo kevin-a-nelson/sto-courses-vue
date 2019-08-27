@@ -1,23 +1,25 @@
 <template>
   <div class="home">
-    <div id="selectors">
-      <year-selector class="selector"/>
-      <whos-courses-selector class="selector"/>
-      <semester-selector class="selector"/>
-      <type-selector class="selector"/>
-      <draft-selector class="selector"
-      />
-
-      <div style="margin-left: 399px">
-        <button style="max-height: 60px; border-radius: 10px;">Hidden Columns</button>
-        <button style="max-height: 60px; border-radius: 10px;" >Reset Columns</button>
-        <button style="max-height: 60px; border-radius: 10px;" >Reset Filters</button>
+    <div id="top-section">
+      <div id="top-section-selectors">
+        <year-selector />
+        <semester-selector />
+        <button>Columns</button>
       </div>
     </div>
-    <div class="background-image">
+    <div id="user-section">
+      <div id="user-courses-table-options">
+        <draft-selector />
+      </div>
       <user-courses-table />
     </div>
-    <stolaf-courses-table />  
+    <div id="stolaf-section">
+      <div id="stolaf-courses-table-options">
+        <type-selector />
+        <button>Reset Filters</button>
+      </div>
+      <stolaf-courses-table />
+    </div>
   </div>
 </template>
 
@@ -26,6 +28,8 @@ import StolafCoursesTable from '@/components/StolafCoursesTable.vue'
 import UserCoursesTable from '@/components/UserCoursesTable'
 import YearSelector from '@/components/YearSelector.vue'
 import SemesterSelector from '@/components/SemesterSelector.vue'
+import DraftSelector from '@/components/DraftSelector.vue'
+import TypeSelector from '@/components/TypeSelector.vue'
 
 export default {
   name: 'home',
@@ -33,7 +37,9 @@ export default {
     StolafCoursesTable,
     YearSelector,
     UserCoursesTable,
-    SemesterSelector
+    SemesterSelector,
+    DraftSelector,
+    TypeSelector
   },
   data() {
     return {}
@@ -43,9 +49,34 @@ export default {
 </script>
 
 <style>
-  .background-image {
-    color: blue;
-    background: blue;
-    height: 200%;
-  }
+
+#top-section-selectors {
+  margin: 10px auto 0 auto;
+  display: flex;
+  width: 325px;
+  justify-content: space-between;
+}
+
+#user-section {
+  padding: 30px;
+}
+
+#stolaf-section {
+  padding: 0 30px;
+}
+
+#user-courses-table-options {
+  margin-bottom: 10px;
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+}
+
+#stolaf-courses-table-options {
+  margin-bottom: 10px;
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+}
+
 </style>
