@@ -1,9 +1,11 @@
 <template>
-  <div>
+  <div id="user-courses-table">
     <router-link :to="{path: `${this.url()}`}" >See Stolaf Courses</router-link>
-    <year-selector v-on:newYearSelected="setSelectedValue" v-bind:querySelectedYear="selectedValues.year"/>
-    <semester-selector v-on:newSemesterSelected="setSelectedValue" v-bind:querySelectedSemester="selectedValues.semester"/>
-    <draft-selector v-on:newDraftSelected="setSelectedValue" v-bind:querySelectedDraft="selectedValues.draft"/>
+    <div id="selectors">
+      <year-selector v-on:newYearSelected="setSelectedValue" v-bind:querySelectedYear="selectedValues.year"/>
+      <semester-selector v-on:newSemesterSelected="setSelectedValue" v-bind:querySelectedSemester="selectedValues.semester"/>
+      <draft-selector v-on:newDraftSelected="setSelectedValue" v-bind:querySelectedDraft="selectedValues.draft"/>
+    </div>
     <vue-good-table
       :columns="columns"
       :rows="rows">
@@ -107,3 +109,9 @@ export default {
 }
 </script>
 
+<style>
+
+#user-courses-table {
+  margin: 30px;
+}
+</style>

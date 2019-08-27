@@ -15,9 +15,12 @@
         v-if="selectedValues.mode === 'user'"
         v-bind:defaultDraft="selectedValues.draft"
       />
-      <button style="max-height: 60px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Hidden Columns</button>
-      <button style="max-height: 60px;"v-on:click="resetColumns" >Reset Columns</button>
-      <button style="max-height: 60px;"v-on:click="resetFilters" >Reset Filters</button>
+
+      <div style="margin-left: 399px">
+        <button style="max-height: 60px; border-radius: 10px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Hidden Columns</button>
+        <button style="max-height: 60px; border-radius: 10px;"v-on:click="resetColumns" >Reset Columns</button>
+        <button style="max-height: 60px; border-radius: 10px;"v-on:click="resetFilters" >Reset Filters</button>
+      </div>
     </div>
     <hide-options 
       v-if="showShownColumns" 
@@ -25,6 +28,7 @@
       v-bind:defaultHiddenColumns="hiddenColumns"/>
     <!-- Table -->
     <vue-good-table
+      theme="nocturnal"
       :columns="selectedColumn()"
       :rows="rows"
       :fixed-header="false"
@@ -693,6 +697,15 @@ export default {
 
 <style>
 
+#stolaf-courses-table {
+  /*background: #FF0000;*/
+  /*background: url(https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg);*/
+  /*background: url(https://png.pngtree.com/thumb_back/fw800/back_pic/04/37/13/24584a936be11a9.jpg);*/
+  /*height: 1000px;*/
+  height: 100%;
+}
+
+
 /*.my-notification {
   padding: 10px;
   margin: 0 5px 5px;
@@ -729,6 +742,7 @@ export default {
 }
 
 #selectors * {
+  opacity: 0.8;
   margin-right: 5px;
 }
 
@@ -747,6 +761,7 @@ export default {
 }
 
 vue-good-table {
+  height: 100%;
   font-size: 5px;
   background: blue;
 }

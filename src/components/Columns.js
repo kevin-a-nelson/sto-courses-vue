@@ -6,7 +6,7 @@ export default [
     field: 'status',
     filterOptions: {
       placeholder: 'All',
-      enabled: true,
+      enabled: false,
       filterDropdownItems: [
         {text: 'Open', value: 'O'},
         {text: 'Closed', value: 'C'},
@@ -17,14 +17,14 @@ export default [
     field: 'name',
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     }
   },
   { 
     label: 'Dept', 
     field: 'dept_num_sec',
     filterOptions: {
-      enabled: true,
+      enabled: false,
       placeholder: 'All',
       filterValue: '',
       filterDropdownItems: departments()
@@ -34,7 +34,7 @@ export default [
     field: 'gereqs',
     filterOptions: {
       placeholder: 'Any',
-      enabled: true,
+      enabled: false,
       filterDropdownItems: ges()
     }
   },
@@ -43,14 +43,14 @@ export default [
     field: 'days',
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     }
   },
   { label: 'Times', 
     field: 'times',
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     }
   },
   { label: 'Prof', 
@@ -58,7 +58,7 @@ export default [
     hidden: true,
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     }
   },
   { label: 'Rating', 
@@ -66,7 +66,7 @@ export default [
     hidden: false,
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     },
     type: 'number'
   },
@@ -75,7 +75,7 @@ export default [
     hidden: false,
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     },
     type: 'number'
   },
@@ -84,7 +84,7 @@ export default [
     hidden: false,
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     },
     type: 'number'
   },
@@ -92,14 +92,14 @@ export default [
     field: 'has_prereqs',
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     }
   },
   { label: 'Actions', 
     field: 'actions',
     filterOptions: {
       placeHolder: 'All',
-      enabled: true,
+      enabled: false,
     }
   },
 ]
