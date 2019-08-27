@@ -15,7 +15,9 @@
         v-if="selectedValues.mode === 'user'"
         v-bind:defaultDraft="selectedValues.draft"
       />
-      <button style="max-height: 60px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Options</button>
+      <button style="max-height: 60px;"v-on:click="toggleShowShownColumns" v-model="showShownColumns">Hidden Columns</button>
+      <button style="max-height: 60px;"v-on:click="resetColumns" >Reset Columns</button>
+      <button style="max-height: 60px;"v-on:click="resetFilters" >Reset Filters</button>
     </div>
     <hide-options 
       v-if="showShownColumns" 
@@ -23,7 +25,7 @@
       v-bind:defaultHiddenColumns="hiddenColumns"/>
     <!-- Table -->
     <vue-good-table
-      :columns="columns"
+      :columns="selectedColumn()"
       :rows="rows"
       :fixed-header="false"
       styleClass="vgt-table condensed bordered"
@@ -85,6 +87,7 @@ export default {
     DraftSelector
   },
   created() {
+    this.setHiddenColumns(this.hiddenColumns)
     this.getStolafTermCourses()
   },
   data() {
@@ -113,19 +116,10 @@ export default {
       },
       showShownColumns: false,
       hiddenColumns: [
-        'Status',
-        'Name',
-        'Dept',
-        'Num',
-        'Gereqs',
-        'Days',
-        'Times',
-        'Prof',
-        'Rating',
-        'Difficulty',
-        'Reviews',
-        'Prereqs',
-        'Actions',
+        'Seats',
+        'Dept Num Sec',
+        'Sec',
+        'Rating Difficulty Reviews',
       ],
       stoDeptFilterValue: '',
       stoCoursesTableFilterValues: {
@@ -167,28 +161,35 @@ export default {
         {
           label: 'Seats',
           field: 'seats',
-          hidden: true,
+          hidden: false,
+          filterOptions: {
+          }
         },
         {
           label: 'Credits',
           field: 'credits',
-          hidden: true,
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+          },
         },
         { label: 'Name', 
           field: 'name',
           hidden: false,
           filterOptions: {
-            placeHolder: 'All',
+            placeholder: 'All',
+            filterValue: '',
             enabled: true,
           }
         },
         { 
           label: 'Dept Num Sec', 
           field: 'dept_num_sec',
-          hidden: true,
+          hidden: false,
           filterOptions: {
             enabled: true,
             placeholder: 'All',
+            filterValue: '',
             filterDropdownItems: departments(),
           }
         },
@@ -198,6 +199,7 @@ export default {
           hidden: false,
           filterOptions: {
             enabled: true,
+            filterValue: '',
             placeholder: 'All',
             filterDropdownItems: departments(),
           }
@@ -205,10 +207,11 @@ export default {
         { 
           label: 'Num', 
           field: 'num',
-          hidden: false,
           type: 'number',
+          hidden: false,
           filterOptions: {
             enabled: true,
+            filterValue: '',
             placeholder: 'All',
             filterDropdownItems: [ 100, 200, 300 ],
             filterFn: this.numFilterFn
@@ -217,10 +220,11 @@ export default {
         {
           label: 'Sec',
           field: 'sec',
-          hidden: true,
+          hidden: false,
           filterOptions: {
+            filterValue: '',
             enabled: false,
-            placeHolder: 'All'
+            placeholder: 'All'
           }
         },
         {
@@ -228,6 +232,7 @@ export default {
           field: 'gereqs',
           hidden: false,
           filterOptions: {
+            filterValue: '',
             placeholder: 'Any',
             enabled: true,
             filterDropdownItems: ges()
@@ -238,7 +243,8 @@ export default {
           field: 'days',
           hidden: false,
           filterOptions: {
-            placeHolder: 'All',
+            filterValue: '',
+            placeholder: 'All',
             enabled: true,
           }
         },
@@ -246,7 +252,8 @@ export default {
           field: 'times',
           hidden: false,
           filterOptions: {
-            placeHolder: 'All',
+            filterValue: '',
+            placeholder: 'All',
             enabled: true,
           }
         },
@@ -254,7 +261,7 @@ export default {
           field: 'prof',
           hidden: false,
           filterOptions: {
-            placeHolder: 'All',
+            placeholder: 'All',
             enabled: true,
           }
         },
@@ -262,54 +269,68 @@ export default {
           field: 'rating',
           hidden: false,
           filterOptions: {
-            placeHolder: 'All',
+            filterValue: '',
+            placeholder: 'All',
             enabled: true,
             filterDropdownItems: [
-              { text: 'Greater than 1', value: 1 },
-              { text: 'Greater than 2', value: 2 },
-              { text: 'Greater than 3', value: 3 },
-              { text: 'Greater than 4', value: 4 },
+              { text: '1 or more', value: 1 },
+              { text: '2 or more', value: 2 },
+              { text: '3 or more', value: 3 },
+              { text: '4 or more', value: 4 },
             ],
-            filterFn: this.ratingAndDifficultyFilterFn
+            filterFn: this.ratingFilterFn
           },
           type: 'number'
         },
         { label: 'Difficulty', 
           field: 'difficulty',
-          hidden: true,
+          hidden: false,
           filterOptions: {
-            placeHolder: 'All',
+            filterValue: '',
+            placeholder: 'All',
             enabled: true,
             filterDropdownItems: [
-              { text: 'Greater than 1', value: 1 },
-              { text: 'Greater than 2', value: 2 },
-              { text: 'Greater than 3', value: 3 },
-              { text: 'Greater than 4', value: 4 },
+              { text: '2 or less', value: 2 },
+              { text: '3 or less', value: 3 },
+              { text: '4 or less', value: 4 },
+              { text: '5 or less', value: 5 },
             ],
-            filterFn: this.ratingAndDifficultyFilterFn
+            filterFn: this.difficultyFilterFn
           },
           type: 'number'
         },
         {
           label: 'Reviews', 
           field: 'reviews',
-          hidden: true,
+          hidden: false,
           filterOptions: {
-            placeHolder: 'All',
+            filterValue: '',
+            placeholder: 'All',
             enabled: true,
+            filterFn: this.reviewsFilterFn,
+            filterDropdownItems: [
+              { text: '5 or more', value: 5 },
+              { text: '10 or more', value: 10 },
+              { text: '15 or more', value: 15 },
+              { text: '20 or more', value: 20 },
+            ]
           },
           type: 'number'
         },
         {
           label: 'Rating Difficulty Reviews',
           field: 'rating_difference_reviews',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+          }
         },
         { label: 'Prereqs', 
           field: 'has_prereqs',
           hidden: false,
           filterOptions: {
-            placeHolder: 'All',
+            filterValue: '',
+            placeholder: 'All',
             enabled: true,
           }
         },
@@ -318,97 +339,234 @@ export default {
           hidden: false
         },
       ],
-      userColumns: [
+      columns2: [
         {
           label: 'Status', 
           field: 'status',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            placeholder: 'All',
+            enabled: true,
+            filterDropdownItems: [
+              {text: 'Open', value: 'O'},
+              {text: 'Closed', value: 'C'},
+            ],
+          }
+        },
+        {
+          label: 'Seats',
+          field: 'seats',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+          }
+        },
+        {
+          label: 'Credits',
+          field: 'credits',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+          },
         },
         { label: 'Name', 
           field: 'name',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            placeholder: 'All',
+            filterValue: '',
+            enabled: true,
+          }
         },
         { 
           label: 'Dept Num Sec', 
           field: 'dept_num_sec',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            enabled: true,
+            placeholder: 'All',
+            filterValue: '',
+            filterDropdownItems: departments(),
+          }
         },
         { 
           label: 'Dept', 
           field: 'dept',
-          hidden: true
+          hidden: false,
+          filterOptions: {
+            enabled: true,
+            filterValue: '',
+            placeholder: 'All',
+            filterDropdownItems: departments(),
+          }
         },
         { 
           label: 'Num', 
           field: 'num',
-          hidden: true,
-          type: 'number'
+          type: 'number',
+          hidden: false,
+          filterOptions: {
+            enabled: true,
+            filterValue: '',
+            placeholder: 'All',
+            filterDropdownItems: [ 100, 200, 300 ],
+            filterFn: this.numFilterFn
+          }
         },
         {
           label: 'Sec',
           field: 'sec',
-          hidden: true
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            enabled: false,
+            placeholder: 'All'
+          }
         },
         {
           label: 'Gereqs', 
           field: 'gereqs',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'Any',
+            enabled: true,
+            filterDropdownItems: ges()
+          }
         },
         {
           label: 'Days', 
           field: 'days',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+          }
         },
         { label: 'Times', 
           field: 'times',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+          }
         },
         { label: 'Prof', 
           field: 'prof',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+          }
         },
         { label: 'Rating', 
           field: 'rating',
-          hidden: true,
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+            filterDropdownItems: [
+              { text: '1 or more', value: 1 },
+              { text: '2 or more', value: 2 },
+              { text: '3 or more', value: 3 },
+              { text: '4 or more', value: 4 },
+            ],
+            filterFn: this.ratingFilterFn
+          },
           type: 'number'
         },
         { label: 'Difficulty', 
           field: 'difficulty',
-          hidden: true,
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+            filterDropdownItems: [
+              { text: '2 or less', value: 2 },
+              { text: '3 or less', value: 3 },
+              { text: '4 or less', value: 4 },
+              { text: '5 or less', value: 5 },
+            ],
+            filterFn: this.difficultyFilterFn
+          },
           type: 'number'
         },
-        { 
+        {
           label: 'Reviews', 
           field: 'reviews',
-          hidden: true,
+          hidden: false,
+          filterOptions: {
+            placeholder: 'All',
+            enabled: true,
+            filterFn: this.reviewsFilterFn,
+            filterDropdownItems: [
+              { text: '5 or more', value: 5 },
+              { text: '10 or more', value: 10 },
+              { text: '15 or more', value: 15 },
+              { text: '20 or more', value: 20 },
+            ]
+          },
           type: 'number'
         },
         {
           label: 'Rating Difficulty Reviews',
           field: 'rating_difference_reviews',
-          hidden: false
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+          }
         },
-        { label: 'Prereqs', 
+        { 
+          label: 'Prereqs', 
           field: 'has_prereqs',
           hidden: false,
           filterOptions: {
-            placeHolder: 'All',
-            enabled: false,
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
           }
         },
-        { label: 'Actions', 
+        {
+          label: 'Actions', 
           field: 'actions',
           hidden: false
         },
       ],
       rows: [],
-      notificationType: ''
+      notificationType: '',
+      columnNum: 1
     }
   },
   methods: {
-    ratingAndDifficultyFilterFn(data, filterString) {
-      var filterInt = Number(filterString)
-      return data >= filterInt
+    reviewsFilterFn(data, filterString) {
+      return data >= Number(filterString)
+    },
+    resetColumns() {
+      this.hiddenColumns = [
+        'Seats',
+        'Sec',
+        'Dept Num Sec',
+        'Rating Difficulty Reviews'
+      ]
+      this.setHiddenColumns(this.hiddenColumns)
+      this.showShownColumns = false
+    },
+    selectedColumn() {
+      return this.columnNum === 1 ? this.columns : this.columns2
+    },
+    resetFilters() {
+      this.columnNum = this.columnNum === 1 ? 2 : 1
+    },
+    ratingFilterFn(data, filterString) {
+      return data >= Number(filterString)
+    },
+    difficultyFilterFn(data, filterString) {
+      return data <= Number(filterString)
     },
     toggleShowShownColumns() {
       this.showShownColumns = !this.showShownColumns
@@ -426,9 +584,17 @@ export default {
     setHiddenColumns(newHiddenColumns) {
       this.hiddenColumns = newHiddenColumns
       this.columns.forEach(function(column) {
-        column.hidden = true
+        column.hidden = false
         if(newHiddenColumns.includes(column.label)) {
-          column.hidden = false
+          column.hidden = true
+          column.filterValue = ''
+        }
+      })
+      this.columns2.forEach(function(column) {
+        column.hidden = false
+        if(newHiddenColumns.includes(column.label)) {
+          column.hidden = true
+          column.filterValue = ''
         }
       })
     },
@@ -517,20 +683,6 @@ export default {
     setSelectedValues(key, value) {
       this.selectedValues[key] = value
       this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
-    },
-    disableTableFilters() {
-      this.columns.forEach(column => {
-        if (column.filterOptions) {
-          column.filterOptions.enabled = false
-        }
-      })
-    },
-    enableTableFilters() {
-      this.columns.forEach(column => {
-        if (column.filterOptions) {
-          column.filterOptions.enabled = true
-        }
-      })
     },
     numFilterFn(data, filterString) {
       return data.toString()[0] === filterString[0]
