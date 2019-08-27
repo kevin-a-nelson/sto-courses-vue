@@ -3,7 +3,7 @@
   <div id="stolaf-courses-table">
     <!-- Table -->
     <vue-good-table
-      :columns="selectedColumn()"
+      :columns="columns"
       :rows="rows"
       :fixed-header="false"
       styleClass="vgt-table condensed bordered"
@@ -13,9 +13,8 @@
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
         <div v-if="props.column.field == 'actions'">
-          <button v-on:click="moreInfo(props.row)">View</button>
-          <button v-if="selectedValues.mode !== 'user'" v-on:click="addCourse(props.row)">Add</button>
-          <button v-if="selectedValues.mode === 'user'" v-on:click="removeCourse(props.row.id)">Remove</button>
+          <button>View</button>
+          <button>Add</button>
         </div>
         <div v-else-if="props.column.field == 'prof'">
             <a v-if="props.row.prof_url" 
@@ -55,6 +54,7 @@ import { ges } from './dropDownItems/Ges'
 
 export default {
   name: 'stolaf-courses-table',
+  props: ['rows'],
   components: {
     WhosCoursesSelector,
     HideOptions,
@@ -65,8 +65,8 @@ export default {
     DraftSelector
   },
   created() {
-    this.setHiddenColumns(this.hiddenColumns)
-    this.getStolafTermCourses()
+    // this.setHiddenColumns(this.hiddenColumns)
+    // this.getStolafTermCourses()
   },
   data() {
     return {
@@ -163,7 +163,7 @@ export default {
         { 
           label: 'Dept Num Sec', 
           field: 'dept_num_sec',
-          hidden: false,
+          hidden: true,
           filterOptions: {
             enabled: true,
             placeholder: 'All',
@@ -298,7 +298,7 @@ export default {
         {
           label: 'Rating Difficulty Reviews',
           field: 'rating_difference_reviews',
-          hidden: false,
+          hidden: true,
           filterOptions: {
             filterValue: '',
           }
@@ -359,7 +359,7 @@ export default {
         { 
           label: 'Dept Num Sec', 
           field: 'dept_num_sec',
-          hidden: false,
+          hidden: true,
           filterOptions: {
             enabled: true,
             placeholder: 'All',
@@ -494,7 +494,7 @@ export default {
         {
           label: 'Rating Difficulty Reviews',
           field: 'rating_difference_reviews',
-          hidden: false,
+          hidden: true,
           filterOptions: {
             filterValue: '',
           }
@@ -515,156 +515,155 @@ export default {
           hidden: false
         },
       ],
-      rows: [],
       notificationType: '',
       columnNum: 1
     }
   },
   methods: {
-    reviewsFilterFn(data, filterString) {
-      return data >= Number(filterString)
-    },
-    resetColumns() {
-      this.hiddenColumns = [
-        'Seats',
-        'Sec',
-        'Dept Num Sec',
-        'Rating Difficulty Reviews'
-      ]
-      this.setHiddenColumns(this.hiddenColumns)
-      this.showShownColumns = false
-    },
-    selectedColumn() {
-      return this.columnNum === 1 ? this.columns : this.columns2
-    },
-    resetFilters() {
-      this.columnNum = this.columnNum === 1 ? 2 : 1
-    },
-    ratingFilterFn(data, filterString) {
-      return data >= Number(filterString)
-    },
-    difficultyFilterFn(data, filterString) {
-      return data <= Number(filterString)
-    },
-    toggleShowShownColumns() {
-      this.showShownColumns = !this.showShownColumns
-    },
-    getUserTermCourses() {
-      var year = this.selectedValues.year
-      var semester = this.selectedValues.semester
-      var draft = this.selectedValues.draft
-      var term = `${year}${semester}`
+    // reviewsFilterFn(data, filterString) {
+    //   return data >= Number(filterString)
+    // },
+    // resetColumns() {
+    //   this.hiddenColumns = [
+    //     'Seats',
+    //     'Sec',
+    //     'Dept Num Sec',
+    //     'Rating Difficulty Reviews'
+    //   ]
+    //   this.setHiddenColumns(this.hiddenColumns)
+    //   this.showShownColumns = false
+    // },
+    // selectedColumn() {
+    //   return this.columnNum === 1 ? this.columns : this.columns2
+    // },
+    // resetFilters() {
+    //   this.columnNum = this.columnNum === 1 ? 2 : 1
+    // },
+    // ratingFilterFn(data, filterString) {
+    //   return data >= Number(filterString)
+    // },
+    // difficultyFilterFn(data, filterString) {
+    //   return data <= Number(filterString)
+    // },
+    // toggleShowShownColumns() {
+    //   this.showShownColumns = !this.showShownColumns
+    // },
+    // getUserTermCourses() {
+    //   var year = this.selectedValues.year
+    //   var semester = this.selectedValues.semester
+    //   var draft = this.selectedValues.draft
+    //   var term = `${year}${semester}`
 
-      axios.get(`api/terms?term=${term}&order=${draft}`).then(response => {
-        this.rows = response.data[0].courses
-      })
-    },
-    setHiddenColumns(newHiddenColumns) {
-      this.hiddenColumns = newHiddenColumns
-      this.columns.forEach(function(column) {
-        column.hidden = false
-        if(newHiddenColumns.includes(column.label)) {
-          column.hidden = true
-          column.filterValue = ''
-        }
-      })
-      this.columns2.forEach(function(column) {
-        column.hidden = false
-        if(newHiddenColumns.includes(column.label)) {
-          column.hidden = true
-          column.filterValue = ''
-        }
-      })
-    },
-    moreInfo(row) {
-      this.moreInfoData.description = row.description
-      this.moreInfoData.prereqs = row.prereqs
-      this.moreInfoData.notes = row.notes
-      this.moreInfoData.prof = row.prof
-      this.moreInfoData.name = row.name
-      this.moreInfoData.prof_url = row.prof_url
-      this.$modal.show('more-info')
-    },
-    deptFilterFn(data, filterString) {
-      return true
-      if (this.stoDeptFilterValue.dept !== filterString) {
-        this.stoCoursesTableFilterValues.dept = filterString
-      }
-      return data.includes(filterString)
-    },
-    getStolafTermCourses() {
-      var year =  this.selectedValues.year
-      var semester = this.selectedValues.semester
-      var type = this.selectedValues.type
-      var term = `${year}${semester}`
+    //   axios.get(`api/terms?term=${term}&order=${draft}`).then(response => {
+    //     this.rows = response.data[0].courses
+    //   })
+    // },
+    // setHiddenColumns(newHiddenColumns) {
+    //   this.hiddenColumns = newHiddenColumns
+    //   this.columns.forEach(function(column) {
+    //     column.hidden = false
+    //     if(newHiddenColumns.includes(column.label)) {
+    //       column.hidden = true
+    //       column.filterValue = ''
+    //     }
+    //   })
+    //   this.columns2.forEach(function(column) {
+    //     column.hidden = false
+    //     if(newHiddenColumns.includes(column.label)) {
+    //       column.hidden = true
+    //       column.filterValue = ''
+    //     }
+    //   })
+    // },
+    // moreInfo(row) {
+    //   this.moreInfoData.description = row.description
+    //   this.moreInfoData.prereqs = row.prereqs
+    //   this.moreInfoData.notes = row.notes
+    //   this.moreInfoData.prof = row.prof
+    //   this.moreInfoData.name = row.name
+    //   this.moreInfoData.prof_url = row.prof_url
+    //   this.$modal.show('more-info')
+    // },
+    // deptFilterFn(data, filterString) {
+    //   return true
+    //   if (this.stoDeptFilterValue.dept !== filterString) {
+    //     this.stoCoursesTableFilterValues.dept = filterString
+    //   }
+    //   return data.includes(filterString)
+    // },
+    // getStolafTermCourses() {
+    //   var year =  this.selectedValues.year
+    //   var semester = this.selectedValues.semester
+    //   var type = this.selectedValues.type
+    //   var term = `${year}${semester}`
 
-      this.rows = []
-      axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
-        this.rows = response.data.courses
-      })
-    },
-    intSemesterToStr(semesterInt) {
-      var semesterStr = ''
-      switch(semesterInt) {
-        case 1:
-          semesterStr = 'Fall'
-          break;
-        case 2:
-          semesterStr = 'Interim'
-          break;
-        case 3:
-          semesterStr = 'Spring'
-          break;
-        case 4:
-          semesterStr = 'Summer Session 1'
-          break;
-        case 5:
-          semesterStr = 'Summer Session 2'
-          break;
-      }
-      return semesterStr
-    },
-    showNotification(group, type, text) {
-      this.$notify({
-        group: group,
-        type: type,
-        text: text
-      });
-    },
-    addCourse(row) {
-      var course_id = row.id
-      var year = this.selectedValues.year
-      var semester = this.selectedValues.semester
-      var draft = this.selectedValues.draft
-      var term = `${year}${semester}`
-      axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
-           .then(response => {
-            var course_name = row.name
-            var semesterStr = this.intSemesterToStr(semester)
-            var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
-              this.showNotification('foo', 'success' , text)
-           })
-           .catch(error => {
-              this.showNotification('foo', 'warn' , 'you already have that course')
-           })
-    },
-    removeCourse(course_id) {
-      var year = this.selectedValues.year
-      var semester = this.selectedValues.semester
-      var draft = this.selectedValues.draft
-      var term = `${year}${semester}`
+    //   this.rows = []
+    //   axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
+    //     this.rows = response.data.courses
+    //   })
+    // },
+    // intSemesterToStr(semesterInt) {
+    //   var semesterStr = ''
+    //   switch(semesterInt) {
+    //     case 1:
+    //       semesterStr = 'Fall'
+    //       break;
+    //     case 2:
+    //       semesterStr = 'Interim'
+    //       break;
+    //     case 3:
+    //       semesterStr = 'Spring'
+    //       break;
+    //     case 4:
+    //       semesterStr = 'Summer Session 1'
+    //       break;
+    //     case 5:
+    //       semesterStr = 'Summer Session 2'
+    //       break;
+    //   }
+    //   return semesterStr
+    // },
+    // showNotification(group, type, text) {
+    //   this.$notify({
+    //     group: group,
+    //     type: type,
+    //     text: text
+    //   });
+    // },
+    // addCourse(row) {
+    //   var course_id = row.id
+    //   var year = this.selectedValues.year
+    //   var semester = this.selectedValues.semester
+    //   var draft = this.selectedValues.draft
+    //   var term = `${year}${semester}`
+    //   axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
+    //        .then(response => {
+    //         var course_name = row.name
+    //         var semesterStr = this.intSemesterToStr(semester)
+    //         var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
+    //           this.showNotification('foo', 'success' , text)
+    //        })
+    //        .catch(error => {
+    //           this.showNotification('foo', 'warn' , 'you already have that course')
+    //        })
+    // },
+    // removeCourse(course_id) {
+    //   var year = this.selectedValues.year
+    //   var semester = this.selectedValues.semester
+    //   var draft = this.selectedValues.draft
+    //   var term = `${year}${semester}`
 
-      axios.delete(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`).then(response => {
-        this.getUserTermCourses()
-      })
-    },
-    setSelectedValues(key, value) {
-      this.selectedValues[key] = value
-      this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
-    },
-    numFilterFn(data, filterString) {
-      return data.toString()[0] === filterString[0]
-    }
+    //   axios.delete(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`).then(response => {
+    //     this.getUserTermCourses()
+    //   })
+    // },
+    // setSelectedValues(key, value) {
+    //   this.selectedValues[key] = value
+    //   this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
+    // },
+    // numFilterFn(data, filterString) {
+    //   return data.toString()[0] === filterString[0]
+    // }
   }
 }
 </script>

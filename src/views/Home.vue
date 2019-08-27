@@ -2,7 +2,7 @@
   <div class="home">
     <div id="top-section">
       <div id="top-section-selectors">
-        <year-selector />
+        <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
         <semester-selector />
         <button>Columns</button>
       </div>
@@ -11,14 +11,14 @@
       <div id="user-courses-table-options">
         <draft-selector />
       </div>
-      <user-courses-table />
+      <user-courses-table v-bind:rows="userTableRows"/>
     </div>
     <div id="stolaf-section">
       <div id="stolaf-courses-table-options">
         <type-selector />
         <button>Reset Filters</button>
       </div>
-      <stolaf-courses-table />
+      <stolaf-courses-table v-bind:rows="stolafTableRows"/>
     </div>
   </div>
 </template>
@@ -30,6 +30,7 @@ import YearSelector from '@/components/YearSelector.vue'
 import SemesterSelector from '@/components/SemesterSelector.vue'
 import DraftSelector from '@/components/DraftSelector.vue'
 import TypeSelector from '@/components/TypeSelector.vue'
+import axios from 'axios'
 
 export default {
   name: 'home',
@@ -41,10 +42,63 @@ export default {
     DraftSelector,
     TypeSelector
   },
-  data() {
-    return {}
+  created() {
+    this.getStolafTableRows()
+    this.getUserTableRows()
   },
-  methods: {}
+  data() {
+    return {
+      userTableRows: [],
+      stolafTableRows: [],
+      selectedValues: {
+        year: 2019,
+        semester: 1,
+        draft: 1,
+        type: 'class'
+      }
+    }
+  },
+  methods: {
+    updateSelectedValuesAndRows(key, value) {
+      this.selectedValues[key] = value
+
+      if(key === 'year' || key === 'semester') {
+        this.getUserTableRows()
+        this.getStolafTableRows()
+      }
+      else if (key === 'type') {
+        this.getStolafTableRows()
+      }
+      else if (key === 'draft') {
+        this.getUserTableRows()
+      }
+    },
+    getStolafTableRows() {
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var type = this.selectedValues.type
+      var term = `${year}${semester}`
+
+      this.stolafTableRows = []
+      axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
+        this.stolafTableRows = response.data.courses
+      })
+    },
+    getUserTableRows() {
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var type = this.selectedValues.type
+      var term = `${year}${semester}`
+      console.log(term)
+
+      this.userTableRows = []
+      axios.get(`api/terms?term=${term}&draft=1`).then(response => {
+        this.userTableRows = response.data[0].courses
+      })
+    }
+  }
 }
 </script>
 
@@ -58,11 +112,12 @@ export default {
 }
 
 #user-section {
-  padding: 30px;
+  padding: 0px 30px 30px 30px;
 }
 
 #stolaf-section {
-  padding: 0 30px;
+  padding: 30px;
+  padding: 0px 30px 30px 30px;
 }
 
 #user-courses-table-options {
