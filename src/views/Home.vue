@@ -3,22 +3,24 @@
     <div id="top-section">
       <div id="top-section-selectors">
         <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
-        <semester-selector />
+        <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
         <button>Columns</button>
       </div>
     </div>
     <div id="user-section">
       <div id="user-courses-table-options">
-        <draft-selector />
+        <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
       </div>
       <user-courses-table v-bind:rows="userTableRows"/>
     </div>
     <div id="stolaf-section">
       <div id="stolaf-courses-table-options">
-        <type-selector />
+        <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
         <button>Reset Filters</button>
       </div>
-      <stolaf-courses-table v-bind:rows="stolafTableRows"/>
+      <stolaf-courses-table 
+        v-bind:rows="stolafTableRows"
+        />
     </div>
   </div>
 </template>
@@ -91,10 +93,10 @@ export default {
       var draft = this.selectedValues.draft
       var type = this.selectedValues.type
       var term = `${year}${semester}`
-      console.log(term)
 
-      this.userTableRows = []
-      axios.get(`api/terms?term=${term}&draft=1`).then(response => {
+      console.log(draft)
+
+      axios.get(`api/terms?term=${term}&order=${draft}`).then(response => {
         this.userTableRows = response.data[0].courses
       })
     }
