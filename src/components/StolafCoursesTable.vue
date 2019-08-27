@@ -111,16 +111,19 @@ export default {
         pageLabel: 'page', // for 'pages' mode
         allLabel: 'All',
       },
-      showShownColumns: true,
+      showShownColumns: false,
       hiddenColumns: [
-        'Dept Num Sec',
         'Status',
         'Name',
+        'Dept',
+        'Num',
         'Gereqs',
         'Days',
         'Times',
         'Prof',
-        'Rating Difficulty Reviews',
+        'Rating',
+        'Difficulty',
+        'Reviews',
         'Prereqs',
         'Actions',
       ],
@@ -257,10 +260,17 @@ export default {
         },
         { label: 'Rating', 
           field: 'rating',
-          hidden: true,
+          hidden: false,
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
+            filterDropdownItems: [
+              { text: 'Greater than 1', value: 1 },
+              { text: 'Greater than 2', value: 2 },
+              { text: 'Greater than 3', value: 3 },
+              { text: 'Greater than 4', value: 4 },
+            ],
+            filterFn: this.ratingAndDifficultyFilterFn
           },
           type: 'number'
         },
@@ -270,6 +280,13 @@ export default {
           filterOptions: {
             placeHolder: 'All',
             enabled: true,
+            filterDropdownItems: [
+              { text: 'Greater than 1', value: 1 },
+              { text: 'Greater than 2', value: 2 },
+              { text: 'Greater than 3', value: 3 },
+              { text: 'Greater than 4', value: 4 },
+            ],
+            filterFn: this.ratingAndDifficultyFilterFn
           },
           type: 'number'
         },
@@ -389,6 +406,10 @@ export default {
     }
   },
   methods: {
+    ratingAndDifficultyFilterFn(data, filterString) {
+      var filterInt = Number(filterString)
+      return data >= filterInt
+    },
     toggleShowShownColumns() {
       this.showShownColumns = !this.showShownColumns
     },
@@ -495,9 +516,7 @@ export default {
     },
     setSelectedValues(key, value) {
       this.selectedValues[key] = value
-      this.paginationOptions.enabled  = this.selectedValues.mode === 'stolaf' ? true : false
       this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
-      this.selectedValues.mode === 'stolaf' ? this.enableTableFilters() : this.disableTableFilters()
     },
     disableTableFilters() {
       this.columns.forEach(column => {
