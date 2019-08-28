@@ -24,7 +24,7 @@
         v-bind:selectedValues="selectedValues"
         v-on:rowsChanged="getUserTableRows"
         v-bind:visibleColumns="visibleColumns"
-        v-bind:columns="columns"
+        v-bind:columns="stolafColumns"
         />
     </div>
     <div id="user-section">
@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      columns: [
+      stolafColumns: [
         {
           label: 'Status', 
           field: 'status',
@@ -220,7 +220,6 @@ export default {
               { text: '2 or less', value: 2 },
               { text: '3 or less', value: 3 },
               { text: '4 or less', value: 4 },
-              { text: '5 or less', value: 5 },
             ],
             filterFn: this.difficultyFilterFn
           },
@@ -406,6 +405,15 @@ export default {
     }
   },
   methods: {
+    reviewsFilterFn(data, filterString) {
+      return data >= Number(filterString)
+    },
+    ratingFilterFn(data, filterString) {
+      return data >= Number(filterString)
+    },
+    difficultyFilterFn(data, filterString) {
+      return data <= Number(filterString)
+    },
     resetColumns() {
       this.visibleColumns = this.defaultVisibleColumns
       if(this.showHideOptions) {
@@ -420,7 +428,7 @@ export default {
           this.visibleColumns.push(column)
         }
       })
-      this.columns.forEach(column => {
+      this.stolafColumns.forEach(column => {
         column.hidden = true
         if(newVisibleColumns.includes(column.label)) {
           column.hidden = false

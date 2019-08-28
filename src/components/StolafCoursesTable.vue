@@ -538,6 +538,12 @@ export default {
     // reviewsFilterFn(data, filterString) {
     //   return data >= Number(filterString)
     // },
+    // ratingFilterFn(data, filterString) {
+    //   return data >= Number(filterString)
+    // },
+    // difficultyFilterFn(data, filterString) {
+    //   return data <= Number(filterString)
+    // },
     // resetColumns() {
     //   this.hiddenColumns = [
     //     'Seats',
@@ -553,12 +559,6 @@ export default {
     // },
     // resetFilters() {
     //   this.columnNum = this.columnNum === 1 ? 2 : 1
-    // },
-    // ratingFilterFn(data, filterString) {
-    //   return data >= Number(filterString)
-    // },
-    // difficultyFilterFn(data, filterString) {
-    //   return data <= Number(filterString)
     // },
     // toggleShowShownColumns() {
     //   this.showShownColumns = !this.showShownColumns
