@@ -54,7 +54,7 @@ import { ges } from './dropDownItems/Ges'
 
 export default {
   name: 'stolaf-courses-table',
-  props: ['rows', 'selectedValues'],
+  props: ['rows', 'selectedValues', 'visibleColumns', 'columns'],
   components: {
     WhosCoursesSelector,
     HideOptions,
@@ -115,201 +115,201 @@ export default {
         prof: '',
         prof_url: ''
       },
-      columns: [
-        {
-          label: 'Status', 
-          field: 'status',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              {text: 'Open', value: 'O'},
-              {text: 'Closed', value: 'C'},
-            ],
-          }
-        },
-        {
-          label: 'Seats',
-          field: 'seats',
-          hidden: false,
-          filterOptions: {
-          }
-        },
-        {
-          label: 'Credits',
-          field: 'credits',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-          },
-        },
-        { label: 'Name', 
-          field: 'name',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            filterValue: '',
-            enabled: true,
-          }
-        },
-        { 
-          label: 'Dept Num Sec', 
-          field: 'dept_num_sec',
-          hidden: true,
-          filterOptions: {
-            enabled: true,
-            placeholder: 'All',
-            filterValue: '',
-            filterDropdownItems: departments(),
-          }
-        },
-        { 
-          label: 'Dept', 
-          field: 'dept',
-          hidden: false,
-          filterOptions: {
-            enabled: true,
-            filterValue: '',
-            placeholder: 'All',
-            filterDropdownItems: departments(),
-          }
-        },
-        { 
-          label: 'Num', 
-          field: 'num',
-          type: 'number',
-          hidden: false,
-          filterOptions: {
-            enabled: true,
-            filterValue: '',
-            placeholder: 'All',
-            filterDropdownItems: [ 100, 200, 300 ],
-            filterFn: this.numFilterFn
-          }
-        },
-        {
-          label: 'Sec',
-          field: 'sec',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            enabled: false,
-            placeholder: 'All'
-          }
-        },
-        {
-          label: 'Gereqs', 
-          field: 'gereqs',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'Any',
-            enabled: true,
-            filterDropdownItems: ges()
-          }
-        },
-        {
-          label: 'Days', 
-          field: 'days',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Times', 
-          field: 'times',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Prof', 
-          field: 'prof',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Rating', 
-          field: 'rating',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              { text: '1 or more', value: 1 },
-              { text: '2 or more', value: 2 },
-              { text: '3 or more', value: 3 },
-              { text: '4 or more', value: 4 },
-            ],
-            filterFn: this.ratingFilterFn
-          },
-          type: 'number'
-        },
-        { label: 'Difficulty', 
-          field: 'difficulty',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              { text: '2 or less', value: 2 },
-              { text: '3 or less', value: 3 },
-              { text: '4 or less', value: 4 },
-              { text: '5 or less', value: 5 },
-            ],
-            filterFn: this.difficultyFilterFn
-          },
-          type: 'number'
-        },
-        {
-          label: 'Reviews', 
-          field: 'reviews',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterFn: this.reviewsFilterFn,
-            filterDropdownItems: [
-              { text: '5 or more', value: 5 },
-              { text: '10 or more', value: 10 },
-              { text: '15 or more', value: 15 },
-              { text: '20 or more', value: 20 },
-            ]
-          },
-          type: 'number'
-        },
-        {
-          label: 'Rating Difficulty Reviews',
-          field: 'rating_difference_reviews',
-          hidden: true,
-          filterOptions: {
-            filterValue: '',
-          }
-        },
-        { label: 'Prereqs', 
-          field: 'has_prereqs',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Actions', 
-          field: 'actions',
-          hidden: false
-        },
-      ],
+      // columns: [
+      //   {
+      //     label: 'Status', 
+      //     field: 'status',
+      //     hidden: false,
+      //     filterOptions: {
+      //       placeholder: 'All',
+      //       enabled: true,
+      //       filterDropdownItems: [
+      //         {text: 'Open', value: 'O'},
+      //         {text: 'Closed', value: 'C'},
+      //       ],
+      //     }
+      //   },
+      //   {
+      //     label: 'Seats',
+      //     field: 'seats',
+      //     hidden: false,
+      //     filterOptions: {
+      //     }
+      //   },
+      //   {
+      //     label: 'Credits',
+      //     field: 'credits',
+      //     hidden: false,
+      //     filterOptions: {
+      //       filterValue: '',
+      //     },
+      //   },
+      //   { label: 'Name', 
+      //     field: 'name',
+      //     hidden: false,
+      //     filterOptions: {
+      //       placeholder: 'All',
+      //       filterValue: '',
+      //       enabled: true,
+      //     }
+      //   },
+      //   { 
+      //     label: 'Dept Num Sec', 
+      //     field: 'dept_num_sec',
+      //     hidden: true,
+      //     filterOptions: {
+      //       enabled: true,
+      //       placeholder: 'All',
+      //       filterValue: '',
+      //       filterDropdownItems: departments(),
+      //     }
+      //   },
+      //   { 
+      //     label: 'Dept', 
+      //     field: 'dept',
+      //     hidden: false,
+      //     filterOptions: {
+      //       enabled: true,
+      //       filterValue: '',
+      //       placeholder: 'All',
+      //       filterDropdownItems: departments(),
+      //     }
+      //   },
+      //   { 
+      //     label: 'Num', 
+      //     field: 'num',
+      //     type: 'number',
+      //     hidden: false,
+      //     filterOptions: {
+      //       enabled: true,
+      //       filterValue: '',
+      //       placeholder: 'All',
+      //       filterDropdownItems: [ 100, 200, 300 ],
+      //       filterFn: this.numFilterFn
+      //     }
+      //   },
+      //   {
+      //     label: 'Sec',
+      //     field: 'sec',
+      //     hidden: false,
+      //     filterOptions: {
+      //       filterValue: '',
+      //       enabled: false,
+      //       placeholder: 'All'
+      //     }
+      //   },
+      //   {
+      //     label: 'Gereqs', 
+      //     field: 'gereqs',
+      //     hidden: false,
+      //     filterOptions: {
+      //       filterValue: '',
+      //       placeholder: 'Any',
+      //       enabled: true,
+      //       filterDropdownItems: ges()
+      //     }
+      //   },
+      //   {
+      //     label: 'Days', 
+      //     field: 'days',
+      //     hidden: false,
+      //     filterOptions: {
+      //       filterValue: '',
+      //       placeholder: 'All',
+      //       enabled: true,
+      //     }
+      //   },
+      //   { label: 'Times', 
+      //     field: 'times',
+      //     hidden: false,
+      //     filterOptions: {
+      //       filterValue: '',
+      //       placeholder: 'All',
+      //       enabled: true,
+      //     }
+      //   },
+      //   { label: 'Prof', 
+      //     field: 'prof',
+      //     hidden: false,
+      //     filterOptions: {
+      //       placeholder: 'All',
+      //       enabled: true,
+      //     }
+      //   },
+      //   { label: 'Rating', 
+      //     field: 'rating',
+      //     hidden: false,
+      //     filterOptions: {
+      //       filterValue: '',
+      //       placeholder: 'All',
+      //       enabled: true,
+      //       filterDropdownItems: [
+      //         { text: '1 or more', value: 1 },
+      //         { text: '2 or more', value: 2 },
+      //         { text: '3 or more', value: 3 },
+      //         { text: '4 or more', value: 4 },
+      //       ],
+      //       filterFn: this.ratingFilterFn
+      //     },
+      //     type: 'number'
+      //   },
+      //   { label: 'Difficulty', 
+      //     field: 'difficulty',
+      //     hidden: false,
+      //     filterOptions: {
+      //       filterValue: '',
+      //       placeholder: 'All',
+      //       enabled: true,
+      //       filterDropdownItems: [
+      //         { text: '2 or less', value: 2 },
+      //         { text: '3 or less', value: 3 },
+      //         { text: '4 or less', value: 4 },
+      //         { text: '5 or less', value: 5 },
+      //       ],
+      //       filterFn: this.difficultyFilterFn
+      //     },
+      //     type: 'number'
+      //   },
+      //   {
+      //     label: 'Reviews', 
+      //     field: 'reviews',
+      //     hidden: false,
+      //     filterOptions: {
+      //       filterValue: '',
+      //       placeholder: 'All',
+      //       enabled: true,
+      //       filterFn: this.reviewsFilterFn,
+      //       filterDropdownItems: [
+      //         { text: '5 or more', value: 5 },
+      //         { text: '10 or more', value: 10 },
+      //         { text: '15 or more', value: 15 },
+      //         { text: '20 or more', value: 20 },
+      //       ]
+      //     },
+      //     type: 'number'
+      //   },
+      //   {
+      //     label: 'Rating Difficulty Reviews',
+      //     field: 'rating_difference_reviews',
+      //     hidden: true,
+      //     filterOptions: {
+      //       filterValue: '',
+      //     }
+      //   },
+      //   { label: 'Prereqs', 
+      //     field: 'has_prereqs',
+      //     hidden: this.is_hidden('Prereqs'),
+      //     filterOptions: {
+      //       filterValue: '',
+      //       placeholder: 'All',
+      //       enabled: true,
+      //     }
+      //   },
+      //   { label: 'Actions', 
+      //     field: 'actions',
+      //     hidden: false
+      //   },
+      // ],
       columns2: [
         {
           label: 'Status', 
@@ -513,6 +513,28 @@ export default {
     }
   },
   methods: {
+    is_hidden(label) {
+      return !this.visibleColumns.includes(label)
+    },
+    addCourse(row) {
+      var course_id = row.id
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
+      axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
+           .then(response => {
+            // var course_name = row.name
+            // var semesterStr = this.intSemesterToStr(semester)
+            // var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
+              // this.showNotification('foo', 'success' , text)
+              // this.test()
+              this.$emit('rowsChanged')
+           })
+           .catch(error => {
+              // this.showNotification('foo', 'warn' , 'you already have that course')
+           })
+    },
     // reviewsFilterFn(data, filterString) {
     //   return data >= Number(filterString)
     // },
@@ -623,25 +645,6 @@ export default {
     //     text: text
     //   });
     // },
-    addCourse(row) {
-      var course_id = row.id
-      var year = this.selectedValues.year
-      var semester = this.selectedValues.semester
-      var draft = this.selectedValues.draft
-      var term = `${year}${semester}`
-      axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
-           .then(response => {
-            // var course_name = row.name
-            // var semesterStr = this.intSemesterToStr(semester)
-            // var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
-              // this.showNotification('foo', 'success' , text)
-              // this.test()
-              this.$emit('rowsChanged')
-           })
-           .catch(error => {
-              // this.showNotification('foo', 'warn' , 'you already have that course')
-           })
-    },
     // setSelectedValues(key, value) {
     //   this.selectedValues[key] = value
     //   this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()

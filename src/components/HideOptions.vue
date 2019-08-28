@@ -14,17 +14,16 @@
 <script>
 
   export default {
-    props: ['defaultHiddenColumns'],
+    props: ['visibleColumns'],
     name: 'hide-options',
     data() {
       return {
-        hiddenColumns: this.defaultHiddenColumns,
+        hiddenColumns: this.visibleColumns,
         options: [
-          'Seats',
           'Credits',
+          'Seats',
           'Status',
           'Name',
-          'Dept Num Sec',
           'Dept',
           'Num',
           'Sec',
@@ -32,7 +31,6 @@
           'Days',
           'Times',
           'Prof',
-          'Rating Difficulty Reviews',
           'Rating',
           'Difficulty',
           'Reviews',
