@@ -6,7 +6,7 @@
       <template slot="table-row" slot-scope="props">
         <div v-if="props.column.field == 'actions'">
           <button>View</button>
-          <button>Remove</button>
+          <button v-on:click="removeCourse(props.row.id)">Remove</button>
         </div>
       </template>
     </vue-good-table>
@@ -26,7 +26,7 @@ import { ges } from './dropDownItems/Ges'
 
 export default {
   name: 'user-courses-table',
-  props: ['rows'],
+  props: ['rows', 'selectedValues'],
   components: {
     DraftSelector,
     MoreInfoModal,
@@ -38,12 +38,6 @@ export default {
   },
   data() {
     return {
-      selectedValues: {
-        year: '',
-        semester: '',
-        draft: '',
-        type: '',
-      },
       moreInfoData: {
         description: '',
         prereqs: '',
@@ -229,7 +223,19 @@ export default {
       ],
     }
   },
-  methods: {},
+  methods: {
+    removeCourse(course_id) {
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
+
+      axios.delete(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`).then(response => {
+        this.$emit('rowsChanged')
+      }).catch(error => {
+      })
+    }
+  },
   //   getSelectedValues() {
   //     var query = this.$route.query
   //     this.selectedValues.year = query.year || 2019
@@ -266,16 +272,16 @@ export default {
   //       this.rows = response.data[0].courses
   //     })
   //   },
-  //   removeCourse(course_id) {
-  //     var year = this.selectedValues.year
-  //     var semester = this.selectedValues.semester
-  //     var draft = this.selectedValues.draft
-  //     var term = `${year}${semester}`
+    removeCourse(course_id) {
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
 
-  //     axios.delete(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`).then(response => {
-  //       this.getUserTermCourses()
-  //     })
-  //   }
+      axios.delete(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`).then(response => {
+        this.$emit('rowsChanged')
+      })
+    }
   // }
 }
 </script>

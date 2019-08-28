@@ -7,12 +7,6 @@
         <button>Columns</button>
       </div>
     </div>
-    <div id="user-section">
-      <div id="user-courses-table-options">
-        <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
-      </div>
-      <user-courses-table v-bind:rows="userTableRows"/>
-    </div>
     <div id="stolaf-section">
       <div id="stolaf-courses-table-options">
         <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
@@ -20,6 +14,18 @@
       </div>
       <stolaf-courses-table 
         v-bind:rows="stolafTableRows"
+        v-bind:selectedValues="selectedValues"
+        v-on:rowsChanged="getUserTableRows"
+        />
+    </div>
+    <div id="user-section">
+      <div id="user-courses-table-options">
+        <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
+      </div>
+      <user-courses-table 
+        v-bind:rows="userTableRows"
+        v-bind:selectedValues="selectedValues"
+        v-on:rowsChanged="getUserTableRows"
         />
     </div>
   </div>
@@ -61,6 +67,9 @@ export default {
     }
   },
   methods: {
+    test() {
+      console.log('test worked')
+    },
     updateSelectedValuesAndRows(key, value) {
       this.selectedValues[key] = value
 
@@ -94,7 +103,7 @@ export default {
       var type = this.selectedValues.type
       var term = `${year}${semester}`
 
-      console.log(draft)
+      console.log('hello')
 
       axios.get(`api/terms?term=${term}&order=${draft}`).then(response => {
         this.userTableRows = response.data[0].courses

@@ -14,7 +14,7 @@
     <!-- Actions Column -->
         <div v-if="props.column.field == 'actions'">
           <button>View</button>
-          <button>Add</button>
+          <button v-on:click="addCourse(props.row)" >Add</button>
         </div>
         <div v-else-if="props.column.field == 'prof'">
             <a v-if="props.row.prof_url" 
@@ -54,7 +54,7 @@ import { ges } from './dropDownItems/Ges'
 
 export default {
   name: 'stolaf-courses-table',
-  props: ['rows'],
+  props: ['rows', 'selectedValues'],
   components: {
     WhosCoursesSelector,
     HideOptions,
@@ -70,13 +70,6 @@ export default {
   },
   data() {
     return {
-      selectedValues: {
-        mode: 'stolaf',
-        year: 2019,
-        semester: 1,
-        draft: 1,
-        type: 'class',
-      },
       paginationOptions: {
         enabled: true,
         mode: 'pages',
@@ -630,33 +623,25 @@ export default {
     //     text: text
     //   });
     // },
-    // addCourse(row) {
-    //   var course_id = row.id
-    //   var year = this.selectedValues.year
-    //   var semester = this.selectedValues.semester
-    //   var draft = this.selectedValues.draft
-    //   var term = `${year}${semester}`
-    //   axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
-    //        .then(response => {
-    //         var course_name = row.name
-    //         var semesterStr = this.intSemesterToStr(semester)
-    //         var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
-    //           this.showNotification('foo', 'success' , text)
-    //        })
-    //        .catch(error => {
-    //           this.showNotification('foo', 'warn' , 'you already have that course')
-    //        })
-    // },
-    // removeCourse(course_id) {
-    //   var year = this.selectedValues.year
-    //   var semester = this.selectedValues.semester
-    //   var draft = this.selectedValues.draft
-    //   var term = `${year}${semester}`
-
-    //   axios.delete(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`).then(response => {
-    //     this.getUserTermCourses()
-    //   })
-    // },
+    addCourse(row) {
+      var course_id = row.id
+      var year = this.selectedValues.year
+      var semester = this.selectedValues.semester
+      var draft = this.selectedValues.draft
+      var term = `${year}${semester}`
+      axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
+           .then(response => {
+            // var course_name = row.name
+            // var semesterStr = this.intSemesterToStr(semester)
+            // var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
+              // this.showNotification('foo', 'success' , text)
+              // this.test()
+              this.$emit('rowsChanged')
+           })
+           .catch(error => {
+              // this.showNotification('foo', 'warn' , 'you already have that course')
+           })
+    },
     // setSelectedValues(key, value) {
     //   this.selectedValues[key] = value
     //   this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
