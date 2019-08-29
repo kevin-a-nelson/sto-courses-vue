@@ -1,10 +1,21 @@
 <template>
   <div class="home">
-    <div id="mobile" v-if="window.width < 600">
+    <div id="mobile" v-if="screenWidthLessThan(600)">
+      <h1>{{ selectedValues.year }} {{ selectedValues.semester }}</h1>
+      <div id="mobile-buttons">
+        <div>
+          <b-button class="mobile-button"type="is-info">Filters</b-button>
+        </div>
+        <div>
+          <b-button class="mobile-button"type="is-info">Hide Columns</b-button>
+        </div>
+        <div>
+          <b-button class="mobile-button"type="is-info">Go to My Courses</b-button>
+        </div>
+      </div>
       <b-table :data="stolafTableRows" :columns="columns"></b-table>
     </div>
-    <h1>{{ window.width }} </h1>
-    <div id="desktop">
+    <div id="desktop" v-if="!screenWidthLessThan(600)">
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
@@ -731,6 +742,9 @@ export default {
     }
   },
   methods: {
+    screenWidthLessThan(width) {
+      return this.window.width < width
+    },
     handleResize() {
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;
@@ -861,6 +875,18 @@ export default {
 </script>
 
 <style>
+
+.mobile-button {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+#mobile-buttons {
+  /*display: flex;*/
+  /*background: blue;*/
+  /*justify-content: space-between;*/
+}
 
 #mobile {
   padding: 30px;
