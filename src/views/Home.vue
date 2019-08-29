@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-    <div id="mobile">
+    <div id="mobile" v-if="window.width < 600">
       <b-table :data="stolafTableRows" :columns="columns"></b-table>
     </div>
+    <h1>{{ window.width }} </h1>
     <div id="desktop">
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
@@ -83,12 +84,21 @@ export default {
     HideOptions
   },
   created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize();
     this.getStolafTableRows()
     this.getUserTableRows()
     this.updateHideOptions(this.visibleColumns)
   },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize)
+  },
   data() {
     return {
+      window: {
+        width: 0,
+        height: 0
+      },
       data: [
           { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
           { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
@@ -721,6 +731,10 @@ export default {
     }
   },
   methods: {
+    handleResize() {
+      this.window.width = window.innerWidth;
+      this.window.height = window.innerHeight;
+    },
     showMoreInfo(row) {
       this.moreInfoData = row
       this.$modal.show('more-info')
