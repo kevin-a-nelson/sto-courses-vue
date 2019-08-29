@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <!-- {{ filterFunctions() }} -->
     <!-- Top Section Above Table -->
+    <more-info-modal v-bind:moreInfoData="moreInfoData"
+                     v-bind:modalName="'more-info'"/>
     <div id="top-section">
       <div id="top-section-selectors">
         <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
@@ -26,6 +27,7 @@
         v-bind:selectedValues="selectedValues"
         v-on:rowsChanged="getUserTableRows"
         v-bind:columns="userColumns"
+        v-on:showMoreInfo="showMoreInfo"
         />
     </div>
     <!-- Stolaf Table -->
@@ -34,7 +36,8 @@
         <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
         <button v-on:click="resetFilters">Reset Filters</button>
       </div>
-      <stolaf-courses-table 
+      <stolaf-courses-table
+        v-on:showMoreInfo="showMoreInfo"
         v-bind:rows="stolafTableRows"
         v-bind:selectedValues="selectedValues"
         v-on:rowsChanged="getUserTableRows"
@@ -59,10 +62,12 @@ import HideOptions from '@/components/HideOptions.vue'
 import { departments } from '@/components/dropDownItems/Departments'
 import { ges } from '@/components/dropDownItems/Ges'
 import { filterFunctions } from '@/components/FilterFunctions.js'
+import MoreInfoModal from '@/components/MoreInfoModal.vue'
 
 export default {
   name: 'home',
   components: {
+    MoreInfoModal,
     StolafCoursesTable,
     YearSelector,
     UserCoursesTable,
@@ -78,6 +83,7 @@ export default {
   },
   data() {
     return {
+      moreInfoData: {},
       /* Two Stolaf Columns that switch back and forth when Reset Filters button is pressed */ 
       stolafColumns1: [
         {
@@ -330,17 +336,6 @@ export default {
           }
         },
         { 
-          label: 'Dept Num Sec', 
-          field: 'dept_num_sec',
-          hidden: true,
-          filterOptions: {
-            enabled: true,
-            placeholder: 'All',
-            filterValue: '',
-            filterDropdownItems: departments(),
-          }
-        },
-        { 
           label: 'Dept', 
           field: 'dept',
           hidden: false,
@@ -360,7 +355,9 @@ export default {
             enabled: true,
             filterValue: '',
             placeholder: 'All',
-            filterDropdownItems: [ 100, 200, 300 ],
+            filterDropdownItems: [
+             100, 200, 300 
+             ],
             filterFn: this.numFilterFn
           }
         },
@@ -393,6 +390,18 @@ export default {
             filterValue: '',
             placeholder: 'All',
             enabled: true,
+            filterDropdownItems: [
+              'MWF',
+              'TTh',
+              'M-F',
+              'M',
+              'Tu',
+              'W',
+              'Th',
+              'F',
+              'Other'
+            ],
+            filterFn: this.daysFilterFn
           }
         },
         { label: 'Times', 
@@ -632,7 +641,6 @@ export default {
         'Prereqs',
         'Actions',
       ],
-
       /* Makes column multiselect visible when Hide columns button is pressed */
       showHideOptions: false,
       userTableRows: [],
@@ -647,6 +655,10 @@ export default {
     }
   },
   methods: {
+    showMoreInfo(row) {
+      this.moreInfoData = row
+      this.$modal.show('more-info')
+    },
     daysFilterFn(data, filterString) {
       var filterStrings = ['MWF', 'TTh', 'M-F','M', 'Tu', 'W', 'Th', 'F']
       return filterString === 'Other' ? !filterStrings.includes(data) : data === filterString

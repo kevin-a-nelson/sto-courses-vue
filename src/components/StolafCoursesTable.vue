@@ -1,5 +1,4 @@
 <template>
-      <!-- classes="my-notification" -->
   <div id="stolaf-courses-table">
     <!-- Table -->
     <vue-good-table
@@ -13,7 +12,7 @@
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
         <div v-if="props.column.field == 'actions'">
-          <button>View</button>
+          <button v-on:click="moreInfo(props.row)">View</button>
           <button v-on:click="addCourse(props.row)" >Add</button>
         </div>
         <div v-else-if="props.column.field == 'prof'">
@@ -34,8 +33,6 @@
         </span>
       </template>
     </vue-good-table>
-    <!-- More Info Modal -->
-    <more-info-modal v-bind:moreInfoData="moreInfoData" />
   </div>
 </template>
 
@@ -63,10 +60,6 @@ export default {
     SemesterSelector,
     YearSelector,
     DraftSelector
-  },
-  created() {
-    // this.setHiddenColumns(this.hiddenColumns)
-    // this.getStolafTermCourses()
   },
   data() {
     return {
@@ -340,6 +333,9 @@ export default {
               // this.showNotification('foo', 'warn' , 'you already have that course')
            })
     },
+    moreInfo(row) {
+      this.$emit('showMoreInfo', row)
+    },
     // reviewsFilterFn(data, filterString) {
     //   return data >= Number(filterString)
     // },
@@ -394,15 +390,6 @@ export default {
     //       column.filterValue = ''
     //     }
     //   })
-    // },
-    // moreInfo(row) {
-    //   this.moreInfoData.description = row.description
-    //   this.moreInfoData.prereqs = row.prereqs
-    //   this.moreInfoData.notes = row.notes
-    //   this.moreInfoData.prof = row.prof
-    //   this.moreInfoData.name = row.name
-    //   this.moreInfoData.prof_url = row.prof_url
-    //   this.$modal.show('more-info')
     // },
     // deptFilterFn(data, filterString) {
     //   return true
