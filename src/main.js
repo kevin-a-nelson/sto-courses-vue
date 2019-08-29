@@ -10,11 +10,10 @@ import Notifications from 'vue-notification'
 import DropDown from 'vue-dropdowns'
 import VueDropdown from 'vue-dynamic-dropdown'
 import BootstrapVue from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import Buefy from 'buefy'
-import 'buefy/dist/buefy.css'
 
 Vue.use(Buefy)
 

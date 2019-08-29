@@ -1,16 +1,34 @@
 <template>
   <div class="home">
+    <filters-modal />
     <div id="mobile" v-if="screenWidthLessThan(600)">
-      <h1>{{ selectedValues.year }} {{ selectedValues.semester }}</h1>
+      <div id="mobile-selectors">
+        <b-select v-model="selectedYear">
+          <option style="background: blue;" class="my-options"
+            v-for="year in years"
+            :value="year.value"
+            :key="year.text">
+            {{ year.text }}  
+          </option>
+        </b-select>
+        <b-select v-model="selectedSemester">
+          <option style="background: blue;" class="my-options"
+            v-for="semester in semesters"
+            :value="semester.value"
+            :key="semester.text">
+            {{ semester.text }}  
+          </option>
+        </b-select>
+      </div>
       <div id="mobile-buttons">
         <div>
-          <b-button class="mobile-button"type="is-info">Filters</b-button>
+          <b-button v-on:click="filtersModal" class="mobile-button"type="is-info">Filters</b-button>
         </div>
         <div>
           <b-button class="mobile-button"type="is-info">Hide Columns</b-button>
         </div>
         <div>
-          <b-button class="mobile-button"type="is-info">Go to My Courses</b-button>
+          <b-button v-on:click="" class="mobile-button"type="is-info">Go to My Courses</b-button>
         </div>
       </div>
       <b-table :data="stolafTableRows" :columns="columns"></b-table>
@@ -79,12 +97,16 @@ import axios from 'axios'
 import HideOptions from '@/components/HideOptions.vue'
 import { departments } from '@/components/dropDownItems/Departments'
 import { ges } from '@/components/dropDownItems/Ges'
-import { filterFunctions } from '@/components/FilterFunctions.js'
 import MoreInfoModal from '@/components/MoreInfoModal.vue'
+import MobileTable from '@/components/MobileTable.vue'
+import FiltersModal from '@/components/FiltersModal.vue'
+import 'buefy/dist/buefy.css'
 
 export default {
   name: 'home',
   components: {
+    FiltersModal,
+    MobileTable,
     MoreInfoModal,
     StolafCoursesTable,
     YearSelector,
@@ -106,17 +128,26 @@ export default {
   },
   data() {
     return {
+      years: [
+        {text: 2019, value: 2019 },
+        {text: 2018, value: 2019 },
+        {text: 2017, value: 2019 },
+        {text: 2016, value: 2019 },
+        {text: 2015, value: 2019 },
+      ],
+      semesters: [
+        { text: 'Fall', value: 1 },
+        { text: 'Interim', value: 2 },
+        { text: 'Spring', value: 3 },
+        { text: 'Summer Session 1', value: 4 },
+        { text: 'Summer Session 2', value: 5 },
+      ],
+      selectedSemester: 1,
+      selectedYear: 2019,
       window: {
         width: 0,
         height: 0
       },
-      data: [
-          { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
-          { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
-          { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
-          { 'id': 4, 'first_name': 'Clarence', 'last_name': 'Flores', 'date': '2016-04-10 10:28:46', 'gender': 'Male' },
-          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
-      ],
       columns: [
           {
               field: 'status',
@@ -742,6 +773,9 @@ export default {
     }
   },
   methods: {
+    filtersModal() {
+      this.$modal.show('filters')
+    },
     screenWidthLessThan(width) {
       return this.window.width < width
     },
@@ -875,6 +909,16 @@ export default {
 </script>
 
 <style>
+
+.my-options {
+  font-size: 30px !important;
+  background: blue !important;
+}
+
+#header {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
 
 .mobile-button {
   display: block;

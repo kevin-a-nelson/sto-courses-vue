@@ -80,9 +80,9 @@ export default {
   height: 100%;
 }
 
-#nav {
+/*#nav {
   padding: 30px;
-}
+}*/
 
 #nav a {
   font-weight: bold;
