@@ -1,11 +1,11 @@
 <template>
   <div>
     <form>
-      <select v-model="selectedDraft" v-on:change="newDraftSelected">
-        <option v-for="draft in drafts" v-bind:value="draft.value">
+      <b-select v-model="selectedDraft" @input="newDraftSelected">
+        <option v-for="draft in drafts" :value="draft.value">
           {{ draft.text }}
         </option>
-      </select>
+      </b-select>
     </form>
   </div>
 </template>

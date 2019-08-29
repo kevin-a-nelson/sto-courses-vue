@@ -5,9 +5,9 @@
       :rows="rows">
       <template slot="table-row" slot-scope="props">
         <div v-if="props.column.field == 'actions'">
-          <button v-on:click="showMoreInfo(props.row)">View</button>
-          <button v-on:click="removeCourse(props.row.id)">Remove</button>
-          <button v-on:click="removeCourse(props.row.id)">=></button>
+          <b-button class="action-button" type="is-info" v-on:click="showMoreInfo(props.row)">View</b-button>
+          <b-button class="action-button" type="is-info" v-on:click="removeCourse(props.row.id)">Remove</b-button>
+          <!-- <b-button v-on:click="removeCourse(props.row.id)">=></b-button> -->
         </div>
       </template>
       <template slot="table-column" slot-scope="props">
@@ -116,6 +116,10 @@ export default {
 </script>
 
 <style>
+
+.action-button {
+  margin: 3px;
+}
 
 /*#user-courses-table {
   margin: 30px;

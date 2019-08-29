@@ -1,11 +1,11 @@
 <template>
   <div>
     <form>
-      <select v-model="selectedType" v-on:change="newTypeSelected">
-        <option v-for="type in types" v-bind:value="type.value"> 
-          {{ type.text }} 
+      <b-select v-model="selectedType" @input="newTypeSelected">
+        <option v-for="type in types" :value="type.value">
+          {{ type.text }}
         </option>
-      </select>
+      </b-select>
     </form>
   </div>
 </template>

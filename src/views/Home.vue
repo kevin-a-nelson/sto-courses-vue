@@ -2,24 +2,6 @@
   <div class="home">
     <filters-modal />
     <div id="mobile" v-if="screenWidthLessThan(600)">
-      <div id="mobile-selectors">
-        <b-select v-model="selectedYear">
-          <option style="background: blue;" class="my-options"
-            v-for="year in years"
-            :value="year.value"
-            :key="year.text">
-            {{ year.text }}  
-          </option>
-        </b-select>
-        <b-select v-model="selectedSemester">
-          <option style="background: blue;" class="my-options"
-            v-for="semester in semesters"
-            :value="semester.value"
-            :key="semester.text">
-            {{ semester.text }}  
-          </option>
-        </b-select>
-      </div>
       <div id="mobile-buttons">
         <div>
           <b-button v-on:click="filtersModal" class="mobile-button"type="is-info">Filters</b-button>
@@ -41,8 +23,8 @@
         <div id="top-section-selectors">
           <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
           <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
-          <button v-on:click="toggleShowHideOptions">Hide Columns</button>
-          <button v-on:click="resetColumns">Reset Columns</button>
+          <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button>
+          <b-button type="is-info" v-on:click="resetColumns">Reset Columns</b-button>
         </div>
         <div id="hide-options-container">
           <hide-options 
@@ -68,7 +50,7 @@
       <div id="stolaf-section">
         <div id="stolaf-courses-table-options">
           <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
-          <button v-on:click="resetFilters">Reset Filters</button>
+          <b-button type="is-info" v-on:click="resetFilters">Reset Filters</b-button>
         </div>
         <stolaf-courses-table
           v-on:showMoreInfo="showMoreInfo"
@@ -773,6 +755,9 @@ export default {
     }
   },
   methods: {
+    newYearSelected() {
+      console.log('hello')
+    },
     filtersModal() {
       this.$modal.show('filters')
     },
@@ -942,9 +927,9 @@ export default {
 
 #top-section-selectors {
   margin: 10px auto 0 auto;
-  display: flex;
-  width: 500px;
+  width: 600px;
   justify-content: space-between;
+  display: flex;
 }
 
 #top-section-selectors button {
@@ -970,7 +955,8 @@ export default {
 #stolaf-courses-table-options {
   margin-bottom: 10px;
   display: flex;
-  width: 300px;
+  width: 340px;
+  /*background: blue;*/
   justify-content: space-between;
 }
 

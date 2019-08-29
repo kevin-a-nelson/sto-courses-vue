@@ -1,11 +1,14 @@
 <template>
   <div>
     <form>
-      <select v-model="selectedYear" v-on:change="newYearSelected">
-        <option v-for="year in years">
-          {{ year }}
+      <b-select v-model="selectedYear" 
+                @input="newYearSelected">
+        <option
+          v-for="year in years"
+          :value="year.value">
+          {{ year.text }}
         </option>
-      </select>
+      </b-select>
     </form>
   </div> 
 </template>
@@ -16,11 +19,19 @@
     data() {
         return {
         selectedYear: 2019,
-        years: [ 2015, 2016, 2017, 2018, 2019 ]
+        years: [
+          {text: 2019, value: 2019 },
+          {text: 2018, value: 2018 },
+          {text: 2017, value: 2017 },
+          {text: 2016, value: 2016 },
+          {text: 2015, value: 2015 },
+        ],
+        // years: [ 2015, 2016, 2017, 2018, 2019 ]
       }
     },
     methods: {
       newYearSelected() {
+        console.log(this.selectedYear)
         this.$emit('newYearSelected', 'year' ,this.selectedYear)
       },
     }

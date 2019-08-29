@@ -1,11 +1,13 @@
 <template>
   <div>
     <form>
-      <select v-model="selectedSemester" v-on:change="newSemesterSelected">
-        <option v-for="semester in semesters" v-bind:value="semester.value">
+      <b-select v-model="selectedSemester"
+                @input="newSemesterSelected">
+        <option v-for="semester in semesters"
+                :value="semester.value">
           {{ semester.text }}
         </option>
-      </select>
+      </b-select>
     </form>
   </div>
 </template>

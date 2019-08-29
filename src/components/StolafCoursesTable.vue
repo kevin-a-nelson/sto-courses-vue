@@ -14,8 +14,8 @@
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
         <div v-if="props.column.field == 'actions'">
-          <button v-on:click="moreInfo(props.row)">View</button>
-          <button v-on:click="addCourse(props.row)" >Add</button>
+          <b-button class="action-button" type="is-info" v-on:click="moreInfo(props.row)">View</b-button>
+          <b-button class="action-button" type="is-info" v-on:click="addCourse(props.row)" >Add</b-button>
         </div>
         <div v-else-if="props.column.field == 'prof'">
             <a v-if="props.row.prof_url" 
