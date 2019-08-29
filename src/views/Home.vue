@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="website-header">Rate my Professor Course Planner</h1>
     <div id="mobile" v-if="screenWidthLessThan(600)">
       <filters-modal />
       <div id="mobile-buttons">
@@ -24,7 +25,7 @@
           <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
           <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
           <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button>
-          <b-button type="is-info" v-on:click="resetColumns">Reset Columns</b-button>
+          <b-button type="is-info" v-on:click="resetColumns">Default Columns</b-button>
         </div>
         <div id="hide-options-container">
           <hide-options 
@@ -50,8 +51,7 @@
       <div id="stolaf-section">
         <div id="stolaf-courses-table-options">
           <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
-
-          <b-button type="is-info" v-on:click="resetFilters">Reset Filters</b-button>
+          <b-button id="reset-filters-btn" type="is-info" v-on:click="resetFilters">Reset Filters</b-button>
         </div>
         <stolaf-courses-table
           v-on:showMoreInfo="showMoreInfo"
@@ -894,6 +894,14 @@ export default {
 </script>
 
 <style>
+
+#reset-filters-btn {
+  top: 32px;
+}
+
+.website-header {
+  font-size: 40px;
+}
 
 .my-options {
   font-size: 30px !important;

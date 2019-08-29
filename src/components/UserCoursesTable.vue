@@ -4,11 +4,11 @@
       :columns="columns"
       :rows="rows">
       <template slot="table-row" slot-scope="props">
-        <div v-if="props.column.field == 'actions'">
+        <div v-if="props.column.field == 'actions'" class="action-buttons">
           <b-button v-on:click="showMoreInfo(props.row)" class="action-button" type="is-info">
             <eye-icon /> 
           </b-button>
-          <b-button v-on:click="showMoreInfo(props.row)" class="action-button" type="is-info">
+          <b-button v-on:click="removeCourse(props.row.id)" class="action-button" type="is-info">
             <plus-icon />
           </b-button>
         </div>
@@ -122,6 +122,10 @@ export default {
 
 .action-button {
   margin: 3px;
+}
+
+.action-buttons {
+  min-width: 120px;
 }
 
 /*#user-courses-table {

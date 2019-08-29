@@ -1,12 +1,12 @@
 <template>
   <div>
-    <form>
+    <b-field label="Stolaf Courses" id="stolaf-courses-label">
       <b-select v-model="selectedType" @input="newTypeSelected">
         <option v-for="type in types" :value="type.value">
           {{ type.text }}
         </option>
       </b-select>
-    </form>
+    </b-field>
   </div>
 </template>
 
@@ -32,3 +32,11 @@
     }
   }
 </script>
+
+<style>
+
+#stolaf-courses-label {
+  text-align: left;
+}
+
+</style>

@@ -24,14 +24,32 @@
             </b-button>
           </div>
           <div v-else-if="props.column.field == 'prof'">
-              <a v-if="props.row.prof_url" 
-                 target="_blank" 
+              <a v-if="props.row.prof_url"
+                 target="_blank"
                  :href="`${props.row.prof_url}`">
                  {{ props.row.prof }}
               </a>
               <span v-else>
                 {{ props.row.prof }}
               </span>
+          </div>
+          <div v-else-if="props.column.field == 'rating'" style="font-size: 30px; text-align: center;">
+            <span v-if="props.row.rating >= 4" style="color: green;">{{ props.row.rating }} </span>
+            <span v-else-if="props.row.rating >= 3" style="color: orange;">{{ props.row.rating }} </span>
+            <span v-else-if="props.row.rating >= 2" style="color: orange;">{{ props.row.rating }} </span>
+            <span v-else-if="props.row.rating >= 1" style="color: red;">{{ props.row.rating }} </span>
+          </div>
+          <div v-else-if="props.column.field == 'difficulty'" style="font-size: 30px; text-align: center;">
+            <span v-if="props.row.difficulty >= 1" style="color: red;">{{ props.row.difficulty }} </span>
+            <span v-else-if="props.row.difficulty >= 2" style="color: orange;">{{ props.row.difficulty }} </span>
+            <span v-else-if="props.row.difficulty >= 3" style="color: orange;">{{ props.row.difficulty }} </span>
+            <span v-else-if="props.row.difficulty >= 4" style="color: green;">{{ props.row.difficulty }} </span>
+          </div>
+          <div v-else-if="props.column.label == 'Reviews'" style="font-size: 30px; text-align: center;">
+            <span v-if="props.row.reviews <= 5" style="color: red;">{{ props.row.reviews }} </span>
+            <span v-else-if="props.row.reviews <= 10" style="color: orange;">{{ props.row.reviews }} </span>
+            <span v-else-if="props.row.reviews <= 15" style="color: orange;">{{ props.row.reviews }} </span>
+            <span v-else-if="props.row.reviews <= 20" style="color: green;">{{ props.row.reviews }} </span>
           </div>
           <div style="min-width: 105px;" v-else-if="props.column.field == 'rating_difference_reviews'">
             {{ props.row.rating_difference_reviews }}
@@ -338,7 +356,7 @@ export default {
 
       axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
            .then(response => {
-              this.showNotification('foo', 'success' , text)
+              // this.showNotification('foo', 'success' , text)
               this.$emit('rowsChanged')
            })
            .catch(error => {
