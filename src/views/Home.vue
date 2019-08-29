@@ -172,6 +172,18 @@ export default {
             filterValue: '',
             placeholder: 'All',
             enabled: true,
+            filterDropdownItems: [
+              'MWF',
+              'TTh',
+              'M-F',
+              'M',
+              'Tu',
+              'W',
+              'Th',
+              'F',
+              'Other'
+            ],
+            filterFn: this.daysFilterFn
           }
         },
         { label: 'Times', 
@@ -635,7 +647,12 @@ export default {
     }
   },
   methods: {
+    daysFilterFn(data, filterString) {
+      var filterStrings = ['MWF', 'TTh', 'M-F','M', 'Tu', 'W', 'Th', 'F']
+      return filterString === 'Other' ? !filterStrings.includes(data) : data === filterString
+    },
     numFilterFn(data ,filterString) {
+      console.log(filterString)
       return data.toString()[0] === filterString[0]
     },
     timesFilterFn(data, filterString) {
@@ -716,6 +733,7 @@ export default {
       }
       else if (key === 'type') {
         this.getStolafTableRows()
+        this.resetFilters()
       }
       else if (key === 'draft') {
         this.getUserTableRows()
