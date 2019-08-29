@@ -1,49 +1,55 @@
 <template>
   <div class="home">
-    <!-- Top Section Above Table -->
-    <more-info-modal v-bind:moreInfoData="moreInfoData"
-                     v-bind:modalName="'more-info'"/>
-    <div id="top-section">
-      <div id="top-section-selectors">
-        <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
-        <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
-        <button v-on:click="toggleShowHideOptions">Hide Columns</button>
-        <button v-on:click="resetColumns">Reset Columns</button>
+    <div id="mobile">
+      <b-table :data="stolafTableRows" :columns="columns"></b-table>
+    </div>
+    <div id="desktop">
+      <!-- Top Section Above Table -->
+      <more-info-modal v-bind:moreInfoData="moreInfoData"
+                       v-bind:modalName="'more-info'"/>
+      <div id="top-section">
+        <div id="top-section-selectors">
+          <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
+          <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
+          <button v-on:click="toggleShowHideOptions">Hide Columns</button>
+          <button v-on:click="resetColumns">Reset Columns</button>
+        </div>
+        <div id="hide-options-container">
+          <hide-options 
+            v-if="showHideOptions"
+            v-bind:visibleColumns="visibleColumns"
+            v-on:newHideOptions="updateHideOptions"/>
+        </div>
       </div>
-      <div id="hide-options-container">
-        <hide-options 
-          v-if="showHideOptions"
+      <!-- User Table -->
+      <div id="user-section">
+        <div id="user-courses-table-options">
+          <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
+        </div>
+        <user-courses-table
+          v-bind:rows="userTableRows"
+          v-bind:selectedValues="selectedValues"
+          v-on:rowsChanged="getUserTableRows"
+          v-bind:columns="userColumns"
+          v-on:showMoreInfo="showMoreInfo"
+          />
+      </div>
+      <!-- Stolaf Table -->
+      <div id="stolaf-section">
+        <div id="stolaf-courses-table-options">
+          <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
+          <button v-on:click="resetFilters">Reset Filters</button>
+        </div>
+        <stolaf-courses-table
+          v-on:showMoreInfo="showMoreInfo"
+          v-bind:rows="stolafTableRows"
+          v-bind:selectedValues="selectedValues"
+          v-on:rowsChanged="getUserTableRows"
           v-bind:visibleColumns="visibleColumns"
-          v-on:newHideOptions="updateHideOptions"/>
+          v-bind:columns="stolafColumns()"
+          />
       </div>
-    </div>
-    <!-- User Table -->
-    <div id="user-section">
-      <div id="user-courses-table-options">
-        <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
-      </div>
-      <user-courses-table
-        v-bind:rows="userTableRows"
-        v-bind:selectedValues="selectedValues"
-        v-on:rowsChanged="getUserTableRows"
-        v-bind:columns="userColumns"
-        v-on:showMoreInfo="showMoreInfo"
-        />
-    </div>
-    <!-- Stolaf Table -->
-    <div id="stolaf-section">
-      <div id="stolaf-courses-table-options">
-        <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
-        <button v-on:click="resetFilters">Reset Filters</button>
-      </div>
-      <stolaf-courses-table
-        v-on:showMoreInfo="showMoreInfo"
-        v-bind:rows="stolafTableRows"
-        v-bind:selectedValues="selectedValues"
-        v-on:rowsChanged="getUserTableRows"
-        v-bind:visibleColumns="visibleColumns"
-        v-bind:columns="stolafColumns()"
-        />
+      
     </div>
   </div>
 </template>
@@ -83,6 +89,65 @@ export default {
   },
   data() {
     return {
+      data: [
+          { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
+          { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
+          { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
+          { 'id': 4, 'first_name': 'Clarence', 'last_name': 'Flores', 'date': '2016-04-10 10:28:46', 'gender': 'Male' },
+          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
+      ],
+      columns: [
+          {
+              field: 'status',
+              label: 'Status Name',
+          },
+          {
+              field: 'credits',
+              label: 'Credits Name',
+          },
+          {
+              field: 'name',
+              label: 'Name',
+              centered: true
+          },
+          {
+              field: 'dept',
+              label: 'Dept',
+          },
+          {
+              field: 'num',
+              label: 'Num',
+          },
+          {
+              field: 'gereqs',
+              label: 'Gereqs',
+          },
+          {
+              field: 'days',
+              label: 'Days',
+          },
+          {
+              field: 'times',
+              label: 'Times',
+          },
+          {
+              field: 'prof',
+              label: 'Prof',
+          },
+          {
+              field: 'rating',
+              label: 'Rating',
+          },
+          {
+              field: 'difficulty',
+              label: 'Difficulty',
+          },
+          {
+              field: 'reviews',
+              label: 'Reviews',
+          },
+
+      ],
       /* Info Shown on more info modal */
       moreInfoData: {},
       /* Two Stolaf Columns that switch back and forth when Reset Filters button is pressed */ 
@@ -782,6 +847,10 @@ export default {
 </script>
 
 <style>
+
+#mobile {
+  padding: 30px;
+}
 
 #hide-options-container {
   padding: 10px 30px;

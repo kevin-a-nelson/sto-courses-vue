@@ -13,6 +13,11 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
+
+Vue.use(Buefy)
+
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/"
@@ -23,7 +28,7 @@ Vue.use(VModal)
 Vue.component('multiselect', Multiselect) 
 Vue.component('dropdown', DropDown)
 Vue.use(Notifications)
-Vue.use(BootstrapVue)
+// Vue.use(BootstrapVue)
 
 new Vue({
   router,
