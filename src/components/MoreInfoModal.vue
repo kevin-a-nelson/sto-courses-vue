@@ -1,7 +1,8 @@
 <template>
   <div>
     <modal :name="modalName"
-           :height="700"
+           width="60%"
+           height="auto"
     >
       <div id="info-container">
         <div class="spacing">

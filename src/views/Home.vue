@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    <filters-modal />
+  <div>
     <div id="mobile" v-if="screenWidthLessThan(600)">
+      <filters-modal />
       <div id="mobile-buttons">
         <div>
           <b-button v-on:click="filtersModal" class="mobile-button"type="is-info">Filters</b-button>
@@ -50,6 +50,7 @@
       <div id="stolaf-section">
         <div id="stolaf-courses-table-options">
           <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
+
           <b-button type="is-info" v-on:click="resetFilters">Reset Filters</b-button>
         </div>
         <stolaf-courses-table
@@ -61,7 +62,6 @@
           v-bind:columns="stolafColumns()"
           />
       </div>
-      
     </div>
   </div>
 </template>

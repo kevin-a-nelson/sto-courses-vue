@@ -1,6 +1,7 @@
 <template>
   <div id="stolaf-courses-table">
     <!-- Notifications -->
+    <img :src="'@/assets/logo.png'">
     <notifications group="foo" position="top right"/>
     <!-- Table -->
     <vue-good-table
@@ -10,29 +11,35 @@
       styleClass="vgt-table condensed bordered"
       :pagination-options="paginationOptions"
       >
-    <!-- Table Modifications -->
+    <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
-        <div v-if="props.column.field == 'actions'">
-          <b-button class="action-button" type="is-info" v-on:click="moreInfo(props.row)">View</b-button>
-          <b-button class="action-button" type="is-info" v-on:click="addCourse(props.row)" >Add</b-button>
+        <div>
+          <div v-if="props.column.field == 'actions'" style="min-width: 115px;">
+            <b-button class="action-button" type="is-info" v-on:click="moreInfo(props.row)">
+              <eye-icon /> 
+            </b-button>
+            <b-button class="action-button" type="is-info" v-on:click="addCourse(props.row)" >
+              <plus-icon />
+            </b-button>
+          </div>
+          <div v-else-if="props.column.field == 'prof'">
+              <a v-if="props.row.prof_url" 
+                 target="_blank" 
+                 :href="`${props.row.prof_url}`">
+                 {{ props.row.prof }}
+              </a>
+              <span v-else>
+                {{ props.row.prof }}
+              </span>
+          </div>
+          <div style="min-width: 105px;" v-else-if="props.column.field == 'rating_difference_reviews'">
+            {{ props.row.rating_difference_reviews }}
+          </div>
+          <span v-else>
+            {{props.formattedRow[props.column.field]}}
+          </span>
         </div>
-        <div v-else-if="props.column.field == 'prof'">
-            <a v-if="props.row.prof_url" 
-               target="_blank" 
-               :href="`${props.row.prof_url}`">
-               {{ props.row.prof }}
-            </a>
-            <span v-else>
-              {{ props.row.prof }}
-            </span>
-        </div>
-        <div style="min-width: 105px;" v-else-if="props.column.field == 'rating_difference_reviews'">
-          {{ props.row.rating_difference_reviews }}
-        </div>
-        <span v-else>
-          {{props.formattedRow[props.column.field]}}
-        </span>
       </template>
     </vue-good-table>
   </div>
@@ -50,6 +57,8 @@ import DraftSelector from './DraftSelector.vue'
 
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
+import Plus from '@/assets/plus.png'
+import Logo from '@/assets/logo.png'
 
 export default {
   name: 'stolaf-courses-table',
@@ -453,73 +462,11 @@ export default {
 
 <style>
 
-#stolaf-courses-table {
-  /*background: #FF0000;*/
-  /*background: url(https://htmlcolorcodes.com/assets/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg);*/
-  /*background: url(https://png.pngtree.com/thumb_back/fw800/back_pic/04/37/13/24584a936be11a9.jpg);*/
-  /*height: 1000px;*/
-  height: 100%;
-}
-
-
-/*.my-notification {
-  padding: 10px;
-  margin: 0 5px 5px;
-
-  font-size: 12px;
-
-  color: #ffffff;
-  background: #44A4FC;
-  border-left: 5px solid #187FE7;
-
-  &.warn {
-    background: #ffb648;
-    border-left-color: #f48a06;
-  }
-
-  &.error {
-    background: #E54D42;
-    border-left-color: #B82E24;
-  }
-
-  &.success {
-    background: #68CD86;
-    border-left-color: #42A85F;
-  }
-}*/
-/*
-#stolaf-courses-table {
-  padding: 30px;
-}
-
-#selectors {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-#selectors * {
-  opacity: 0.8;
-  margin-right: 5px;
-}
-
-@media (max-width: 650px) {
-  #selectors {
-    display: block;
-  }
-
-  #selectors button {
-    width: 100%;
-  }
-
-  .selector * {
-    width: 100%;
-  }
-}
-*/
-vue-good-table {
-  height: 100%;
-  font-size: 5px;
-  background: blue;
+.action-button {
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  line-height: 0px;
 }
   
 </style>

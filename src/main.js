@@ -9,12 +9,18 @@ import Multiselect from 'vue-multiselect'
 import Notifications from 'vue-notification'
 import DropDown from 'vue-dropdowns'
 import VueDropdown from 'vue-dynamic-dropdown'
-import BootstrapVue from 'bootstrap-vue'
-// import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import EyeOutline from 'mdi-vue/EyeOutline.vue'
+import Plus from 'mdi-vue/Plus.vue'
+
+Vue.component('eye-icon', EyeOutline)
+Vue.component('plus-icon', Plus)
+
+
+
+
 
 import Buefy from 'buefy'
-
 Vue.use(Buefy)
 
 

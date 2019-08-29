@@ -1,7 +1,7 @@
 <template>
   <div>
     <form>
-      <b-select v-model="selectedYear" 
+      <b-select v-model="selectedYear"  
                 @input="newYearSelected">
         <option
           v-for="year in years"
