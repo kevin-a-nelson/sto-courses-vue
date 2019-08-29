@@ -7,7 +7,17 @@
         <div v-if="props.column.field == 'actions'">
           <button v-on:click="showMoreInfo(props.row)">View</button>
           <button v-on:click="removeCourse(props.row.id)">Remove</button>
+          <button v-on:click="removeCourse(props.row.id)">=></button>
         </div>
+      </template>
+      <template slot="table-column" slot-scope="props">
+         <span v-if="props.column.label =='Actions'">
+            {{ props.column.label }}
+            <button>=></button>
+         </span>
+         <span v-else>
+            {{props.column.label}}
+         </span>
       </template>
     </vue-good-table>
     <!-- <more-info-modal v-bind:moreInfoData="moreInfoData"/> -->

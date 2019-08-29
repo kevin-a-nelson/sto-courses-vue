@@ -1,5 +1,7 @@
 <template>
   <div id="stolaf-courses-table">
+    <!-- Notifications -->
+    <notifications group="foo" position="top right"/>
     <!-- Table -->
     <vue-good-table
       :columns="columns"
@@ -66,7 +68,7 @@ export default {
       paginationOptions: {
         enabled: true,
         mode: 'pages',
-        perPage: 5,
+        perPage: 1000,
         position: 'top',
         perPageDropdown: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         dropdownAllowAll: true,
@@ -320,21 +322,50 @@ export default {
       var semester = this.selectedValues.semester
       var draft = this.selectedValues.draft
       var term = `${year}${semester}`
+
+      var course_name = row.name
+      var semesterStr = this.intSemesterToStr(semester)
+      var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
+
       axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
            .then(response => {
-            // var course_name = row.name
-            // var semesterStr = this.intSemesterToStr(semester)
-            // var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
-              // this.showNotification('foo', 'success' , text)
-              // this.test()
+              this.showNotification('foo', 'success' , text)
               this.$emit('rowsChanged')
            })
            .catch(error => {
-              // this.showNotification('foo', 'warn' , 'you already have that course')
+              this.showNotification('foo', 'error' , 'You already have that course')
            })
     },
     moreInfo(row) {
       this.$emit('showMoreInfo', row)
+    },
+    showNotification(group, type, text) {
+      this.$notify({
+        group: group,
+        type: type,
+        text: text
+      });
+    },
+    intSemesterToStr(semesterInt) {
+      var semesterStr = ''
+      switch(semesterInt) {
+        case 1:
+          semesterStr = 'Fall'
+          break;
+        case 2:
+          semesterStr = 'Interim'
+          break;
+        case 3:
+          semesterStr = 'Spring'
+          break;
+        case 4:
+          semesterStr = 'Summer Session 1'
+          break;
+        case 5:
+          semesterStr = 'Summer Session 2'
+          break;
+      }
+      return semesterStr
     },
     // reviewsFilterFn(data, filterString) {
     //   return data >= Number(filterString)
@@ -408,34 +439,6 @@ export default {
     //   axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
     //     this.rows = response.data.courses
     //   })
-    // },
-    // intSemesterToStr(semesterInt) {
-    //   var semesterStr = ''
-    //   switch(semesterInt) {
-    //     case 1:
-    //       semesterStr = 'Fall'
-    //       break;
-    //     case 2:
-    //       semesterStr = 'Interim'
-    //       break;
-    //     case 3:
-    //       semesterStr = 'Spring'
-    //       break;
-    //     case 4:
-    //       semesterStr = 'Summer Session 1'
-    //       break;
-    //     case 5:
-    //       semesterStr = 'Summer Session 2'
-    //       break;
-    //   }
-    //   return semesterStr
-    // },
-    // showNotification(group, type, text) {
-    //   this.$notify({
-    //     group: group,
-    //     type: type,
-    //     text: text
-    //   });
     // },
     // setSelectedValues(key, value) {
     //   this.selectedValues[key] = value

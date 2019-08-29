@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <div class="background-image"></div>
+<!--       <dropdown :options="arrayOfObjects" :selected="object" v-on:updateOption="methodToRunOnSelect"></dropdown>
+      <dropdown :options="arrayOfObjects2" :selected="object2" v-on:updateOption="methodToRunOnSelect"></dropdown> -->
       <!-- <router-link to="/signup">Signup</router-link> | -->
       <!-- <router-link to="/login">Login</router-link> | -->
     </div>
@@ -15,7 +16,21 @@
 export default {
   data() {
     return {
-      test: 'this is global'
+      test: 'this is global',
+      selected: null,
+      options: [
+        { value: null, text: 'Please select an option' },
+        { value: 'a', text: 'This is First option' },
+        { value: 'b', text: 'Selected Option' },
+        { value: { C: '3PO' }, text: 'This is an option with object value' },
+        { value: 'd', text: 'This one is disabled', disabled: true }
+      ]
+    }
+  },
+  methods: {
+    methodToRunOnSelect(payload) {
+      console.log(payload)
+      this.object = payload;
     }
   }
 }
@@ -32,22 +47,9 @@ export default {
   height: 100%;
 }
 
-.background-image {
-  background: blue;
-  height: 100%;
-}
-
-.vgt-table{ 
-  overflow-y: auto; height: 100px; 
-}
-.vgt-table th { 
-  position: sticky; top: 0; 
-}
-
-
-/*#nav {
+#nav {
   padding: 30px;
-}*/
+}
 
 #nav a {
   font-weight: bold;

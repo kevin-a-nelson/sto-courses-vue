@@ -83,6 +83,7 @@ export default {
   },
   data() {
     return {
+      /* Info Shown on more info modal */
       moreInfoData: {},
       /* Two Stolaf Columns that switch back and forth when Reset Filters button is pressed */ 
       stolafColumns1: [
