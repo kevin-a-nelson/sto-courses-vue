@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <!-- {{ filterFunctions() }} -->
+    <!-- Top Section Above Table -->
     <div id="top-section">
       <div id="top-section-selectors">
         <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
@@ -14,19 +16,7 @@
           v-on:newHideOptions="updateHideOptions"/>
       </div>
     </div>
-    <div id="stolaf-section">
-      <div id="stolaf-courses-table-options">
-        <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
-        <button>Reset Filters</button>
-      </div>
-      <stolaf-courses-table 
-        v-bind:rows="stolafTableRows"
-        v-bind:selectedValues="selectedValues"
-        v-on:rowsChanged="getUserTableRows"
-        v-bind:visibleColumns="visibleColumns"
-        v-bind:columns="stolafColumns"
-        />
-    </div>
+    <!-- User Table -->
     <div id="user-section">
       <div id="user-courses-table-options">
         <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
@@ -38,8 +28,24 @@
         v-bind:columns="userColumns"
         />
     </div>
+    <!-- Stolaf Table -->
+    <div id="stolaf-section">
+      <div id="stolaf-courses-table-options">
+        <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
+        <button v-on:click="resetFilters">Reset Filters</button>
+      </div>
+      <stolaf-courses-table 
+        v-bind:rows="stolafTableRows"
+        v-bind:selectedValues="selectedValues"
+        v-on:rowsChanged="getUserTableRows"
+        v-bind:visibleColumns="visibleColumns"
+        v-bind:columns="stolafColumns()"
+        />
+    </div>
   </div>
 </template>
+
+<!-- 08:00-08:55 -->
 
 <script>
 import StolafCoursesTable from '@/components/StolafCoursesTable.vue'
@@ -52,6 +58,7 @@ import axios from 'axios'
 import HideOptions from '@/components/HideOptions.vue'
 import { departments } from '@/components/dropDownItems/Departments'
 import { ges } from '@/components/dropDownItems/Ges'
+import { filterFunctions } from '@/components/FilterFunctions.js'
 
 export default {
   name: 'home',
@@ -71,7 +78,208 @@ export default {
   },
   data() {
     return {
-      stolafColumns: [
+      /* Two Stolaf Columns that switch back and forth when Reset Filters button is pressed */ 
+      stolafColumns1: [
+        {
+          label: 'Status', 
+          field: 'status',
+          hidden: false,
+          filterOptions: {
+            placeholder: 'All',
+            enabled: true,
+            filterDropdownItems: [
+              {text: 'Open', value: 'O'},
+              {text: 'Closed', value: 'C'},
+            ],
+          }
+        },
+        {
+          label: 'Seats',
+          field: 'seats',
+          hidden: false,
+          filterOptions: {
+          }
+        },
+        {
+          label: 'Credits',
+          field: 'credits',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+          },
+        },
+        { label: 'Name', 
+          field: 'name',
+          hidden: false,
+          filterOptions: {
+            placeholder: 'All',
+            filterValue: '',
+            enabled: true,
+          }
+        },
+        { 
+          label: 'Dept', 
+          field: 'dept',
+          hidden: false,
+          filterOptions: {
+            enabled: true,
+            filterValue: '',
+            placeholder: 'All',
+            filterDropdownItems: departments(),
+          }
+        },
+        { 
+          label: 'Num', 
+          field: 'num',
+          type: 'number',
+          hidden: false,
+          filterOptions: {
+            enabled: true,
+            filterValue: '',
+            placeholder: 'All',
+            filterDropdownItems: [
+             100, 200, 300 
+             ],
+            filterFn: this.numFilterFn
+          }
+        },
+        {
+          label: 'Sec',
+          field: 'sec',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            enabled: false,
+            placeholder: 'All'
+          }
+        },
+        {
+          label: 'Gereqs', 
+          field: 'gereqs',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'Any',
+            enabled: true,
+            filterDropdownItems: ges()
+          }
+        },
+        {
+          label: 'Days', 
+          field: 'days',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+          }
+        },
+        { label: 'Times', 
+          field: 'times',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+            filterDropdownItems: [
+              { text: '8 am', value: '08' },
+              { text: '9 am', value: '09' },
+              { text: '10 am', value: '10' },
+              { text: '11 am', value: '11' },
+              { text: '12', value: '12' },
+              { text: '1 pm', value: '13' },
+              { text: '2 pm', value: '14' },
+              { text: '3 pm', value: '15' },
+              { text: '4 pm', value: '16' },
+              { text: '5 pm', value: '17' },
+              { text: '6 pm', value: '18' },
+              { text: '7 pm', value: '19' },
+            ],
+            filterFn: this.timesFilterFn
+          }
+        },
+        { label: 'Prof', 
+          field: 'prof',
+          hidden: false,
+          filterOptions: {
+            placeholder: 'All',
+            enabled: true,
+          }
+        },
+        { label: 'Rating', 
+          field: 'rating',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+            filterDropdownItems: [
+              { text: '1 or more', value: 1 },
+              { text: '2 or more', value: 2 },
+              { text: '3 or more', value: 3 },
+              { text: '4 or more', value: 4 },
+            ],
+            filterFn: this.ratingFilterFn
+          },
+          type: 'number'
+        },
+        { label: 'Difficulty', 
+          field: 'difficulty',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+            filterDropdownItems: [
+              { text: '2 or less', value: 2 },
+              { text: '3 or less', value: 3 },
+              { text: '4 or less', value: 4 },
+            ],
+            filterFn: this.difficultyFilterFn
+          },
+          type: 'number'
+        },
+        {
+          label: 'Reviews', 
+          field: 'reviews',
+          hidden: false,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+            filterFn: this.reviewsFilterFn,
+            filterDropdownItems: [
+              { text: '5 or more', value: 5 },
+              { text: '10 or more', value: 10 },
+              { text: '15 or more', value: 15 },
+              { text: '20 or more', value: 20 },
+            ]
+          },
+          type: 'number'
+        },
+        {
+          label: 'Rating Difficulty Reviews',
+          field: 'rating_difference_reviews',
+          hidden: true,
+          filterOptions: {
+            filterValue: '',
+          }
+        },
+        { label: 'Prereqs', 
+          field: 'has_prereqs',
+          hidden: true,
+          filterOptions: {
+            filterValue: '',
+            placeholder: 'All',
+            enabled: true,
+          }
+        },
+        { label: 'Actions', 
+          field: 'actions',
+          hidden: false
+        },
+      ],
+      stolafColumns2: [
         {
           label: 'Status', 
           field: 'status',
@@ -182,6 +390,21 @@ export default {
             filterValue: '',
             placeholder: 'All',
             enabled: true,
+            filterDropdownItems: [
+              { text: '8 am', value: '08' },
+              { text: '9 am', value: '09' },
+              { text: '10 am', value: '10' },
+              { text: '11 am', value: '11' },
+              { text: '12', value: '12' },
+              { text: '1 pm', value: '13' },
+              { text: '2 pm', value: '14' },
+              { text: '3 pm', value: '15' },
+              { text: '4 pm', value: '16' },
+              { text: '5 pm', value: '17' },
+              { text: '6 pm', value: '18' },
+              { text: '7 pm', value: '19' },
+            ],
+            filterFn: this.timesFilterFn
           }
         },
         { label: 'Prof', 
@@ -265,6 +488,8 @@ export default {
           hidden: false
         },
       ],
+      /* Number used to switch stolafColumns1 to stolafColumns2 and vise versa */
+      stolafColumnNumber: 1,
       userColumns: [
         {
           label: 'Status', 
@@ -344,6 +569,7 @@ export default {
           hidden: false
         },
       ],
+      /* Used to Sort columns in hide columns */
       sortedVisibleColumns: [
         'Status',
         'Credits',
@@ -362,6 +588,7 @@ export default {
         'Prereqs',
         'Actions',      
       ],
+      /* Columns that are currently visible */
       visibleColumns: [
         'Status',
         'Name',
@@ -377,6 +604,7 @@ export default {
         'Prereqs',
         'Actions',
       ],
+      /* Columns that are shown when page refreshes or reset columns is pressed */
       defaultVisibleColumns: [
         'Status',
         'Name',
@@ -393,9 +621,11 @@ export default {
         'Actions',
       ],
 
+      /* Makes column multiselect visible when Hide columns button is pressed */
       showHideOptions: false,
       userTableRows: [],
       stolafTableRows: [],
+      /* Default Values */
       selectedValues: {
         year: 2019,
         semester: 1,
@@ -405,6 +635,29 @@ export default {
     }
   },
   methods: {
+    numFilterFn(data ,filterString) {
+      return data.toString()[0] === filterString[0]
+    },
+    timesFilterFn(data, filterString) {
+      data = data.split(',')
+      data = data.join('-')
+      data = data.split('-')
+      data = data.filter((elem, idx) => {
+        return idx % 2 === 0;
+      })
+      data = data.join(':')
+      data = data.split(':')
+      data = data.filter((elem, idx) => {
+        return idx % 2 === 0;
+      })
+      return data.includes(filterString)
+    },
+    resetFilters() {
+      this.stolafColumnNumber = this.stolafColumnNumber == 1 ? 2 : 1
+    },
+    stolafColumns() {
+      return this.stolafColumnNumber == 1 ? this.stolafColumns1 : this.stolafColumns2
+    },
     reviewsFilterFn(data, filterString) {
       return data >= Number(filterString)
     },
@@ -421,6 +674,7 @@ export default {
       }
       this.updateHideOptions(this.visibleColumns)
     },
+    /* Make columns that are selected in multiselect visible  */
     updateHideOptions(newVisibleColumns) {
       this.visibleColumns = []
       this.sortedVisibleColumns.forEach(column => {
@@ -428,12 +682,20 @@ export default {
           this.visibleColumns.push(column)
         }
       })
-      this.stolafColumns.forEach(column => {
+      this.stolafColumns1.forEach(column => {
         column.hidden = true
         if(newVisibleColumns.includes(column.label)) {
           column.hidden = false
         }
       })
+
+      this.stolafColumns2.forEach(column => {
+        column.hidden = true
+        if(newVisibleColumns.includes(column.label)) {
+          column.hidden = false
+        }        
+      })
+
       this.userColumns.forEach(column => {
         column.hidden = true
         if(newVisibleColumns.includes(column.label)) {
@@ -444,6 +706,7 @@ export default {
     toggleShowHideOptions() {
       this.showHideOptions = !this.showHideOptions
     },
+
     updateSelectedValuesAndRows(key, value) {
       this.selectedValues[key] = value
 
@@ -458,6 +721,7 @@ export default {
         this.getUserTableRows()
       }
     },
+    /* Get Stolaf Courses from backend API */
     getStolafTableRows() {
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester
@@ -470,6 +734,7 @@ export default {
         this.stolafTableRows = response.data.courses
       })
     },
+    /* Get User Courses from backend API */
     getUserTableRows() {
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester

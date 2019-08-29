@@ -1,8 +1,10 @@
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
+import { filterFunctions } from './FilterFunctions.js'
 
 export default [
-  { label: 'Status', 
+  { 
+    label: 'Status', 
     field: 'status',
     filterOptions: {
       placeholder: 'All',
