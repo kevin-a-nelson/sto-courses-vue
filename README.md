@@ -3,6 +3,7 @@ What I Learned
   - vue-good-table data table framework
   - rate my professor API
   - vue-material icon library
+  - Stolaf Courses API
 
 # sto-courses-vue
 
