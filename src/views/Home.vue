@@ -1,21 +1,6 @@
 <template>
   <div id="background-image">
-<!--     <div id="mobile" v-if="screenWidthLessThan(600)">
-      <filters-modal />
-      <div id="mobile-buttons">
-        <div>
-          <b-button v-on:click="filtersModal" class="mobile-button"type="is-info">Filters</b-button>
-        </div>
-        <div>
-          <b-button class="mobile-button"type="is-info">Hide Columns</b-button>
-        </div>
-        <div>
-          <b-button v-on:click="" class="mobile-button"type="is-info">Go to My Courses</b-button>
-        </div>
-      </div>
-      <b-table :data="stolafTableRows" :columns="columns"></b-table>
-    </div> -->
-    <div id="desktop" v-if="!screenWidthLessThan(600)">
+    <div id="home">
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
@@ -25,8 +10,8 @@
           <div id="top-section-selectors">
             <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
             <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
-  <!--           <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button>
-            <b-button type="is-info" v-on:click="resetColumns">Default Columns</b-button> -->
+            <!-- <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button> -->
+            <!-- <b-button type="is-info" v-on:click="resetColumns">Default Columns</b-button> -->
           </div>
           <div id="hide-options-container">
             <hide-options 
@@ -78,8 +63,6 @@
     </div>
   </div>
 </template>
-
-<!-- 08:00-08:55 -->
 
 <script>
 import StolafCoursesTable from '@/components/StolafCoursesTable.vue'
@@ -907,6 +890,10 @@ export default {
 
 <style>
 
+#home {
+  padding: 50px 0px 50px 0px;
+}
+
 #background-image {
   /*background: blue;*/
 /*  background: url(https://wallpapercave.com/wp/CToGD7f.jpg) fixed;
@@ -932,10 +919,11 @@ user-courses-table {
 }
 
 #website-header {
+  max-width: 1200px;
   background: #2c3e50;
   margin: 0px auto;
   margin-bottom: 30px;
-  width: 1200px;
+  width: 100%;
   border-radius: 10px;
   /*background: blue;*/
 }
@@ -1005,7 +993,7 @@ user-courses-table {
 
 #user-courses-table-options {
   padding: 20px;
-  width: 1200px;
+  width: 100%;
   margin: 0px auto;
   margin-bottom: 25px;
   background: #2c3e50;
@@ -1021,7 +1009,7 @@ user-courses-table {
 
 #stolaf-courses-table-options {
   padding: 20px;
-  width: 1200px;
+  width: 100%;
   margin: 0px auto;
   margin-bottom: 25px;
   background: #2c3e50;

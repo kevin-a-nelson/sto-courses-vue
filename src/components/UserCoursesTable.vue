@@ -13,34 +13,49 @@
             <plus-icon />
           </b-button>
         </div>
-        <div v-else-if="props.column.field == 'rating'" style="font-size: 30px; text-align: center;">
-          <span v-if="props.row.rating >= 4" style="color: lightgreen;">{{ props.row.rating }} </span>
+        <div v-else-if="props.column.field == 'prof'" style="font-weight: 600;">
+            <a v-if="props.row.prof_url"
+               target="_blank"
+               :href="`${props.row.prof_url}`"
+               style="color: #167df0; text-decoration: underline;">
+               {{ props.row.prof }}
+            </a>
+            <span v-else>
+              {{ props.row.prof }}
+            </span>
+        </div>
+        <div v-else-if="props.column.field == 'status'" style="font-size: 30px; text-align: center; font-weight: 900;">
+          <span v-if="props.row.status === 'C'" style="color: red;">{{ props.row.status }}</span>
+          <span v-else style="color: green;">{{ props.row.status }}</span>
+        </div>
+        <div v-else-if="props.column.field == 'rating'" style="font-size: 30px; text-align: center; font-weight: 900;">
+          <span v-if="props.row.rating >= 4" style="color: green;">{{ props.row.rating }} </span>
           <span v-else-if="props.row.rating >= 3" style="color: orange;">{{ props.row.rating }} </span>
           <span v-else-if="props.row.rating >= 2" style="color: orange;">{{ props.row.rating }} </span>
-          <span v-else-if="props.row.rating >= 1" style="color: red;">{{ props.row.rating }} </span>
+          <span v-else-if="props.row.rating >= 0" style="color: red;">{{ props.row.rating }} </span>
         </div>
-        <div v-else-if="props.column.field == 'difficulty'" style="font-size: 30px; text-align: center;">
-          <span v-if="props.row.difficulty >= 1" style="color: red;">{{ props.row.difficulty }} </span>
-          <span v-else-if="props.row.difficulty >= 2" style="color: orange;">{{ props.row.difficulty }} </span>
-          <span v-else-if="props.row.difficulty >= 3" style="color: orange;">{{ props.row.difficulty }} </span>
-          <span v-else-if="props.row.difficulty >= 4" style="color: green;">{{ props.row.difficulty }} </span>
+        <div v-else-if="props.column.field == 'difficulty'" style="font-size: 30px; text-align: center; font-weight: 900;">
+          <span v-if="props.row.difficulty <= 0" style="color: red;">{{ props.row.difficulty }} </span>
+          <span v-else-if="props.row.difficulty <= 2" style="color: orange;">{{ props.row.difficulty }} </span>
+          <span v-else-if="props.row.difficulty <= 3" style="color: orange;">{{ props.row.difficulty }} </span>
+          <span v-else-if="props.row.difficulty <= 4" style="color: green;">{{ props.row.difficulty }} </span>
         </div>
-        <div v-else-if="props.column.label == 'Reviews'" style="font-size: 30px; text-align: center;">
-          <span v-if="props.row.reviews <= 5" style="color: red;">{{ props.row.reviews }} </span>
-          <span v-else-if="props.row.reviews <= 10" style="color: orange;">{{ props.row.reviews }} </span>
-          <span v-else-if="props.row.reviews <= 15" style="color: orange;">{{ props.row.reviews }} </span>
-          <span v-else-if="props.row.reviews <= 20" style="color: green;">{{ props.row.reviews }} </span>
+        <div v-else-if="props.column.label == 'Reviews'" style="font-size: 30px; text-align: center; font-weight: 900;">
+          <span v-if="props.row.reviews >= 20" style="color: green;">{{ props.row.reviews }} </span>
+          <span v-else-if="props.row.reviews >= 15" style="color: orange;">{{ props.row.reviews }} </span>
+          <span v-else-if="props.row.reviews >= 5" style="color: orange;">{{ props.row.reviews }} </span>
+          <span v-else-if="props.row.reviews >= 0" style="color: red;">{{ props.row.reviews }} </span>
+          <span v-else style="color: green;">{{ props.row.reviews }} </span>
         </div>
-        <span v-else>
+        <span v-else style="font-weight: 900;">
           {{props.formattedRow[props.column.field]}}
         </span>
       </template>
       <template slot="table-column" slot-scope="props">
-         <span v-if="props.column.label =='Actions'">
+         <span v-if="props.column.label =='Actions'" style="font-weight: 900;">
             {{ props.column.label }}
-            <button>=></button>
          </span>
-         <span v-else>
+         <span v-else style="font-weight: 900;">
             {{props.column.label}}
          </span>
       </template>
