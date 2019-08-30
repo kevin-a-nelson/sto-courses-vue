@@ -1,12 +1,10 @@
 <template>
   <div>
-    <b-field label="My Courses" id="draft-label">
-      <b-select v-model="selectedDraft" @input="newDraftSelected">
-        <option v-for="draft in drafts" :value="draft.value">
-          {{ draft.text }}
-        </option>
-      </b-select>
-    </b-field>
+    <b-select v-model="selectedDraft" @input="newDraftSelected" id="draft-selector">
+      <option v-for="draft in drafts" :value="draft.value">
+        {{ draft.text }}
+      </option>
+    </b-select>
   </div>
 </template>
 
@@ -35,9 +33,5 @@
 </script>
 
 <style>
-
-#draft-label {
-  font-size: 20px;
-}
 
 </style>

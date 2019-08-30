@@ -44,6 +44,11 @@ export default {
   width :100%;
 }
 
+td {
+/*  color: white;
+  background: #000080;*/
+}
+
 #nav a {
   font-weight: bold;
   color: black;

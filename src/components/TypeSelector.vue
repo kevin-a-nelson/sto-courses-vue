@@ -1,12 +1,10 @@
 <template>
   <div>
-    <b-field label="Stolaf Courses" id="stolaf-courses-label">
-      <b-select v-model="selectedType" @input="newTypeSelected">
-        <option v-for="type in types" :value="type.value">
-          {{ type.text }}
-        </option>
-      </b-select>
-    </b-field>
+    <b-select v-model="selectedType" @input="newTypeSelected">
+      <option v-for="type in types" :value="type.value">
+        {{ type.text }}
+      </option>
+    </b-select>
   </div>
 </template>
 

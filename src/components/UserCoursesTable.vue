@@ -1,7 +1,7 @@
 <template>
   <div id="user-courses-table">
     <vue-good-table
-      theme="black-rhino"
+      theme="nocturnal"
       :columns="columns"
       :rows="rows">
       <template slot="table-row" slot-scope="props">
@@ -14,7 +14,7 @@
           </b-button>
         </div>
         <div v-else-if="props.column.field == 'rating'" style="font-size: 30px; text-align: center;">
-          <span v-if="props.row.rating >= 4" style="color: green;">{{ props.row.rating }} </span>
+          <span v-if="props.row.rating >= 4" style="color: lightgreen;">{{ props.row.rating }} </span>
           <span v-else-if="props.row.rating >= 3" style="color: orange;">{{ props.row.rating }} </span>
           <span v-else-if="props.row.rating >= 2" style="color: orange;">{{ props.row.rating }} </span>
           <span v-else-if="props.row.rating >= 1" style="color: red;">{{ props.row.rating }} </span>

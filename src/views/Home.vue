@@ -1,8 +1,6 @@
 <template>
   <div id="background-image">
-    <h1 class="website-header">
-      Rate my Professor Course Planner</h1>
-    <div id="mobile" v-if="screenWidthLessThan(600)">
+<!--     <div id="mobile" v-if="screenWidthLessThan(600)">
       <filters-modal />
       <div id="mobile-buttons">
         <div>
@@ -16,29 +14,38 @@
         </div>
       </div>
       <b-table :data="stolafTableRows" :columns="columns"></b-table>
-    </div>
+    </div> -->
     <div id="desktop" v-if="!screenWidthLessThan(600)">
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
-      <div id="top-section">
-        <div id="top-section-selectors">
-          <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
-          <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
-<!--           <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button>
-          <b-button type="is-info" v-on:click="resetColumns">Default Columns</b-button> -->
-        </div>
-        <div id="hide-options-container">
-          <hide-options 
-            v-if="showHideOptions"
-            v-bind:visibleColumns="visibleColumns"
-            v-on:newHideOptions="updateHideOptions"/>
+      <div id="website-header">
+        <h1 class="website-header-title">Rate my Professor Course Planner</h1>
+        <div id="top-section">
+          <div id="top-section-selectors">
+            <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
+            <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
+  <!--           <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button>
+            <b-button type="is-info" v-on:click="resetColumns">Default Columns</b-button> -->
+          </div>
+          <div id="hide-options-container">
+            <hide-options 
+              v-if="showHideOptions"
+              v-bind:visibleColumns="visibleColumns"
+              v-on:newHideOptions="updateHideOptions"/>
+          </div>
         </div>
       </div>
       <!-- User Table -->
       <div id="user-section">
         <div id="user-courses-table-options">
-          <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
+          <div>
+            <h1 class="website-header-title">My Courses</h1>
+          </div>
+          <div>
+            <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
+            <!-- <b-button type="is-info" v-on:click="resetFilters">Schedule</b-button> -->
+          </div>
         </div>
         <user-courses-table
           v-bind:rows="userTableRows"
@@ -51,8 +58,13 @@
       <!-- Stolaf Table -->
       <div id="stolaf-section">
         <div id="stolaf-courses-table-options">
-          <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
-          <b-button id="reset-filters-btn" type="is-info" v-on:click="resetFilters">Reset Filters</b-button>
+          <div>
+            <h1 class="website-header-title">Stolaf Courses</h1>
+          </div>
+          <div>
+            <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
+          </div>
+          <!-- <b-button id="reset-filters-btn" type="is-info" v-on:click="resetFilters">Reset Filters</b-button> -->
         </div>
         <stolaf-courses-table
           v-on:showMoreInfo="showMoreInfo"
@@ -896,12 +908,17 @@ export default {
 <style>
 
 #background-image {
-  width: 100%;
-  height: 100%;
   /*background: blue;*/
-  background: url(https://wallpapercave.com/wp/CToGD7f.jpg) fixed;
+/*  background: url(https://wallpapercave.com/wp/CToGD7f.jpg) fixed;
+  background: url(https://st4.depositphotos.com/1026394/21452/v/600/depositphotos_214525572-stock-video-royal-navy-deep-blue-geometric.jpg) fixed;
+  background: url(https://media.wired.com/photos/5a593a7ff11e325008172bc2/master/pass/pulsar-831502910.jpg) fixed;*/
+  /*background: url(https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80) fixed no-repeat;*/
 
-  /*background: url(https://images4.alphacoders.com/106/thumb-1920-106826.jpg) fixed;*/
+  background: url(https://images4.alphacoders.com/106/thumb-1920-106826.jpg) fixed;
+}
+
+#desktop {
+  padding-top: 50px;
 }
 
 user-courses-table {
@@ -914,7 +931,16 @@ user-courses-table {
   top: 32px;
 }
 
-.website-header {
+#website-header {
+  background: #2c3e50;
+  margin: 0px auto;
+  margin-bottom: 30px;
+  width: 1200px;
+  border-radius: 10px;
+  /*background: blue;*/
+}
+
+.website-header-title {
   color: white;
   font-size: 40px;
 }
@@ -978,18 +1004,33 @@ user-courses-table {
 }
 
 #user-courses-table-options {
-  margin-bottom: 10px;
-  display: flex;
-  width: 400px;
-  justify-content: space-between;
+  padding: 20px;
+  width: 1200px;
+  margin: 0px auto;
+  margin-bottom: 25px;
+  background: #2c3e50;
+  border-radius: 5px;
+  /*display: flex;*/
+  /*justify-content: space-between;*/
+}
+
+#user-courses-table-options * {
+  text-align: center;
+  margin-bottom: 5px;
 }
 
 #stolaf-courses-table-options {
-  margin-bottom: 10px;
-  display: flex;
-  width: 340px;
-  /*background: blue;*/
-  justify-content: space-between;
+  padding: 20px;
+  width: 1200px;
+  margin: 0px auto;
+  margin-bottom: 25px;
+  background: #2c3e50;
+  border-radius: 5px;
 }
+
+#stolaf-courses-table-options * {
+  text-align: center;
+}
+
 
 </style>
