@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/signup">Signup</router-link> |
-      <router-link to="/login">Login</router-link> |
+<!--       <router-link to="/signup">Signup</router-link> |
+      <router-link to="/login">Login</router-link> | -->
     </div>
     <router-view/>
   </div>
@@ -37,7 +37,7 @@ export default {
 }
 
 #nav {
-  padding: 10px;
+  /*padding: 10px;*/
   /*background: green;*/
   /*float: right;*/
   text-align: right;

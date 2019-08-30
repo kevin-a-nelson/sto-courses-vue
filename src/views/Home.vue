@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <h1 class="website-header">Rate my Professor Course Planner</h1>
+  <div id="background-image">
+    <h1 class="website-header">
+      Rate my Professor Course Planner</h1>
     <div id="mobile" v-if="screenWidthLessThan(600)">
       <filters-modal />
       <div id="mobile-buttons">
@@ -24,8 +25,8 @@
         <div id="top-section-selectors">
           <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
           <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
-          <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button>
-          <b-button type="is-info" v-on:click="resetColumns">Default Columns</b-button>
+<!--           <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button>
+          <b-button type="is-info" v-on:click="resetColumns">Default Columns</b-button> -->
         </div>
         <div id="hide-options-container">
           <hide-options 
@@ -707,14 +708,13 @@ export default {
         'Difficulty',
         'Reviews',
         'Prereqs',
-        'Actions',      
+        'Actions',
       ],
       /* Columns that are currently visible */
       visibleColumns: [
         'Status',
         'Name',
         'Dept',
-        'Num',
         'Gereqs',
         'Days',
         'Times',
@@ -722,7 +722,7 @@ export default {
         'Rating',
         'Difficulty',
         'Reviews',
-        'Prereqs',
+        // 'Prereqs',
         'Actions',
       ],
       /* Columns that are shown when page refreshes or reset columns is pressed */
@@ -895,11 +895,27 @@ export default {
 
 <style>
 
+#background-image {
+  width: 100%;
+  height: 100%;
+  /*background: blue;*/
+  background: url(https://wallpapercave.com/wp/CToGD7f.jpg) fixed;
+
+  /*background: url(https://images4.alphacoders.com/106/thumb-1920-106826.jpg) fixed;*/
+}
+
+user-courses-table {
+  max-width: 500px;
+}
+
+
+
 #reset-filters-btn {
   top: 32px;
 }
 
 .website-header {
+  color: white;
   font-size: 40px;
 }
 
@@ -934,23 +950,31 @@ export default {
 }
 
 #top-section-selectors {
-  margin: 10px auto 0 auto;
-  width: 600px;
-  justify-content: space-between;
-  display: flex;
+  margin: 0px auto;
+  margin-top: 20px;
+  width: 300px;
 }
+
+#top-section-selectors * {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+
 
 #top-section-selectors button {
   border-radius: 5px;
 }
 
 #user-section {
-  padding: 0px 30px 30px 30px;
+  margin: 0px auto;
+  max-width: 1200px;
+  margin-bottom: 50px;
 }
 
 #stolaf-section {
-  padding: 30px;
-  padding: 0px 30px 30px 30px;
+  max-width: 1200px;
+  margin: 0px auto;
 }
 
 #user-courses-table-options {
