@@ -1,7 +1,7 @@
 <template>
   <div>
     <modal :name="modalName"
-           width="60%"
+           width="80%"
            height="auto"
     >
       <div id="info-container">
@@ -29,10 +29,10 @@
 </template>
 
 <script>
-  export default {
-    name: 'more-info-modal',
-    props: ['moreInfoData', 'modalName']
-  }
+export default {
+  name: 'more-info-modal',
+  props: ['moreInfoData', 'modalName']
+}
 </script>
 
 <style>

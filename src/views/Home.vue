@@ -22,7 +22,7 @@
         </div>
       </div>
       <!-- User Table -->
-      <div id="user-section">
+      <div id="user-section" name="my-courses">
         <div id="user-courses-table-options">
           <div>
             <h1 class="website-header-title">My Courses</h1>
@@ -41,7 +41,7 @@
           />
       </div>
       <!-- Stolaf Table -->
-      <div id="stolaf-section">
+      <div id="stolaf-section" name="stolaf-courses">
         <div id="stolaf-courses-table-options">
           <div>
             <h1 class="website-header-title">Stolaf Courses</h1>
@@ -65,13 +65,14 @@
 </template>
 
 <script>
+import axios from 'axios'
 import StolafCoursesTable from '@/components/StolafCoursesTable.vue'
+import MyNavBar from '@/components/MyNavBar.vue'
 import UserCoursesTable from '@/components/UserCoursesTable'
 import YearSelector from '@/components/YearSelector.vue'
 import SemesterSelector from '@/components/SemesterSelector.vue'
 import DraftSelector from '@/components/DraftSelector.vue'
 import TypeSelector from '@/components/TypeSelector.vue'
-import axios from 'axios'
 import HideOptions from '@/components/HideOptions.vue'
 import { departments } from '@/components/dropDownItems/Departments'
 import { ges } from '@/components/dropDownItems/Ges'
@@ -83,6 +84,7 @@ import 'buefy/dist/buefy.css'
 export default {
   name: 'home',
   components: {
+    MyNavBar,
     FiltersModal,
     MobileTable,
     MoreInfoModal,
@@ -923,6 +925,7 @@ user-courses-table {
   background: #2c3e50;
   margin: 0px auto;
   margin-bottom: 30px;
+  margin-top: 50px;
   width: 100%;
   border-radius: 10px;
   /*background: blue;*/
