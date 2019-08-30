@@ -4,6 +4,7 @@
     <notifications group="foo" position="top right"/>
     <!-- Table -->
     <vue-good-table
+      :hoverable="true"
       theme="nocturnal"
       :columns="columns"
       :rows="rows"
@@ -42,30 +43,20 @@
               </span>
           </div>
           <div v-else-if="props.column.field == 'status'" style="font-size: 30px; text-align: center; font-weight: 900;">
-            <span v-if="props.row.status === 'C'" style="color: red;">{{ props.row.status }}</span>
-            <span v-else style="color: green;">{{ props.row.status }}</span>
+            <span v-if="props.row.status === 'C'" class="red">{{ props.row.status }}</span>
+            <span v-else class="green">{{ props.row.status }}</span>
           </div>
           <div v-else-if="props.column.field == 'rating'" style="font-size: 30px; text-align: center; font-weight: 900;">
-            <span v-if="props.row.rating == 0" style="color: #167df0;">N/A</span>
-            <span v-else-if="props.row.rating >= 4" style="color: green;">{{ props.row.rating }} </span>
-            <span v-else-if="props.row.rating >= 3" style="color: orange;">{{ props.row.rating }} </span>
-            <span v-else-if="props.row.rating >= 2" style="color: orange;">{{ props.row.rating }} </span>
-            <span v-else-if="props.row.rating >= 0" style="color: red;">{{ props.row.rating }} </span>
+            <span v-if="props.row.rating == 0" class="my-blue">N/A</span>
+            <span v-else :class="ratingColor(props.row.rating)">{{ props.row.rating }}</span>
           </div>
           <div v-else-if="props.column.field == 'difficulty'" style="font-size: 30px; text-align: center; font-weight: 900;">
-            <span v-if="props.row.rating == 0" style="color: #167df0;">N/A</span>
-            <span v-else-if="props.row.difficulty < 1" style="color: green;">{{ props.row.difficulty }} </span>
-            <span v-else-if="props.row.difficulty < 2" style="color: green;">{{ props.row.difficulty }} </span>
-            <span v-else-if="props.row.difficulty < 3" style="color: orange;">{{ props.row.difficulty }} </span>
-            <span v-else-if="props.row.difficulty < 4" style="color: orange;">{{ props.row.difficulty }} </span>
-            <span v-else-if="props.row.difficulty <= 5" style="color: red;">{{ props.row.difficulty }} </span>
+            <span v-if="props.row.rating == 0" class="my-blue">N/A</span>
+            <span v-else :class="difficultyColor(props.row.difficulty)">{{ props.row.difficulty }}</span>
           </div>
           <div v-else-if="props.column.label == 'Reviews'" style="font-size: 30px; text-align: center; font-weight: 900;">
-            <span v-if="props.row.rating == 0" style="color: #167df0;">N/A</span>
-            <span v-else-if="props.row.reviews >= 20" style="color: green;">{{ props.row.reviews }} </span>
-            <span v-else-if="props.row.reviews >= 10" style="color: orange;">{{ props.row.reviews }} </span>
-            <span v-else-if="props.row.reviews >= 0" style="color: red;">{{ props.row.reviews }} </span>
-            <span v-else style="color: green;">{{ props.row.reviews }} </span>
+            <span v-if="props.row.reviews == 0" class="my-blue">N/A</span>
+            <span v-else :class="reviewsColor(props.row.reviews)"> {{ props.row.reviews }}</span>
           </div>
           <span v-else style="font-weight: 900;">
             {{props.formattedRow[props.column.field]}}
@@ -359,6 +350,42 @@ export default {
     }
   },
   methods: {
+    ratingColor(rating) {
+      rating = Number(rating)
+      var color = 'red'
+      if (rating < 2) {
+        color = 'red'
+      } else if(rating < 4) {
+        color = 'orange'
+      } else if (rating <= 5) {
+        color = 'green'
+      }
+      return color
+    },
+    difficultyColor(difficulty) {
+      difficulty = Number(difficulty)
+      var color = 'red'
+      if(difficulty < 2) {
+        color = 'green'
+      } else if (difficulty < 4) {
+        color = 'orange'
+      } else if (difficulty <= 5) {
+        color = 'red'
+      }
+      return color
+    },
+    reviewsColor(reviews) {
+      reviews = Number(reviews)
+      var color = 'red'
+      if(reviews < 10) {
+        color = 'red'
+      } else if (reviews < 20) {
+        color = 'orange'
+      } else {
+        color = 'green'
+      }
+      return color
+    },
     is_hidden(label) {
       return !this.visibleColumns.includes(label)
     },

@@ -41,4 +41,20 @@ export default {
   height: 100%;
 }
 
+.red {
+  color: HSL(370, 65%, 55%);
+}
+
+.orange {
+  color: orange;
+  color: HSL(400, 50%, 50%);
+}
+.green {
+  color: green;
+}
+
+.my-blue {
+  color: #167df0;
+}
+
 </style>

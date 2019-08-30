@@ -97,14 +97,14 @@ export default {
     HideOptions
   },
   created() {
-    window.addEventListener('resize', this.handleResize)
-    this.handleResize();
+    // window.addEventListener('resize', this.handleResize)
+    // this.handleResize();
     this.getStolafTableRows()
     this.getUserTableRows()
     this.updateHideOptions(this.visibleColumns)
   },
   destroyed() {
-    window.removeEventListener('resize', this.handleResize)
+    // window.removeEventListener('resize', this.handleResize)
   },
   data() {
     return {

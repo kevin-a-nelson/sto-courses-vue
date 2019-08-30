@@ -1,27 +1,41 @@
 <template>
-  <div id="navbar-container">
-    <b-navbar type="is-black">
+  <div>
+    <b-navbar type="is-black"
+              :fixed-top="true">    
         <template slot="brand">
-            <b-navbar-item href="https://github.com/SamuraiViking/sto-courses-vue" target='blank'>
+            <b-navbar-item href="/">
                 <img
-                    src="../assets/github_icon.png"
+                    src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
                     alt="Lightweight UI components for Vue.js based on Bulma"
                 >
+            </b-navbar-item>
+            <b-navbar-item href="#home" v-if="screenWidthBreakpoint()">
+                <strong>Home</strong>
+            </b-navbar-item>
+            <b-navbar-item href="#user-section" v-if="screenWidthBreakpoint()">
+                <strong>My Courses</strong>
+            </b-navbar-item>
+            <b-navbar-item href="#stolaf-section" v-if="screenWidthBreakpoint()">
+                <strong>Stolaf Courses</strong>
+            </b-navbar-item>
+            <b-navbar-item href="#stolaf-section" v-if="screenWidthBreakpoint()">
+                <strong>Contact</strong>
             </b-navbar-item>
         </template>
         <template slot="start">
             <b-navbar-item href="#home">
-                <p class="navbar-item" style="color: #eee; font-weight: 600;">Home</p>
+                <strong>Home</strong>
             </b-navbar-item>
             <b-navbar-item href="#user-section">
-                <p class="navbar-item" style="color: #eee; font-weight: 600;">My Courses</p>
+                <strong>My Courses</strong>
             </b-navbar-item>
             <b-navbar-item href="#stolaf-section">
-                <p class="navbar-item" style="color: #eee; font-weight: 600;"> Stolaf Courses</p>
+                <strong>Stolaf Courses</strong>
             </b-navbar-item>
-            <b-navbar-item href="#contact">
-                <p class="navbar-item" style="color: #eee; font-weight: 600;"> Contact</p>
+            <b-navbar-item href="#stolaf-section">
+                <strong>Contact</strong>
             </b-navbar-item>
+
         </template>
 
         <template slot="end">
@@ -30,11 +44,12 @@
                     <a class="button is-info">
                         <strong>Sign up</strong>
                     </a>
-                    <a class="button is-info">
+                    <a class="button is-light">
                         <strong>Log in</strong>
                     </a>
                 </div>
             </b-navbar-item>
+            <p style="color: white;">{{ this.window.width }} </p>
         </template>
     </b-navbar>
   </div>
@@ -42,21 +57,36 @@
 
 <script>
   export default {
-    name: 'my-nav-bar'
+    name: 'my-nav-bar',
+    data() {
+      return {
+        window: {
+          width: 0,
+          height: 0
+        }
+      }
+    },
+    created() {
+      window.addEventListener('resize', this.handleResize)
+      this.handleResize();
+    },
+    destroyed() {
+      window.removeEventListener('resize', this.handleResize)
+    },
+    methods: {
+      handleResize() {
+        this.window.width = window.innerWidth;
+        this.window.height = window.innerHeight;
+      },
+      screenWidthBreakpoint() {
+        return this.window.width < 1029 && this.window.width > 500
+      }
+    }
   }
 </script>
 
 <style>
 
-#navbar-container {
-  width: 100%;
-  position: fixed;
-  z-index: 99;
-}
 
-.navbar-item {
-  color: white;
-  font-size: 15px;
-}
 
 </style>

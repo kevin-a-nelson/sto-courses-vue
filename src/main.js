@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import 'vue-good-table/dist/vue-good-table.css';
 import VueGoodTablePlugin from 'vue-good-table';
 import axios from 'axios'
 import VModal from 'vue-js-modal'
@@ -9,6 +8,7 @@ import Multiselect from 'vue-multiselect'
 import Notifications from 'vue-notification'
 import DropDown from 'vue-dropdowns'
 import VueDropdown from 'vue-dynamic-dropdown'
+import 'vue-good-table/dist/vue-good-table.css';
 
 import EyeOutline from 'mdi-vue/EyeOutline.vue'
 import Plus from 'mdi-vue/Plus.vue'
