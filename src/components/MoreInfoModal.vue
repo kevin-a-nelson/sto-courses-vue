@@ -11,19 +11,20 @@
           </h5>
         </div>
         <div class="spacing">
-          <h5>Prereqs</h5>
+          <h5 class="modal-label">Prereqs</h5>
             {{ moreInfoData.prereqs }}
         </div>
         <div class="spacing">
-          <h5>Description</h5>
+          <h5 class="modal-label">Description</h5>
           {{ moreInfoData.description }}
         </div>
 
         <div class="spacing">
-          <h5>Notes</h5>
+          <h5 class="modal-label">Notes</h5>
           {{ moreInfoData.notes }}
         </div>
       </div>
+      <b-button id="modal-close-btn">Close</b-button>
     </modal>
   </div>
 </template>
@@ -37,6 +38,22 @@ export default {
 
 <style>
 
+#name {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.modal-label {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+#modal-close-btn {
+  border-width: 3px;
+  height: 50px;
+  width: 100%;
+}
+
 .spacing {
   margin-bottom: 40px;
 }
@@ -48,6 +65,7 @@ export default {
 
 #info-container {
   padding: 30px;
+  /*background: #167df0;*/
 }
 
 </style>

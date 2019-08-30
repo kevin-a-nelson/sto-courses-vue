@@ -10,6 +10,13 @@
       :fixed-header="false"
       styleClass="vgt-table condensed bordered"
       :pagination-options="paginationOptions"
+      :sort-options="{
+        initialSortBy: [
+          { field: 'rating', type: 'desc' },
+          { field: 'reviews', type: 'desc' }
+        ]
+
+      }"
       >
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
@@ -47,16 +54,16 @@
           </div>
           <div v-else-if="props.column.field == 'difficulty'" style="font-size: 30px; text-align: center; font-weight: 900;">
             <span v-if="props.row.rating == 0" style="color: #167df0;">N/A</span>
-            <span v-else-if="props.row.difficulty <= 0" style="color: red;">{{ props.row.difficulty }} </span>
-            <span v-else-if="props.row.difficulty <= 2" style="color: orange;">{{ props.row.difficulty }} </span>
-            <span v-else-if="props.row.difficulty <= 3" style="color: orange;">{{ props.row.difficulty }} </span>
-            <span v-else-if="props.row.difficulty <= 4" style="color: green;">{{ props.row.difficulty }} </span>
+            <span v-else-if="props.row.difficulty < 1" style="color: green;">{{ props.row.difficulty }} </span>
+            <span v-else-if="props.row.difficulty < 2" style="color: green;">{{ props.row.difficulty }} </span>
+            <span v-else-if="props.row.difficulty < 3" style="color: orange;">{{ props.row.difficulty }} </span>
+            <span v-else-if="props.row.difficulty < 4" style="color: orange;">{{ props.row.difficulty }} </span>
+            <span v-else-if="props.row.difficulty <= 5" style="color: red;">{{ props.row.difficulty }} </span>
           </div>
           <div v-else-if="props.column.label == 'Reviews'" style="font-size: 30px; text-align: center; font-weight: 900;">
             <span v-if="props.row.rating == 0" style="color: #167df0;">N/A</span>
             <span v-else-if="props.row.reviews >= 20" style="color: green;">{{ props.row.reviews }} </span>
-            <span v-else-if="props.row.reviews >= 15" style="color: orange;">{{ props.row.reviews }} </span>
-            <span v-else-if="props.row.reviews >= 5" style="color: orange;">{{ props.row.reviews }} </span>
+            <span v-else-if="props.row.reviews >= 10" style="color: orange;">{{ props.row.reviews }} </span>
             <span v-else-if="props.row.reviews >= 0" style="color: red;">{{ props.row.reviews }} </span>
             <span v-else style="color: green;">{{ props.row.reviews }} </span>
           </div>

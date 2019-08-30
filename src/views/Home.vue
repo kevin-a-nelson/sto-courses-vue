@@ -864,6 +864,7 @@ user-courses-table {
 }
 
 #website-header {
+  padding: 20px 0;
   max-width: 1200px;
   background: #2c3e50;
   margin: 0px auto;
@@ -954,7 +955,7 @@ user-courses-table {
 }
 
 #stolaf-courses-table-options {
-  padding: 20px;
+  padding: 20px 0;
   width: 100%;
   margin: 0px auto;
   margin-bottom: 30px;
