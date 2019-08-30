@@ -1,11 +1,10 @@
 <template>
   <div id="navbar-container">
-    <b-navbar type="is-black"
-              :fixed-top="true">
+    <b-navbar type="is-black">
         <template slot="brand">
-            <b-navbar-item href="/">
+            <b-navbar-item href="https://github.com/SamuraiViking/sto-courses-vue" target='blank'>
                 <img
-                    src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                    src="../assets/github_icon.png"
                     alt="Lightweight UI components for Vue.js based on Bulma"
                 >
             </b-navbar-item>
@@ -14,10 +13,10 @@
             <b-navbar-item href="#home">
                 <p class="navbar-item" style="color: #eee; font-weight: 600;">Home</p>
             </b-navbar-item>
-            <b-navbar-item href="#my-courses">
+            <b-navbar-item href="#user-section">
                 <p class="navbar-item" style="color: #eee; font-weight: 600;">My Courses</p>
             </b-navbar-item>
-            <b-navbar-item href="#stolaf-courses">
+            <b-navbar-item href="#stolaf-section">
                 <p class="navbar-item" style="color: #eee; font-weight: 600;"> Stolaf Courses</p>
             </b-navbar-item>
             <b-navbar-item href="#contact">
@@ -49,10 +48,15 @@
 
 <style>
 
+#navbar-container {
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+}
+
 .navbar-item {
   color: white;
   font-size: 15px;
-  /*background: blue;*/
 }
 
 </style>

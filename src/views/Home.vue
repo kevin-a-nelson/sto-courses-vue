@@ -22,7 +22,7 @@
         </div>
       </div>
       <!-- User Table -->
-      <div id="user-section" name="my-courses">
+      <div id="user-section">
         <div id="user-courses-table-options">
           <div>
             <h1 class="website-header-title">My Courses</h1>
@@ -128,58 +128,6 @@ export default {
         width: 0,
         height: 0
       },
-      columns: [
-          {
-              field: 'status',
-              label: 'Status Name',
-          },
-          {
-              field: 'credits',
-              label: 'Credits Name',
-          },
-          {
-              field: 'name',
-              label: 'Name',
-              centered: true
-          },
-          {
-              field: 'dept',
-              label: 'Dept',
-          },
-          {
-              field: 'num',
-              label: 'Num',
-          },
-          {
-              field: 'gereqs',
-              label: 'Gereqs',
-          },
-          {
-              field: 'days',
-              label: 'Days',
-          },
-          {
-              field: 'times',
-              label: 'Times',
-          },
-          {
-              field: 'prof',
-              label: 'Prof',
-          },
-          {
-              field: 'rating',
-              label: 'Rating',
-          },
-          {
-              field: 'difficulty',
-              label: 'Difficulty',
-          },
-          {
-              field: 'reviews',
-              label: 'Reviews',
-          },
-
-      ],
       /* Info Shown on more info modal */
       moreInfoData: {},
       /* Two Stolaf Columns that switch back and forth when Reset Filters button is pressed */ 
@@ -897,13 +845,8 @@ export default {
 }
 
 #background-image {
-  /*background: blue;*/
-/*  background: url(https://wallpapercave.com/wp/CToGD7f.jpg) fixed;
-  background: url(https://st4.depositphotos.com/1026394/21452/v/600/depositphotos_214525572-stock-video-royal-navy-deep-blue-geometric.jpg) fixed;
-  background: url(https://media.wired.com/photos/5a593a7ff11e325008172bc2/master/pass/pulsar-831502910.jpg) fixed;*/
-  /*background: url(https://images.unsplash.com/photo-1464802686167-b939a6910659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80) fixed no-repeat;*/
-
   background: url(https://images4.alphacoders.com/106/thumb-1920-106826.jpg) fixed;
+  padding: 0 7%;
 }
 
 #desktop {
@@ -986,7 +929,7 @@ user-courses-table {
 #user-section {
   margin: 0px auto;
   max-width: 1200px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 #stolaf-section {
@@ -998,7 +941,7 @@ user-courses-table {
   padding: 20px;
   width: 100%;
   margin: 0px auto;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   background: #2c3e50;
   border-radius: 5px;
   /*display: flex;*/
@@ -1014,7 +957,7 @@ user-courses-table {
   padding: 20px;
   width: 100%;
   margin: 0px auto;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   background: #2c3e50;
   border-radius: 5px;
 }
