@@ -1,22 +1,31 @@
 <template>
-  <div class="login">
-    <div class="container">
-      <form v-on:submit.prevent="submit()">
-        <h1>Login</h1>
-        <ul>
-          <li class="text-danger" v-for="error in errors">{{ error }}</li>
-        </ul>
-        <div class="form-group">
-          <label>Email:</label>
-          <input type="email" class="form-control" v-model="email">
+  <div id="signup-container">
+    <section id="signup-box">
+      <div>
+        <p class="errors" v-for="error in errors"> {{ error }} </p>
+        <div class="label-container">
+          <b-field class="signup-label"
+              type="is-danger"
+              :message="message">
+              <b-input type="email"
+                  placeholder="Email"
+                  :value="email"
+                  v-model="email">
+              </b-input>
+          </b-field>
         </div>
-        <div class="form-group">
-          <label>Password:</label>
-          <input type="password" class="form-control" v-model="password">
+        <div class="label-container">
+          <b-field class="signup-label" v-model="password">
+              <b-input type="password"
+                  placeholder="Password"
+                  :value="password"
+                  v-model="password">
+              </b-input>
+          </b-field>
         </div>
-        <input type="submit" class="btn btn-primary" value="Submit">
-      </form>
-    </div>
+        <b-button class="my-signup-btn is-info" style="width: 100%;" v-on:click="submit">Login</b-button>
+      </div>
+    </section>
   </div>
 </template>
 

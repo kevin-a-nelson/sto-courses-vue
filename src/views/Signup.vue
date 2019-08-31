@@ -1,39 +1,46 @@
 <template>
-  <div class="signup">
-    <div class="my-container">
+  <div id="signup-container">
+    <section id="signup-box">
       <div>
-        <div id="signup-box">
-          <div>
-            <h1 id="signup-header">Signup</h1>
-          </div>
-          <div id="signup-inputs">
-            <b-input id="signup-input"></b-input>
-            <b-input id="signup-input"></b-input>
-          </div>
+        <p class="errors" v-for="error in errors"> {{ error }} </p>
+        <div class="label-container">
+          <b-field class="signup-label"
+              type="is-danger"
+              :message="message">
+              <b-input type="email"
+                  placeholder="Email"
+                  :value="email"
+                  v-model="email">
+              </b-input>
+          </b-field>
         </div>
+        <div class="label-container">
+          <b-field class="signup-label" v-model="password">
+              <b-input type="password"
+                  placeholder="Password"
+                  :value="password"
+                  v-model="password">
+              </b-input>
+          </b-field>
+        </div>
+        <div class="label-container">
+          <b-field class="signup-label">
+              <b-input type="password"
+                  placeholder="Password Confirmation"
+                  :value="password"
+                  password-reveal
+                  v-model="passwordConfirmation"
+                  >
+              </b-input>
+          </b-field>
+        </div>
+        <b-button class="my-signup-btn is-info" style="width: 100%;" v-on:click="submit">Signup</b-button>
       </div>
-    </div>
+    </section>
   </div>
 </template>
-<!--       <form v-on:submit.prevent="submit()">
-        <h1>Signup</h1>
-        <ul>
-          <li class="text-danger" v-for="error in errors">{{ error }}</li>
-        </ul>
-        <div class="form-group">
-          <label>Email:</label>
-          <input type="email" class="form-control" v-model="email">
-        </div>
-        <div class="form-group">
-          <label>Password:</label>
-          <input type="password" class="form-control" v-model="password">
-        </div>
-        <div class="form-group">
-          <label>Password confirmation:</label>
-          <input type="password" class="form-control" v-model="passwordConfirmation">
-        </div>
-        <input type="submit" class="btn btn-primary" value="Submit">
-      </form> -->
+
+
 
 <script>
 import axios from "axios";
@@ -41,10 +48,12 @@ import axios from "axios";
 export default {
   data: function() {
     return {
+      message: '',
       email: "",
       password: "",
       passwordConfirmation: "",
-      errors: []
+      errors: [],
+      name: '',
     };
   },
   methods: {
@@ -70,33 +79,32 @@ export default {
 
 <style>
 
-.my-container {
-  padding-top: 100px;
+#signup-container {
+  padding-top: 200px;
 }
 
-#signup-header {
-  color: white;
-  font-size: 30px;
-  margin-bottom: 20px;
+.input-container {
+  max-width: 300px;
+  background: blue;
 }
 
-#signup-inputs {
-  width: 60%;
-  max-width: 200px;
-  margin: 0px auto;
+.errors {
+  color: red;
+  font-size: 18px;
 }
 
-#signup-input {
-  margin-bottom: 20px;
+.label-container {
+  margin-bottom: 30px;
 }
+
 
 #signup-box {
   opacity: 0.9;
   border-radius: 5px;
   background: #2c3e50;
-  padding: 20px;
+  padding: 40px 70px;
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   margin: 0px auto;
 }
 
