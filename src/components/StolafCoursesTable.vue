@@ -4,6 +4,7 @@
     <notifications group="foo" position="top right"/>
     <!-- Table -->
     <vue-good-table
+      @on-row-mouseleave="onRowMouseleave"
       @on-row-mouseenter="onRowMouseover"
       theme="nocturnal"
       :columns="columns"
@@ -131,6 +132,9 @@ export default {
     }
   },
   methods: {
+    onRowMouseleave(props) {
+      this.hoveredRowId = ''
+    },
     mousedOverRow(rowId) {
       return this.hoveredRowId === rowId
     },

@@ -2,6 +2,7 @@
   <div id="user-courses-table" class="my-opacity">
     <vue-good-table
       @on-row-mouseenter="onRowMouseover"
+      @on-row-mouseleave="onRowMouseleave"
       theme="nocturnal"
       :columns="columns"
       :rows="rows"
@@ -90,6 +91,10 @@ export default {
     }
   },
   methods: {
+    onRowMouseleave(props) {
+      console.log(props)
+      this.hoveredRowId = ''
+    },
     hoveredOverRow(props) {
       return this.hoveredRowId === props.row.id
     },
