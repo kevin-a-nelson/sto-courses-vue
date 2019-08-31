@@ -102,7 +102,7 @@ export default {
   opacity: 0.9;
   border-radius: 5px;
   background: #2c3e50;
-  padding: 40px 70px;
+  padding: 40px 7%;
   width: 100%;
   max-width: 400px;
   margin: 0px auto;

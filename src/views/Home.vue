@@ -1,6 +1,6 @@
 <template>
-  <div id="background-image">
-    <div id="home">
+  <div id="home">
+    <div id="body-container">
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
@@ -48,6 +48,12 @@
           v-on:rowsChanged="getUserTableRows"
           v-bind:columns="stolafColumns"
           />
+      </div>
+    </div>
+    <div id="contact">
+      <div id="my-contacts">
+        <p>nelson67@stolaf.edu</p>
+        <p>612-236-5220</p>
       </div>
     </div>
   </div>
@@ -473,8 +479,19 @@ export default {
 
 <style>
 
-#home {
-  padding: 50px 0px 50px 0px;
+#my-contacts {
+  padding-top: 25px;
+}
+
+#body-container {
+  padding: 0 10%;
+}
+
+#contact {
+  color: white;
+  margin-top: 100px;
+  background: #2c3e50;
+  height: 100px;
 }
 
 #desktop {

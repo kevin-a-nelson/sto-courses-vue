@@ -32,7 +32,7 @@
             <b-navbar-item href="#stolaf-section">
                 <strong>Stolaf Courses</strong>
             </b-navbar-item>
-            <b-navbar-item href="#stolaf-section">
+            <b-navbar-item href="#contact">
                 <strong>Contact</strong>
             </b-navbar-item>
 

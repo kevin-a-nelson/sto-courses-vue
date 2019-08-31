@@ -46,7 +46,6 @@ export default {
   background: url(http://getwallpapers.com/wallpaper/full/6/5/d/560817.jpg) fixed;
   background: url(https://wallpapercave.com/wp/wp4078020.jpg) fixed;
   min-height: 1000px;
-  padding: 0 7%;
 }
 
 .my-opacity {
