@@ -1,18 +1,22 @@
 <template>
   <div id="user-courses-table" class="my-opacity">
     <vue-good-table
+      @on-row-mouseenter="onRowMouseover"
       theme="nocturnal"
       :columns="columns"
       :rows="rows"
+      styleClass="vgt-table condensed bordered"
       >
       <template slot="table-row" slot-scope="props">
         <div v-if="props.column.field == 'actions'" class="action-buttons">
-          <b-button v-on:click="showMoreInfo(props.row)" class="action-button" type="is-info">
-            <eye-icon /> 
-          </b-button>
-          <b-button v-on:click="removeCourse(props.row.id)" class="action-button" type="is-info">
-            <span style="color: black;">X</span>
-          </b-button>
+          <div v-if="hoveredOverRow(props)">
+            <b-button v-on:click="showMoreInfo(props.row)" class="action-button" type="is-info">
+              <eye-icon /> 
+            </b-button>
+            <b-button v-on:click="removeCourse(props.row.id)" class="action-button" type="is-info">
+              <span style="color: black;">X</span>
+            </b-button>
+          </div>
         </div>
         <div v-else-if="props.column.field == 'prof'" style="font-weight: 600;">
             <a v-if="props.row.prof_url"
@@ -86,6 +90,12 @@ export default {
     }
   },
   methods: {
+    hoveredOverRow(props) {
+      return this.hoveredRowId === props.row.id
+    },
+    onRowMouseover(props) {
+      this.hoveredRowId = props.row.id
+    },
     ratingColor(rating) {
       rating = Number(rating)
       var color = 'red'

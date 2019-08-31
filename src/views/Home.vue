@@ -355,7 +355,7 @@ export default {
         },
         { label: 'Actions', 
           field: 'actions',
-          hidden: true
+          hidden: false
         },
       ],
       /* Makes column multiselect visible when Hide columns button is pressed */
