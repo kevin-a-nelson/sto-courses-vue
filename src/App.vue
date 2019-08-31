@@ -39,6 +39,18 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  background: url(https://images4.alphacoders.com/106/thumb-1920-106826.jpg) fixed;
+  background: url(https://wallpaperaccess.com/full/202978.jpg) fixed;
+  /*background: url(https://wallpapercave.com/wp/nCJZmyI.jpg) fixed;*/
+  /*background: url(https://wallpaperplay.com/walls/full/a/4/1/191258.jpg) fixed;*/
+  background: url(http://getwallpapers.com/wallpaper/full/6/5/d/560817.jpg) fixed;
+  background: url(https://wallpapercave.com/wp/wp4078020.jpg) fixed;
+  min-height: 1000px;
+  padding: 0 7%;
+}
+
+.my-opacity {
+  opacity: 0.9;
 }
 
 .red {

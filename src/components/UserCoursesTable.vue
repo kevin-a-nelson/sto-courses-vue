@@ -1,9 +1,10 @@
 <template>
-  <div id="user-courses-table">
+  <div id="user-courses-table" class="my-opacity">
     <vue-good-table
       theme="nocturnal"
       :columns="columns"
-      :rows="rows">
+      :rows="rows"
+      >
       <template slot="table-row" slot-scope="props">
         <div v-if="props.column.field == 'actions'" class="action-buttons">
           <b-button v-on:click="showMoreInfo(props.row)" class="action-button" type="is-info">
@@ -80,7 +81,9 @@ export default {
   created() {
   },
   data() {
-    return {}
+    return {
+      hoveredRowId: ''
+    }
   },
   methods: {
     ratingColor(rating) {

@@ -9,7 +9,7 @@
                     alt="Lightweight UI components for Vue.js based on Bulma"
                 >
             </b-navbar-item>
-            <b-navbar-item href="#home" v-if="screenWidthBreakpoint()">
+            <b-navbar-item v-if="screenWidthBreakpoint()">
                 <strong>Home</strong>
             </b-navbar-item>
             <b-navbar-item href="#user-section" v-if="screenWidthBreakpoint()">
@@ -23,7 +23,7 @@
             </b-navbar-item>
         </template>
         <template slot="start">
-            <b-navbar-item href="#home">
+            <b-navbar-item href="/">
                 <strong>Home</strong>
             </b-navbar-item>
             <b-navbar-item href="#user-section">
@@ -41,7 +41,7 @@
         <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-info">
+                    <a class="button is-info" tag="router-link" href="/signup">
                         <strong>Sign up</strong>
                     </a>
                     <a class="button is-light">
@@ -49,7 +49,6 @@
                     </a>
                 </div>
             </b-navbar-item>
-            <p style="color: white;">{{ this.window.width }} </p>
         </template>
     </b-navbar>
   </div>

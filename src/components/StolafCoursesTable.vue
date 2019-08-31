@@ -1,10 +1,10 @@
 <template>
-  <div id="stolaf-courses-table">
+  <div id="stolaf-courses-table" class="my-opacity">
     <!-- Notifications -->
     <notifications group="foo" position="top right"/>
     <!-- Table -->
     <vue-good-table
-      :hoverable="true"
+      @on-row-mouseenter="onRowMouseover"
       theme="nocturnal"
       :columns="columns"
       :rows="rows"
@@ -16,7 +16,6 @@
           { field: 'rating', type: 'desc' },
           { field: 'reviews', type: 'desc' }
         ]
-
       }"
       >
     <!-- Table Modifileications -->
@@ -24,12 +23,14 @@
     <!-- Actions Column -->
         <div>
           <div v-if="props.column.field == 'actions'" style="min-width: 115px;">
-            <b-button class="action-button" type="is-info" v-on:click="moreInfo(props.row)">
-              <eye-icon /> 
-            </b-button>
-            <b-button class="action-button" type="is-info" v-on:click="addCourse(props.row)" >
-              <plus-icon />
-            </b-button>
+            <div v-if="hoveredRowId === props.row.id">
+              <b-button class="action-button" type="is-info" v-on:click="moreInfo(props.row)">
+                <eye-icon /> 
+              </b-button>
+              <b-button class="action-button" type="is-info" v-on:click="addCourse(props.row)" >
+                <plus-icon />
+              </b-button>
+            </div>
           </div>
           <div v-else-if="props.column.field == 'prof'" style="font-weight: 600;">
               <a v-if="props.row.prof_url"
@@ -101,6 +102,7 @@ export default {
   },
   data() {
     return {
+      hoveredRowId: '',
       paginationOptions: {
         enabled: false,
         mode: 'pages',
@@ -116,29 +118,6 @@ export default {
         pageLabel: 'page', // for 'pages' mode
         allLabel: 'All',
       },
-      showShownColumns: false,
-      hiddenColumns: [
-        'Seats',
-        'Dept Num Sec',
-        'Sec',
-        'Rating Difficulty Reviews',
-        'Num',
-      ],
-      stoDeptFilterValue: '',
-      stoCoursesTableFilterValues: {
-        status: '',
-        name: '',
-        dept: '',
-        gereqs: '',
-        days: '',
-        times: '',
-        prof: '',
-        rating: '',
-        difficulty: '',
-        reviews: '',
-        prereqs: '',
-        actions: '',
-      },
       moreInfoData: {
         name: '',
         description: '',
@@ -147,209 +126,17 @@ export default {
         prof: '',
         prof_url: ''
       },
-      columns2: [
-        {
-          label: 'Status', 
-          field: 'status',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              {text: 'Open', value: 'O'},
-              {text: 'Closed', value: 'C'},
-            ],
-          }
-        },
-        {
-          label: 'Seats',
-          field: 'seats',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-          }
-        },
-        {
-          label: 'Credits',
-          field: 'credits',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-          },
-        },
-        { label: 'Name', 
-          field: 'name',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            filterValue: '',
-            enabled: true,
-          }
-        },
-        { 
-          label: 'Dept Num Sec', 
-          field: 'dept_num_sec',
-          hidden: true,
-          filterOptions: {
-            enabled: true,
-            placeholder: 'All',
-            filterValue: '',
-            filterDropdownItems: departments(),
-          }
-        },
-        { 
-          label: 'Dept', 
-          field: 'dept',
-          hidden: false,
-          filterOptions: {
-            enabled: true,
-            filterValue: '',
-            placeholder: 'All',
-            filterDropdownItems: departments(),
-          }
-        },
-        { 
-          label: 'Num', 
-          field: 'num',
-          type: 'number',
-          hidden: false,
-          filterOptions: {
-            enabled: true,
-            filterValue: '',
-            placeholder: 'All',
-            filterDropdownItems: [ 100, 200, 300 ],
-            filterFn: this.numFilterFn
-          }
-        },
-        {
-          label: 'Sec',
-          field: 'sec',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            enabled: false,
-            placeholder: 'All'
-          }
-        },
-        {
-          label: 'Gereqs', 
-          field: 'gereqs',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'Any',
-            enabled: true,
-            filterDropdownItems: ges()
-          }
-        },
-        {
-          label: 'Days', 
-          field: 'days',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Times', 
-          field: 'times',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Prof', 
-          field: 'prof',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Rating', 
-          field: 'rating',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              { text: '1 or more', value: 1 },
-              { text: '2 or more', value: 2 },
-              { text: '3 or more', value: 3 },
-              { text: '4 or more', value: 4 },
-            ],
-            filterFn: this.ratingFilterFn
-          },
-          type: 'number'
-        },
-        { label: 'Difficulty', 
-          field: 'difficulty',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              { text: '2 or less', value: 2 },
-              { text: '3 or less', value: 3 },
-              { text: '4 or less', value: 4 },
-              { text: '5 or less', value: 5 },
-            ],
-            filterFn: this.difficultyFilterFn
-          },
-          type: 'number'
-        },
-        {
-          label: 'Reviews', 
-          field: 'reviews',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            enabled: true,
-            filterFn: this.reviewsFilterFn,
-            filterDropdownItems: [
-              { text: '5 or more', value: 5 },
-              { text: '10 or more', value: 10 },
-              { text: '15 or more', value: 15 },
-              { text: '20 or more', value: 20 },
-            ]
-          },
-          type: 'number'
-        },
-        {
-          label: 'Rating Difficulty Reviews',
-          field: 'rating_difference_reviews',
-          hidden: true,
-          filterOptions: {
-            filterValue: '',
-          }
-        },
-        { 
-          label: 'Prereqs', 
-          field: 'has_prereqs',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        {
-          label: 'Actions', 
-          field: 'actions',
-          hidden: false
-        },
-      ],
       notificationType: '',
       columnNum: 1
     }
   },
   methods: {
+    mousedOverRow(rowId) {
+      return this.hoveredRowId === rowId
+    },
+    onRowMouseover(props) {
+      this.hoveredRowId = props.row.id
+    },
     ratingColor(rating) {
       rating = Number(rating)
       var color = 'red'
@@ -385,9 +172,6 @@ export default {
         color = 'green'
       }
       return color
-    },
-    is_hidden(label) {
-      return !this.visibleColumns.includes(label)
     },
     addCourse(row) {
       var course_id = row.id
@@ -440,86 +224,6 @@ export default {
       }
       return semesterStr
     },
-    // reviewsFilterFn(data, filterString) {
-    //   return data >= Number(filterString)
-    // },
-    // ratingFilterFn(data, filterString) {
-    //   return data >= Number(filterString)
-    // },
-    // difficultyFilterFn(data, filterString) {
-    //   return data <= Number(filterString)
-    // },
-    // resetColumns() {
-    //   this.hiddenColumns = [
-    //     'Seats',
-    //     'Sec',
-    //     'Dept Num Sec',
-    //     'Rating Difficulty Reviews'
-    //   ]
-    //   this.setHiddenColumns(this.hiddenColumns)
-    //   this.showShownColumns = false
-    // },
-    // selectedColumn() {
-    //   return this.columnNum === 1 ? this.columns : this.columns2
-    // },
-    // resetFilters() {
-    //   this.columnNum = this.columnNum === 1 ? 2 : 1
-    // },
-    // toggleShowShownColumns() {
-    //   this.showShownColumns = !this.showShownColumns
-    // },
-    // getUserTermCourses() {
-    //   var year = this.selectedValues.year
-    //   var semester = this.selectedValues.semester
-    //   var draft = this.selectedValues.draft
-    //   var term = `${year}${semester}`
-
-    //   axios.get(`api/terms?term=${term}&order=${draft}`).then(response => {
-    //     this.rows = response.data[0].courses
-    //   })
-    // },
-    // setHiddenColumns(newHiddenColumns) {
-    //   this.hiddenColumns = newHiddenColumns
-    //   this.columns.forEach(function(column) {
-    //     column.hidden = false
-    //     if(newHiddenColumns.includes(column.label)) {
-    //       column.hidden = true
-    //       column.filterValue = ''
-    //     }
-    //   })
-    //   this.columns2.forEach(function(column) {
-    //     column.hidden = false
-    //     if(newHiddenColumns.includes(column.label)) {
-    //       column.hidden = true
-    //       column.filterValue = ''
-    //     }
-    //   })
-    // },
-    // deptFilterFn(data, filterString) {
-    //   return true
-    //   if (this.stoDeptFilterValue.dept !== filterString) {
-    //     this.stoCoursesTableFilterValues.dept = filterString
-    //   }
-    //   return data.includes(filterString)
-    // },
-    // getStolafTermCourses() {
-    //   var year =  this.selectedValues.year
-    //   var semester = this.selectedValues.semester
-    //   var type = this.selectedValues.type
-    //   var term = `${year}${semester}`
-
-    //   this.rows = []
-    //   axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
-    //     this.rows = response.data.courses
-    //   })
-    // },
-    // setSelectedValues(key, value) {
-    //   this.selectedValues[key] = value
-    //   this.selectedValues.mode === 'stolaf' ? this.getStolafTermCourses() : this.getUserTermCourses()
-    // },
-    // numFilterFn(data, filterString) {
-    //   return data.toString()[0] === filterString[0]
-    // }
   }
 }
 </script>

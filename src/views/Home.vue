@@ -4,32 +4,23 @@
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
-      <div id="website-header">
+      <div id="website-header" class="my-opacity">
         <h1 class="website-header-title">Rate my Professor Course Planner</h1>
         <div id="top-section">
           <div id="top-section-selectors">
             <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
             <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
-            <!-- <b-button type="is-info" v-on:click="toggleShowHideOptions">Hide Columns</b-button> -->
-            <!-- <b-button type="is-info" v-on:click="resetColumns">Default Columns</b-button> -->
-          </div>
-          <div id="hide-options-container">
-            <hide-options 
-              v-if="showHideOptions"
-              v-bind:visibleColumns="visibleColumns"
-              v-on:newHideOptions="updateHideOptions"/>
           </div>
         </div>
       </div>
       <!-- User Table -->
       <div id="user-section">
-        <div id="user-courses-table-options">
+        <div id="user-courses-table-options" class="my-opacity">
           <div>
             <h1 class="website-header-title">My Courses</h1>
           </div>
           <div>
             <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
-            <!-- <b-button type="is-info" v-on:click="resetFilters">Schedule</b-button> -->
           </div>
         </div>
         <user-courses-table
@@ -42,22 +33,20 @@
       </div>
       <!-- Stolaf Table -->
       <div id="stolaf-section" name="stolaf-courses">
-        <div id="stolaf-courses-table-options">
+        <div id="stolaf-courses-table-options" class="my-opacity">
           <div>
             <h1 class="website-header-title">Stolaf Courses</h1>
           </div>
           <div>
             <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
           </div>
-          <!-- <b-button id="reset-filters-btn" type="is-info" v-on:click="resetFilters">Reset Filters</b-button> -->
         </div>
         <stolaf-courses-table
           v-on:showMoreInfo="showMoreInfo"
           v-bind:rows="stolafTableRows"
           v-bind:selectedValues="selectedValues"
           v-on:rowsChanged="getUserTableRows"
-          v-bind:visibleColumns="visibleColumns"
-          v-bind:columns="stolafColumns()"
+          v-bind:columns="stolafColumns"
           />
       </div>
     </div>
@@ -101,7 +90,7 @@ export default {
     // this.handleResize();
     this.getStolafTableRows()
     this.getUserTableRows()
-    this.updateHideOptions(this.visibleColumns)
+    // this.updateHideOptions(this.visibleColumns)
   },
   destroyed() {
     // window.removeEventListener('resize', this.handleResize)
@@ -131,7 +120,7 @@ export default {
       /* Info Shown on more info modal */
       moreInfoData: {},
       /* Two Stolaf Columns that switch back and forth when Reset Filters button is pressed */ 
-      stolafColumns1: [
+      stolafColumns: [
         {
           label: 'Status', 
           field: 'status',
@@ -144,21 +133,6 @@ export default {
               {text: 'Closed', value: 'C'},
             ],
           }
-        },
-        {
-          label: 'Seats',
-          field: 'seats',
-          hidden: false,
-          filterOptions: {
-          }
-        },
-        {
-          label: 'Credits',
-          field: 'credits',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-          },
         },
         { label: 'Name', 
           field: 'name',
@@ -178,243 +152,6 @@ export default {
             filterValue: '',
             placeholder: 'All',
             filterDropdownItems: departments(),
-          }
-        },
-        { 
-          label: 'Num', 
-          field: 'num',
-          type: 'number',
-          hidden: false,
-          filterOptions: {
-            enabled: true,
-            filterValue: '',
-            placeholder: 'All',
-            filterDropdownItems: [
-             100, 200, 300 
-             ],
-            filterFn: this.numFilterFn
-          }
-        },
-        {
-          label: 'Sec',
-          field: 'sec',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            enabled: false,
-            placeholder: 'All'
-          }
-        },
-        {
-          label: 'Gereqs', 
-          field: 'gereqs',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'Any',
-            enabled: true,
-            filterDropdownItems: ges()
-          }
-        },
-        {
-          label: 'Days', 
-          field: 'days',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              'MWF',
-              'TTh',
-              'M-F',
-              'M',
-              'Tu',
-              'W',
-              'Th',
-              'F',
-              'Other'
-            ],
-            filterFn: this.daysFilterFn
-          }
-        },
-        { label: 'Times', 
-          field: 'times',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              { text: '8 am', value: '08' },
-              { text: '9 am', value: '09' },
-              { text: '10 am', value: '10' },
-              { text: '11 am', value: '11' },
-              { text: '12', value: '12' },
-              { text: '1 pm', value: '13' },
-              { text: '2 pm', value: '14' },
-              { text: '3 pm', value: '15' },
-              { text: '4 pm', value: '16' },
-              { text: '5 pm', value: '17' },
-              { text: '6 pm', value: '18' },
-              { text: '7 pm', value: '19' },
-            ],
-            filterFn: this.timesFilterFn
-          }
-        },
-        { label: 'Prof', 
-          field: 'prof',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Rating', 
-          field: 'rating',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              { text: '1 or more', value: 1 },
-              { text: '2 or more', value: 2 },
-              { text: '3 or more', value: 3 },
-              { text: '4 or more', value: 4 },
-            ],
-            filterFn: this.ratingFilterFn
-          },
-          type: 'number'
-        },
-        { label: 'Difficulty', 
-          field: 'difficulty',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              { text: '2 or less', value: 2 },
-              { text: '3 or less', value: 3 },
-              { text: '4 or less', value: 4 },
-            ],
-            filterFn: this.difficultyFilterFn
-          },
-          type: 'number'
-        },
-        {
-          label: 'Reviews', 
-          field: 'reviews',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-            filterFn: this.reviewsFilterFn,
-            filterDropdownItems: [
-              { text: '5 or more', value: 5 },
-              { text: '10 or more', value: 10 },
-              { text: '15 or more', value: 15 },
-              { text: '20 or more', value: 20 },
-            ]
-          },
-          type: 'number'
-        },
-        {
-          label: 'Rating Difficulty Reviews',
-          field: 'rating_difference_reviews',
-          hidden: true,
-          filterOptions: {
-            filterValue: '',
-          }
-        },
-        { label: 'Prereqs', 
-          field: 'has_prereqs',
-          hidden: true,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        { label: 'Actions', 
-          field: 'actions',
-          hidden: false
-        },
-      ],
-      stolafColumns2: [
-        {
-          label: 'Status', 
-          field: 'status',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            enabled: true,
-            filterDropdownItems: [
-              {text: 'Open', value: 'O'},
-              {text: 'Closed', value: 'C'},
-            ],
-          }
-        },
-        {
-          label: 'Seats',
-          field: 'seats',
-          hidden: false,
-          filterOptions: {
-          }
-        },
-        {
-          label: 'Credits',
-          field: 'credits',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-          },
-        },
-        { label: 'Name', 
-          field: 'name',
-          hidden: false,
-          filterOptions: {
-            placeholder: 'All',
-            filterValue: '',
-            enabled: true,
-          }
-        },
-        { 
-          label: 'Dept', 
-          field: 'dept',
-          hidden: false,
-          filterOptions: {
-            enabled: true,
-            filterValue: '',
-            placeholder: 'All',
-            filterDropdownItems: departments(),
-          }
-        },
-        { 
-          label: 'Num', 
-          field: 'num',
-          type: 'number',
-          hidden: false,
-          filterOptions: {
-            enabled: true,
-            filterValue: '',
-            placeholder: 'All',
-            filterDropdownItems: [
-             100, 200, 300 
-             ],
-            filterFn: this.numFilterFn
-          }
-        },
-        {
-          label: 'Sec',
-          field: 'sec',
-          hidden: false,
-          filterOptions: {
-            filterValue: '',
-            enabled: false,
-            placeholder: 'All'
           }
         },
         {
@@ -556,21 +293,10 @@ export default {
         },
       ],
       /* Number used to switch stolafColumns1 to stolafColumns2 and vise versa */
-      stolafColumnNumber: 1,
       userColumns: [
         {
           label: 'Status', 
           field: 'status',
-          hidden: false,
-        },
-        {
-          label: 'Seats',
-          field: 'seats',
-          hidden: false,
-        },
-        {
-          label: 'Credits',
-          field: 'credits',
           hidden: false,
         },
         { label: 'Name', 
@@ -627,64 +353,10 @@ export default {
           hidden: false,
           type: 'number'
         },
-        { label: 'Prereqs', 
-          field: 'has_prereqs',
-          hidden: false,
-        },
         { label: 'Actions', 
           field: 'actions',
-          hidden: false
+          hidden: true
         },
-      ],
-      /* Used to Sort columns in hide columns */
-      sortedVisibleColumns: [
-        'Status',
-        'Credits',
-        'Seats',
-        'Name',
-        'Dept',
-        'Num',
-        'Sec',
-        'Gereqs',
-        'Days',
-        'Times',
-        'Prof',
-        'Rating',
-        'Difficulty',
-        'Reviews',
-        'Prereqs',
-        'Actions',
-      ],
-      /* Columns that are currently visible */
-      visibleColumns: [
-        'Status',
-        'Name',
-        'Dept',
-        'Gereqs',
-        'Days',
-        'Times',
-        'Prof',
-        'Rating',
-        'Difficulty',
-        'Reviews',
-        // 'Prereqs',
-        'Actions',
-      ],
-      /* Columns that are shown when page refreshes or reset columns is pressed */
-      defaultVisibleColumns: [
-        'Status',
-        'Name',
-        'Dept',
-        'Num',
-        'Gereqs',
-        'Days',
-        'Times',
-        'Prof',
-        'Rating',
-        'Difficulty',
-        'Reviews',
-        'Prereqs',
-        'Actions',
       ],
       /* Makes column multiselect visible when Hide columns button is pressed */
       showHideOptions: false,
@@ -739,12 +411,6 @@ export default {
       })
       return data.includes(filterString)
     },
-    resetFilters() {
-      this.stolafColumnNumber = this.stolafColumnNumber == 1 ? 2 : 1
-    },
-    stolafColumns() {
-      return this.stolafColumnNumber == 1 ? this.stolafColumns1 : this.stolafColumns2
-    },
     reviewsFilterFn(data, filterString) {
       return data >= Number(filterString)
     },
@@ -761,39 +427,6 @@ export default {
       }
       this.updateHideOptions(this.visibleColumns)
     },
-    /* Make columns that are selected in multiselect visible  */
-    updateHideOptions(newVisibleColumns) {
-      this.visibleColumns = []
-      this.sortedVisibleColumns.forEach(column => {
-        if(newVisibleColumns.includes(column)) {
-          this.visibleColumns.push(column)
-        }
-      })
-      this.stolafColumns1.forEach(column => {
-        column.hidden = true
-        if(newVisibleColumns.includes(column.label)) {
-          column.hidden = false
-        }
-      })
-
-      this.stolafColumns2.forEach(column => {
-        column.hidden = true
-        if(newVisibleColumns.includes(column.label)) {
-          column.hidden = false
-        }        
-      })
-
-      this.userColumns.forEach(column => {
-        column.hidden = true
-        if(newVisibleColumns.includes(column.label)) {
-          column.hidden = false
-        }
-      })
-    },
-    toggleShowHideOptions() {
-      this.showHideOptions = !this.showHideOptions
-    },
-
     updateSelectedValuesAndRows(key, value) {
       this.selectedValues[key] = value
 
@@ -844,11 +477,6 @@ export default {
   padding: 50px 0px 50px 0px;
 }
 
-#background-image {
-  background: url(https://images4.alphacoders.com/106/thumb-1920-106826.jpg) fixed;
-  padding: 0 7%;
-}
-
 #desktop {
   padding-top: 50px;
 }
@@ -864,7 +492,7 @@ user-courses-table {
 }
 
 #website-header {
-  padding: 20px 0;
+  padding: 20px 20px;
   max-width: 1200px;
   background: #2c3e50;
   margin: 0px auto;
