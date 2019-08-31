@@ -504,6 +504,7 @@ user-courses-table {
 }
 
 .website-header-title {
+  margin-bottom: 20px;
   color: white;
   font-size: 40px;
 }
@@ -540,8 +541,7 @@ user-courses-table {
 
 #top-section-selectors {
   margin: 0px auto;
-  margin-top: 20px;
-  width: 300px;
+  /*width: 300px;*/
 }
 
 #top-section-selectors * {
@@ -583,7 +583,7 @@ user-courses-table {
 }
 
 #stolaf-courses-table-options {
-  padding: 20px 0;
+  padding: 20px;
   width: 100%;
   margin: 0px auto;
   margin-bottom: 30px;

@@ -92,7 +92,6 @@ export default {
   },
   methods: {
     onRowMouseleave(props) {
-      console.log(props)
       this.hoveredRowId = ''
     },
     hoveredOverRow(props) {
