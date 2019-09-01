@@ -1,5 +1,10 @@
 <template>
-  <div id="stolaf-courses-table" class="my-opacity">
+  <div id="stolaf-courses-table"
+    rel="stolafTable" 
+    class="my-opacity" 
+    @mouseover="updateMousePosition" 
+    @mouseleave="onMouseLeave" 
+    @mouseenter="onMouseEnter">
     <!-- Notifications -->
     <notifications group="foo" position="top right"/>
     <!-- Table -->
@@ -22,8 +27,11 @@
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
+        <div v-if="props.row.index === 0" rel="firstRow">
+          {{props.formattedRow[props.column.field]}}
+        </div>
         <div>
-          <div v-if="props.column.field == 'actions'" style="min-width: 115px;">
+          <div v-if="props.column.field == 'actions'">
             <div v-if="hoveredRowId === props.row.id">
               <b-button class="action-button" type="is-info" v-on:click="moreInfo(props.row)">
                 <eye-icon /> 
@@ -83,7 +91,7 @@
       <button class="absolute-table-btn" ref="AddBtn"><plus-icon /></button>
     </div>
     <div>
-      <button class="absolute-table-btn" ref="InfoBtn"><plus-icon /></button>
+      <button class="absolute-table-btn" ref="InfoBtn"><eye-icon /></button>
     </div>
 
   </div>
@@ -147,7 +155,8 @@ export default {
         prof_url: ''
       },
       notificationType: '',
-      columnNum: 1
+      columnNum: 1,
+      moveActionButtons: false
     }
   },
   methods: {
@@ -156,6 +165,12 @@ export default {
       `background: red; position: absolute; width: 100px; height: 100px; top: ${this.y}px;`
       return style
     },
+    onMouseEnter() {
+      this.moveActionButtons = true
+    },
+    onMouseLeave() {
+      this.moveActionButtons = false
+    },
     onRowMouseleave(props) {
       this.hoveredRowId = ''
     },
@@ -163,10 +178,11 @@ export default {
       return this.hoveredRowId === rowId
     },
     onRowMouseover(props) {
-      window.addEventListener('mouseover', this.updateMousePosition)
+      this.moveActionButtons = true
       this.hoveredRowId = props.row.id
     },
     updateMousePosition(event) {
+
       this.x = event.pageX
       this.y = event.pageY
       
@@ -175,18 +191,16 @@ export default {
       
       var statusHeader = this.$refs.statusHeader
       var statusHeaderX = statusHeader.getBoundingClientRect().x
+      var statusHeaderY = statusHeader.getBoundingClientRect().y
 
-      console.log(reviewsHeaderX)
-
-      this.$refs.AddBtn.setAttribute('style',
-        `top: ${this.y - 25}px;
-         left: ${statusHeaderX - 80}px;`
-      )
-      this.$refs.InfoBtn.setAttribute('style',
-        `top: ${this.y - 25}px;
-         left: ${reviewsHeaderX + 100}px;`
-      )
-
+        this.$refs.AddBtn.setAttribute('style',
+          `top: ${this.y - 25}px;
+           left: ${statusHeaderX - 40}px;`
+        )
+        this.$refs.InfoBtn.setAttribute('style',
+          `top: ${this.y - 25}px;
+           left: ${reviewsHeaderX + 60}px;`
+        )
     },
     ratingColor(rating) {
       rating = Number(rating)
@@ -290,6 +304,7 @@ export default {
   background: #167df0;
   border-radius: 5px;
   border: none;
+  top: 0px;
 }
 
 .my-column {

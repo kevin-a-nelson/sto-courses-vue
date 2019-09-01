@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <div id="body-container">
+    <div id="body-container" @mouseover="mouseOverBody">
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
@@ -378,8 +378,9 @@ export default {
     }
   },
   methods: {
+    mouseOverBody(event) {
+    },
     newYearSelected() {
-      console.log('hello')
     },
     filtersModal() {
       this.$modal.show('filters')
@@ -400,7 +401,6 @@ export default {
       return filterString === 'Other' ? !filterStrings.includes(data) : data === filterString
     },
     numFilterFn(data ,filterString) {
-      console.log(filterString)
       return data.toString()[0] === filterString[0]
     },
     timesFilterFn(data, filterString) {

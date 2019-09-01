@@ -24,11 +24,10 @@ export default {
     }
   },
   created(event) {
-    console.log(event)
+
   },
   methods: {
     methodToRunOnSelect(payload) {
-      console.log(payload)
       this.object = payload;
     }
   },
