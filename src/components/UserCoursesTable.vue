@@ -5,25 +5,14 @@
       @mouseover="updateActionButtonsPosition"
       @mouseleave="hideActionButtons">
     <vue-good-table
-      @on-row-mouseenter="onRowMouseover"
-      @on-row-mouseleave="onRowMouseleave"
+      @on-row-mouseenter="onRowMouseOver"
       theme="nocturnal"
       :columns="columns"
       :rows="rows"
       styleClass="vgt-table condensed bordered"
       >
       <template slot="table-row" slot-scope="props">
-        <div v-if="props.column.field == 'actions'" class="action-buttons">
-          <div v-if="hoveredOverRow(props)">
-            <b-button v-on:click="showMoreInfo(props.row)" class="action-button" type="is-info">
-              <eye-icon /> 
-            </b-button>
-            <b-button v-on:click="removeCourse(props.row.id)" class="action-button" type="is-info">
-              <span style="color: black;">X</span>
-            </b-button>
-          </div>
-        </div>
-        <div v-else-if="props.column.field == 'prof'" style="font-weight: 600;">
+        <div v-if="props.column.field == 'prof'" style="font-weight: 600;">
             <a v-if="props.row.prof_url"
                target="_blank"
                :href="`${props.row.prof_url}`"
@@ -64,10 +53,10 @@
       </template>
     </vue-good-table>
     <div>
-      <button class="user-action-button" ref="removeBtn"><plus-icon /></button>
+      <button @click="removeCourse" class="user-action-button" ref="removeBtn"><plus-icon /></button>
     </div>
     <div>
-      <button class="user-action-button" ref="infoBtn"><eye-icon /></button>
+      <button @click="showMoreInfo" class="user-action-button" ref="infoBtn"><eye-icon /></button>
     </div>
   </div>
 </template>
@@ -96,7 +85,7 @@ export default {
   },
   data() {
     return {
-      hoveredRowId: ''
+      hoveredRow: ''
     }
   },
   methods: {
@@ -113,15 +102,14 @@ export default {
       var myTableEnd = myTableBegin + myTableWidth
 
       var clientY = event.clientY
-      console.log(clientY - myTableY)
 
       if(clientY - myTableY < 50) {
         this.hideActionButtons()
         return
       }
 
-      infoBtn.setAttribute('style', `top: ${y - 25}px; left: ${myTableBegin - 25}px;`)
-      removeBtn.setAttribute('style', `top: ${y - 25}px; left: ${myTableEnd - 25}px;`)
+      removeBtn.setAttribute('style', `top: ${y - 25}px; left: ${myTableBegin - 25}px;`)
+      infoBtn.setAttribute('style', `top: ${y - 25}px; left: ${myTableEnd - 25}px;`)
 
     },
     hideActionButtons() {
@@ -131,17 +119,11 @@ export default {
       infoBtn.setAttribute('style', 'visibility: hidden;')
       removeBtn.setAttribute('style', 'visibility: hidden;')
     },
-    onRowMouseleave(props) {
-      this.hoveredRowId = ''
-    },
     onRowMouseOver(props) {
       this.hoveredRow = props.row
     },
     hoveredOverRow(props) {
       return this.hoveredRowId === props.row.id
-    },
-    onRowMouseover(props) {
-      this.hoveredRowId = props.row.id
     },
     ratingColor(rating) {
       rating = Number(rating)
@@ -179,7 +161,8 @@ export default {
       }
       return color
     },
-    removeCourse(course_id) {
+    removeCourse() {
+      var course_id = this.hoveredRow.id
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester
       var draft = this.selectedValues.draft
@@ -190,8 +173,8 @@ export default {
       }).catch(error => {
       })
     },
-    showMoreInfo(row) {
-      this.$emit('showMoreInfo', row)
+    showMoreInfo() {
+      this.$emit('showMoreInfo', this.hoveredRow)
     }
   },
   //   getSelectedValues() {
