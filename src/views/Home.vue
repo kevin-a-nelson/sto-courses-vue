@@ -4,7 +4,7 @@
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
-      <div id="website-header" class="my-opacity fall-background-color">
+      <div id="website-header" class="my-opacity ">
         <h1 class="website-header-title">Rate my Professor Course Planner</h1>
         <div id="top-section">
           <div id="top-section-selectors">
@@ -15,7 +15,7 @@
       </div>
       <!-- User Table -->
       <div id="user-section">
-        <div id="user-courses-table-options" class="my-opacity fall-background-color">
+        <div id="user-courses-table-options" class="my-opacity">
           <div>
             <h1 id="my-courses-header" class="website-header-title">My Courses</h1>
           </div>
@@ -33,7 +33,7 @@
       </div>
       <!-- Stolaf Table -->
       <div id="stolaf-section" name="stolaf-courses">
-        <div id="stolaf-courses-table-options" class="my-opacity fall-background-color">
+        <div id="stolaf-courses-table-options" class="my-opacity ">
           <div>
             <h1 class="website-header-title">Stolaf Courses</h1>
           </div>
@@ -50,7 +50,7 @@
           />
       </div>
     </div>
-    <div class="fall-background-color" id="contact">
+    <div id="contact">
       <div id="my-contacts">
         <p>nelson67@stolaf.edu</p>
         <p>612-236-5220</p>
@@ -503,7 +503,6 @@ export default {
   margin-top: 70px;
   width: 100%;
   border-radius: 10px;
-  background-color: #ff4e00;
 }
 
 .website-header-title {

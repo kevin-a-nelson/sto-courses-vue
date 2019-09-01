@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="fall-background-image">
+  <div id="app">
     <div id="nav">
       <my-nav-bar />
       <!-- <router-link to="/signup">Signup</router-link> | -->
@@ -73,10 +73,7 @@ tr {
   /*border: solid lightgreen;*/
   /*border: linear-gradient(315deg, #00cc00 0%, #339933 60%);*/
 }
-.summer-session-1-background-image {
-  /*background: url(https://images.theconversation.com/files/243439/original/file-20181101-83635-1xcrr39.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip) no-repeat center center fixed; */
-  /*background: url(https://www.subsource.com/ContentPages/images/application/sandwich-artist.png) no-repeat center center fixed; */
-  /*background: url(http://www.gsfdcy.com/data/img1/83/2113790-summer-wallpaper.jpg) no-repeat center center fixed; */
+.summerOne-img {
   background: url(https://i.pinimg.com/originals/83/ca/0b/83ca0bba91f42a2caf59abcb7cccd3b9.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -84,8 +81,32 @@ tr {
   background-size: cover;  
 }
 
-.summer-session-1-background-color {
+.spring-img {
+  background: url(https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2019/03/5c949b2d45ead_5c949a57947db_1937238489.jpg) no-repeat center center fixed; 
+  /*background: url(https://ak8.picdn.net/shutterstock/videos/14673928/thumb/1.jpg) no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+}
 
+.winter-img {
+  background: url(https://wallpaperbro.com/img/352195.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+}
+
+.fall-img {
+  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.summer-session-1-background-color {
 background-color: #fefefe;
 background-image: linear-gradient(315deg, #fefefe 0%, #00a4e4 74%) !important;
 }
@@ -93,15 +114,6 @@ background-image: linear-gradient(315deg, #fefefe 0%, #00a4e4 74%) !important;
 
 .spring-background-color {
   background-image: linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%) !important;
-}
-
-.spring-background-image {
-  background: url(https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2019/03/5c949b2d45ead_5c949a57947db_1937238489.jpg) no-repeat center center fixed; 
-  /*background: url(https://ak8.picdn.net/shutterstock/videos/14673928/thumb/1.jpg) no-repeat center center fixed; */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;  
 }
 
 #app {
@@ -131,29 +143,14 @@ background-image: linear-gradient(315deg, #fefefe 0%, #00a4e4 74%) !important;
 
 
 
-.winter-background-image {
-  background: url(https://wallpaperbro.com/img/352195.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;  
-}
 
-.fall-background-image {
-  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed; 
-  /*background: url(http://hdwpro.com/wp-content/uploads/2017/10/Awesome-Fall-Wallpaper.jpg) no-repeat center center fixed; */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
 
-.fall-background-color {
+/*.fall-background-color {
   background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
 
   background-color: #00b712;
 }
-
+*/
 .winter-background-color {
   /*background-color: #abe9cd;*/
   /*background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%) !important;*/

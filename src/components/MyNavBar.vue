@@ -95,8 +95,6 @@ b-navbar-item {
 }
 
 .navbar {
-  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
-  color: white !important;
 }
 
 </style>

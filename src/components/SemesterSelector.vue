@@ -25,57 +25,102 @@ export default {
         { text: 'Summer Session 1', value: 4 },
         { text: 'Summer Session 2', value: 5 },
       ],
-      seasonBackgroundColors: {
-        winter: 'winter-background-color',
-        fall: 'fall-background-color',
-        spring: 'spring-background-color',
-        summerSession1: 'summer-session-1-background-color'
-      },
-      seasonBackgroundImages: {
-        winter: 'winter-background-image',
-        fall: 'fall-background-image',
-        spring: 'spring-background-image',
-        summerSession1: 'summer-session-1-background-image'
-      },
-      seasonTableColors: {
-        winter: ''
-      }
-      seasonBorderColors: {
-        winter: 'lightblue',
-        fall: 'orange'
-      }
+      tables: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      modal: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      header: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      app: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      myCourses: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      stolafCourses: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      stolafActionBtns: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      userActionBtns: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      paginationFooter: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      navbar: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      contact: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ],
+      backgroundImage: [
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+        'blue',
+      ]
     }
   },
   methods: {
+    created() {
+    },
     newSemesterSelected() {
       this.$emit('newSemesterSelected', 'semester' , this.selectedSemester)
-      var season = this.semesterToSeason(this.selectedSemester)
-      this.changeSeasonTheme(season)
+      this.changeSeasonTheme(this.selectedSemester)
     },
-    semesterToSeason(semester) {
-      var season = ''
-      switch(semester) {
-        case 1:
-          season = 'fall'
-          break;
-        case 2:
-          season = 'winter'
-          break;
-        case 3:
-          season = 'spring'
-          break;
-        case 4:
-          season = 'summerSession1'
-          break;
-        case 5:
-          season = 'summerSession2'
-          break;
-        default:
-          season = 'fall'
-      }
-      return season
-    },
-    changeSeasonTheme(season) {
+
+
+    changeSeasonTheme(semester) {
       var tables = document.getElementsByTagName('table')
       var modal = document.getElementsByTagName('more-info-modal')
       var header = document.getElementById('website-header')
@@ -88,38 +133,53 @@ export default {
       var navbar = document.getElementsByClassName('navbar')[0]
       var contact = document.getElementById('contact')
 
-      this.changeElementSeason(season, stolafActionBtns[0])
-      this.changeElementSeason(season, stolafActionBtns[1])
-      this.changeElementSeason(season, userActionBtns[0])
-      this.changeElementSeason(season, userActionBtns[1])
-      this.changeElementSeason(season, tables[0])
-      this.changeElementSeason(season, tables[1])
-      this.changeElementSeason(season, paginationFooter[0])
-      this.changeElementSeason(season, header)
-      this.changeElementSeason(season, stolafCourses)
-      this.changeElementSeason(season, myCourses)
-      this.changeElementSeason(season, navbar)
-      this.changeElementSeason(season, contact)
-      this.changeElementSeasonImage(season, app)
+      console.log(tables[0])
+      tables[0].style.background = 'blue !important'
+      console.log(tables[0].style.background = "blue")
+
+      header.style.background = 'blue'
+
+      // this.changeElementSeason(season, stolafActionBtns[0])
+      // this.changeElementSeason(season, stolafActionBtns[1])
+      // this.changeElementSeason(season, userActionBtns[0])
+      // this.changeElementSeason(season, userActionBtns[1])
+      // this.changeElementSeason(season, tables[0])
+      // this.changeElementSeason(season, tables[1])
+      // this.changeElementSeason(season, paginationFooter[0])
+      // this.changeElementSeason(season, header)
+      // this.changeElementSeason(season, stolafCourses)
+      // this.changeElementSeason(season, myCourses)
+      // this.changeElementSeason(season, navbar)
+      // this.changeElementSeason(season, contact)
+      // this.changeBackgroundImage(season, app)
     },
-    changeElementSeason(inputSeason, element) {
-      var seasonBackgrounds = ['winter-background-color', 'fall-background-color', 'spring-background-color', 'summer-session-1-background-color']
+    changeElementSeason(season, element) {
+      var seasonBackground = [
+        'fall',
+        'winter',
+        'spring',
+        'summer1',
+        'summer2'
+      ]
+      element.style.background = this.seasonBackgrounds[season + 1]
+    },
+    changeTableSeason(season, element) {
+      var tableBackground = [
+        'fall',
+        'winter',
+        'spring',
+        'summer1',
+        'summer2'
+      ]
+      element.style.background = tableBackground[season + 1]
+    },
+    changeBackgroundImage(inputSeason, element) {
+      var seasonBackgrounds = ['winter-img', 'fall-img', 'spring-img', 'summerOne-img', 'summerTwo-img']
       seasonBackgrounds.forEach(season => {
         if (element.classList.contains(season)) {
           element.classList.remove(season); 
         }
       })
-      console.log(this.seasonBackgroundColors[inputSeason])
-      element.classList.add(this.seasonBackgroundColors[inputSeason])
-    },
-    changeElementSeasonImage(inputSeason, element) {
-      var seasonBackgrounds = ['winter-background-image', 'fall-background-image', 'spring-background-image', 'summer-session-1-background-image']
-      seasonBackgrounds.forEach(season => {
-        if (element.classList.contains(season)) {
-          element.classList.remove(season); 
-        }
-      })
-      console.log(this.seasonBackgroundImages[inputSeason])
       element.classList.add(this.seasonBackgroundImages[inputSeason])
     },
   }

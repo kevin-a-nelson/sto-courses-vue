@@ -14,7 +14,7 @@
       :columns="columns"
       :rows="rows"
       :fixed-header="false"
-      styleClass="vgt-table condensed fall-background-color"
+      styleClass="vgt-table condensed"
       :pagination-options="paginationOptions"
       :sort-options="{
         initialSortBy: [
@@ -82,10 +82,10 @@
       </template>
     </vue-good-table>
     <div>
-      <button @click="addCourse" class="stolaf-table-btn fall-background-color" ref="AddBtn"><plus-icon /></button>
+      <button @click="addCourse" class="stolaf-table-btn" ref="AddBtn"><plus-icon /></button>
     </div>
     <div>
-      <button @click="moreInfo" class="stolaf-table-btn fall-background-color" ref="InfoBtn"><eye-icon /></button>
+      <button @click="moreInfo" class="stolaf-table-btn" ref="InfoBtn"><eye-icon /></button>
     </div>
   </div>
 </template>
