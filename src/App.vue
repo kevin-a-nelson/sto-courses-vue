@@ -23,8 +23,8 @@ export default {
       y: 0,
     }
   },
-  created(event) {
-
+  created() {
+    console.log(window)
   },
   methods: {
     methodToRunOnSelect(payload) {

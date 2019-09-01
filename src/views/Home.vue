@@ -140,7 +140,8 @@ export default {
             ],
           }
         },
-        { label: 'Name', 
+        { 
+          label: 'Name', 
           field: 'name',
           hidden: false,
           filterOptions: {
@@ -161,7 +162,7 @@ export default {
           }
         },
         {
-          label: 'Gereqs', 
+          label: "Ge's", 
           field: 'gereqs',
           hidden: false,
           filterOptions: {
@@ -484,7 +485,7 @@ export default {
 }
 
 #body-container {
-  padding: 0 10%;
+  padding: 0 5%;
 }
 
 #contact {
@@ -504,7 +505,7 @@ export default {
 
 #website-header {
   padding: 20px 20px;
-  max-width: 1200px;
+  max-width: 950px;
   background: #2c3e50;
   margin: 0px auto;
   margin-bottom: 30px;
@@ -568,12 +569,12 @@ export default {
 
 #user-section {
   margin: 0px auto;
-  max-width: 1200px;
+  max-width: 950px;
   margin-bottom: 30px;
 }
 
 #stolaf-section {
-  max-width: 1200px;
+  max-width: 950px;
   margin: 0px auto;
 }
 

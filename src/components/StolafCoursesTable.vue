@@ -1,15 +1,14 @@
 <template>
   <div id="stolaf-courses-table"
+    @mouseleave="onMouseLeave"
     ref="stolafTable" 
     class="my-opacity" 
-    @mouseover="updateMousePosition" 
-    @mouseleave="onMouseLeave" 
-    @mouseenter="onMouseEnter">
+    @mouseover="updateMousePosition"
+    >
     <!-- Notifications -->
     <notifications group="foo" position="top right"/>
     <!-- Table -->
     <vue-good-table
-      @on-row-mouseleave="onRowMouseleave"
       @on-row-mouseenter="onRowMouseover"
       theme="nocturnal"
       :columns="columns"
@@ -77,6 +76,9 @@
         <div v-else-if="props.column.label === 'Reviews'" ref="reviewsHeader">
           {{ props.column.label }}
         </div>
+        <div v-else-if="props.column.label === 'Difficulty'" style="font-size: 15px; font-weight: 900;">
+          {{ props.column.label }}
+        </div>
         <div v-else class="my-column">
           <span style="font-weight: 900;">
             {{ props.column.label }}
@@ -85,10 +87,10 @@
       </template>
     </vue-good-table>
     <div>
-      <button class="absolute-table-btn" ref="AddBtn"><plus-icon /></button>
+      <button @click="addCourse" class="absolute-table-btn" ref="AddBtn"><plus-icon /></button>
     </div>
     <div>
-      <button class="absolute-table-btn" ref="InfoBtn"><eye-icon /></button>
+      <button @click="moreInfo" class="absolute-table-btn" ref="InfoBtn"><eye-icon /></button>
     </div>
 
   </div>
@@ -127,7 +129,7 @@ export default {
         x: 0,
         y: 0,
       },
-      hoveredRowId: '',
+      hoveredRow: '',
       paginationOptions: {
         enabled: true,
         mode: 'pages',
@@ -153,7 +155,7 @@ export default {
       },
       notificationType: '',
       columnNum: 1,
-      moveActionButtons: false
+      showActionButtons: false
     }
   },
   methods: {
@@ -162,55 +164,57 @@ export default {
       `background: red; position: absolute; width: 100px; height: 100px; top: ${this.y}px;`
       return style
     },
-    onMouseEnter() {
-      this.moveActionButtons = true
-    },
-    onMouseLeave() {
-      this.moveActionButtons = false
-    },
-    onRowMouseleave(props) {
-      this.hoveredRowId = ''
-    },
-    mousedOverRow(rowId) {
-      return this.hoveredRowId === rowId
+    onMouseLeave(props) {
+      this.hideActionButtons()
     },
     onRowMouseover(props) {
-      this.moveActionButtons = true
-      this.hoveredRowId = props.row.id
+      this.hoveredRow = props.row
     },
     updateMousePosition(event) {
 
       this.x = event.pageX
       this.y = event.pageY
       
-      var reviewsHeader = this.$refs.reviewsHeader
-      var reviewsHeaderX = reviewsHeader.getBoundingClientRect().x
+      var reviewsHeaderX = this.$refs.reviewsHeader.getBoundingClientRect().x
 
-      var statusHeader = this.$refs.statusHeader
-      var statusHeaderX = statusHeader.getBoundingClientRect().x
+      var statusHeader = this.$refs.statusHeader.getBoundingClientRect()
+      var statusHeaderX = statusHeader.x
+      var statusHeaderY = statusHeader.y
 
-      var stolafTable = this.$refs.stolafTable
 
-      console.log(stolafTable.getBoundingClientRect().width)
-      console.log(stolafTable.getBoundingClientRect().x)
+      var stolafTable = this.$refs.stolafTable.getBoundingClientRect()
 
-      var stolafTableBegin = stolafTable.getBoundingClientRect().x
-      var stolafTableWidth = stolafTable.getBoundingClientRect().width
+
+      var stolafTableBegin = stolafTable.x
+      var stolafTableWidth = stolafTable.width
+      var stolafTableHeight = stolafTable.height
       var stolafTableEnd = stolafTableWidth + stolafTableBegin
 
-      if(this.y < 1050) {
-        this.$refs.addBtn.setAttribute('style',
-          `top: 1050px;`)
-        return
-      }
+      var addBtn = this.$refs.AddBtn
+      var infoBtn = this.$refs.InfoBtn
 
-      this.$refs.AddBtn.setAttribute('style',
-        `top: ${this.y - 25}px;
-         left: ${stolafTableBegin - 25}px;`
+      if(event.clientY - statusHeaderY > 100) {
+        addBtn.setAttribute('style',
+          `top: ${this.y - 25}px;
+           left: ${stolafTableBegin - 25}px;`
+        )
+        infoBtn.setAttribute('style',
+          `top: ${this.y - 25 }px;
+           left: ${stolafTableEnd - 25}px;`
+        )
+      } else {
+        this.hideActionButtons()
+      }
+    },
+    hideActionButtons() {
+      var addBtn = this.$refs.AddBtn
+      var infoBtn = this.$refs.InfoBtn
+
+      addBtn.setAttribute('style',
+        `visibility: hidden;`
       )
-      this.$refs.InfoBtn.setAttribute('style',
-        `top: ${this.y - 25 }px;
-         left: ${stolafTableEnd - 25}px;`
+      infoBtn.setAttribute('style',
+        `visibility: hidden;`
       )
     },
     ratingColor(rating) {
@@ -249,14 +253,14 @@ export default {
       }
       return color
     },
-    addCourse(row) {
-      var course_id = row.id
+    addCourse() {
+      var course_id = this.hoveredRow.id
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester
       var draft = this.selectedValues.draft
       var term = `${year}${semester}`
 
-      var course_name = row.name
+      var course_name = this.hoveredRow.name
       var semesterStr = this.intSemesterToStr(semester)
       var text = `Added ${course_name} to ${semesterStr} ${year} Draft ${draft}`
 
@@ -269,8 +273,8 @@ export default {
               this.showNotification('foo', 'error' , 'You already have that course')
            })
     },
-    moreInfo(row) {
-      this.$emit('showMoreInfo', row)
+    moreInfo() {
+      this.$emit('showMoreInfo', this.hoveredRow)
     },
     showNotification(group, type, text) {
       this.$notify({
@@ -319,7 +323,7 @@ export default {
 }
 
 .my-column {
-  width: 0px;
+  width: 40px;
 }
 
 
