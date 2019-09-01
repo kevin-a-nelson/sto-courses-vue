@@ -1,7 +1,7 @@
 <template>
-  <div id="signup-container">
-    <section id="signup-box" class="fall-background-color">
-      <div>
+  <div class="signup-container">
+    <section class="fall-background-color signup-box">
+      <div id="signup">
         <p class="errors" v-for="error in errors"> {{ error }} </p>
         <div class="label-container">
           <b-field class="signup-label"
@@ -79,7 +79,7 @@ export default {
 
 <style>
 
-#signup-container {
+.signup-container {
   padding-top: 200px;
   margin: 0px 20px;
 }
@@ -98,7 +98,7 @@ export default {
 }
 
 
-#signup-box {
+.signup-box {
   opacity: 0.9;
   border-radius: 5px;
   background: #2c3e50;

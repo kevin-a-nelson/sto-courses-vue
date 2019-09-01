@@ -1,7 +1,7 @@
 <template>
-  <div id="signup-container">
-    <section class="fall-background-color" id="signup-box">
-      <div>
+  <div class="signup-container">
+    <section :class="`${currentSeason()} signup-box`">
+      <div id="login">
         <p class="errors" v-for="error in errors"> {{ error }} </p>
         <div class="label-container">
           <b-field class="signup-label"
@@ -59,6 +59,9 @@ export default {
           this.email = "";
           this.password = "";
         });
+    },
+    currentSeason() {
+      return document.getElementById('app').classList.contains('fall-background-image') ? 'fall-background-color' : 'winter-background-color'
     }
   }
 };

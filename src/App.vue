@@ -21,40 +21,53 @@ export default {
     return {
       x: 0,
       y: 0,
+      seasonBackgroundColors: {
+        winter: 'winter-background-color',
+        fall: 'fall-background-color'
+      },
+      seasonBackgroundImages: {
+        winter: 'winter-background-image',
+        fall: 'fall-background-color'
+      }
     }
   },
   created() {
   },
   mounted() {
-    // var table = document.getElementsByTagName('table')
-    // var header = document.getElementById('website-header')
-    // var app = document.getElementById('app')
-    // var myCourses = document.getElementById('user-courses-table-options')
-    // var stolafCourses = document.getElementById('stolaf-courses-table-options')
-    // var stolafActionBtns = document.getElementsByClassName('stolaf-table-btn')
-    // var userActionBtns = document.getElementsByClassName('user-action-btn')
-    // stolafActionBtns[0].setAttribute('class', 'stolaf-table-btn winter-background-color')
-    // stolafActionBtns[1].setAttribute('class', 'stolaf-table-btn winter-background-color')
-
-    // table = table[0]
-    // table.setAttribute('class', 'vgt-table condensed winter-background-color')
-    // header.setAttribute('class', 'my-opacity winter-background-color')
-    // app.setAttribute('class', 'winter-background-image')
-    // myCourses.setAttribute('class', 'my-opacity winter-background-color')
-    // stolafCourses.setAttribute('class', 'my-opacity winter-background-color')
+    var paginationFooter = document.getElementsByClassName('vgt-wrap__footer')[0]
+    paginationFooter.classList.add('fall-background-color')
   },
   methods: {
     methodToRunOnSelect(payload) {
       this.object = payload;
+    },
+    changeElementSeason(inputSeason, element) {
+      var seasonBackgrounds = ['winter-background-color', 'fall-background-color']
+      seasonBackgrounds.forEach(season => {
+        if (element.classList.contains(season)) {
+          element.classList.remove(season); 
+        }
+      })
+      element.classList.add(this.seasonBackgroundColors[inputSeason])
+    },
+    changeElementSeasonImage(inputSeason, element) {
+      var seasonBackgrounds = ['winter-background-image', 'fall-background-image']
+      seasonBackgrounds.forEach(season => {
+        if (element.classList.contains(season)) {
+          element.classList.remove(season); 
+        }
+      })
+      element.classList.add(this.seasonBackgroundImages[inputSeason])
     }
   },
-  mouseIsMoving() {
-    console.log('hello world')
-  }
 }
 </script>
 
 <style>
+
+html {
+  overflow: scroll;
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -104,13 +117,12 @@ export default {
 
 .winter-background-color {
   background-color: #abe9cd;
-  background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);
+  background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%) !important;
 }
 
 
 .vgt-wrap__footer {
   border: none !important;
-  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
 }
 
 .vgt-wrap__footer * {
@@ -124,6 +136,7 @@ table {
 
 td {
     color: white !important;
+    /*border: solid blue;*/
 }
 
 th {
@@ -131,19 +144,18 @@ th {
   background: transparent !important;
 }
 
-.vgt-table {
-  /*background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);*/
+tr {
+  border: solid lightblue;
 }
 
-tr {
+.solid-orange {
   border: solid orange;
 }
 
-
-
-.filter-th {
-  background: blue;
+.solid-light-blue {
+  /*border: solid lightblue;*/
 }
+
 
 .my-opacity {
   opacity: 0.9;

@@ -1,17 +1,17 @@
 <template>
   <div>
     <modal name="more-info"
-           width="80%"
+           width="60%"
            height="auto"
            style="margin-bottom: 0px;"
     >
-        <div id="info-container">
+        <div id="info-container" :class="currentSeason()" ref="modalRef">
           <div class="spacing">
             <h5 id="name">
               {{ moreInfoData.name }}
             </h5>
           </div>
-          <div class="spacing">
+          <div class="spacing" ref="testSpace">
             <h5 class="modal-label">Prereqs</h5>
               {{ moreInfoData.prereqs }}
           </div>
@@ -37,8 +37,11 @@ export default {
   methods: {
     close() {
       this.$modal.hide('more-info')
+    },
+    currentSeason() {
+      return document.getElementById('app').classList.contains('fall-background-image') ? 'fall-background-color' : 'winter-background-color'
     }
-  }
+  }, 
 }
 </script>
 
@@ -78,14 +81,9 @@ export default {
 
 #info-container {
   max-height: 500px;
-  /*max-width: 400px;*/
   overflow-y: scroll;
   color: #eee;
-  /*background: url(https://wallpapercave.com/wp/wp4078020.jpg) fixed;*/
-  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
-  /*background: transparent;*/
   padding: 30px;
-  /*margin: 50%;*/
 }
 
 </style>
