@@ -82,14 +82,15 @@
       </template>
     </vue-good-table>
     <div>
-      <button @click="addCourse" class="absolute-table-btn" ref="AddBtn"><plus-icon /></button>
+      <button @click="addCourse" class="stolaf-table-btn f
+  background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);all-background-color" ref="AddBtn"><plus-icon /></button>
     </div>
     <div>
-      <button @click="moreInfo" class="absolute-table-btn" ref="InfoBtn"><eye-icon /></button>
+      <button @click="moreInfo" class="stolaf-table-btn f
+  background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);all-background-color" ref="InfoBtn"><eye-icon /></button>
     </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios'
 import MoreInfoModal from './MoreInfoModal.vue'
@@ -127,7 +128,7 @@ export default {
       paginationOptions: {
         enabled: true,
         mode: 'pages',
-        perPage: 5,
+        perPage: 1000,
         position: 'top',
         perPageDropdown: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         dropdownAllowAll: true,
@@ -301,12 +302,11 @@ export default {
 
 <style>
 
-.absolute-table-btn {
+.stolaf-table-btn {
   height: 50px;
   width: 50px;
   position: absolute;
   background: #167df0;
-  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
   border-radius: 5px;
   border: none;
   top: 0px;

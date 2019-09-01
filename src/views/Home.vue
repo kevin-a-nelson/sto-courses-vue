@@ -17,7 +17,7 @@
       <div id="user-section">
         <div id="user-courses-table-options" class="my-opacity fall-background-color">
           <div>
-            <h1 class="website-header-title">My Courses</h1>
+            <h1 id="my-courses-header" class="website-header-title">My Courses</h1>
           </div>
           <div>
             <draft-selector style="margin-top: 20px;" v-on:newDraftSelected="updateSelectedValuesAndRows"/>
@@ -103,20 +103,6 @@ export default {
   },
   data() {
     return {
-      years: [
-        {text: 2019, value: 2019 },
-        {text: 2018, value: 2019 },
-        {text: 2017, value: 2019 },
-        {text: 2016, value: 2019 },
-        {text: 2015, value: 2019 },
-      ],
-      semesters: [
-        { text: 'Fall', value: 1 },
-        { text: 'Interim', value: 2 },
-        { text: 'Spring', value: 3 },
-        { text: 'Summer Session 1', value: 4 },
-        { text: 'Summer Session 2', value: 5 },
-      ],
       selectedSemester: 1,
       selectedYear: 2019,
       window: {
@@ -159,6 +145,22 @@ export default {
             filterValue: '',
             placeholder: 'All',
             filterDropdownItems: departments(),
+          }
+        },
+        {
+          label: 'Num',
+          field: 'num',
+          type: 'number',
+          filterOptions: {
+            enabled: true,
+            filterValue: '',
+            placeholder: 'All',
+            filterDropdownItems: [
+              { text: '100', value: 100 },
+              { text: '200', value: 200 },
+              { text: '300', value: 300 },
+            ],
+            filterFn: this.numFilterFn
           }
         },
         {
@@ -314,6 +316,10 @@ export default {
           label: 'Dept', 
           field: 'dept',
           hidden: false,
+        },
+        {
+          label: 'Num',
+          field: 'num',
         },
         {
           label: 'Gereqs', 
@@ -494,7 +500,7 @@ export default {
   max-width: 950px;
   margin: 0px auto;
   margin-bottom: 70px;
-  margin-top: 50px;
+  margin-top: 70px;
   width: 100%;
   border-radius: 10px;
   background-color: #ff4e00;

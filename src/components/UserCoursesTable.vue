@@ -59,10 +59,10 @@
       </template>
     </vue-good-table>
     <div>
-      <button @click="removeCourse" class="user-action-button" ref="removeBtn"><plus-icon /></button>
+      <button @click="removeCourse" class="user-action-button fall-background-color" ref="removeBtn"><plus-icon /></button>
     </div>
     <div>
-      <button @click="showMoreInfo" class="user-action-button" ref="infoBtn"><eye-icon /></button>
+      <button @click="showMoreInfo" class="user-action-button fall-background-color" ref="infoBtn"><eye-icon /></button>
     </div>
   </div>
 </template>
@@ -239,7 +239,6 @@ export default {
   height: 50px;
   width: 50px;
   position: absolute;
-  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
   border-radius: 5px;
   border: none;
   top: 0px;

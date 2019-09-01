@@ -20,11 +20,11 @@
         return {
         selectedYear: 2019,
         years: [
-          {text: 2019, value: 2019 },
-          {text: 2018, value: 2018 },
-          {text: 2017, value: 2017 },
-          {text: 2016, value: 2016 },
-          {text: 2015, value: 2015 },
+          {text: '2019 - 20', value: 2019 },
+          {text: '2018 - 19', value: 2018 },
+          {text: '2017 - 18', value: 2017 },
+          {text: '2016 - 17', value: 2016 },
+          {text: '2015 - 16', value: 2015 },
         ],
       }
     },
