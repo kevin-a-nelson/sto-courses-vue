@@ -39,7 +39,16 @@ export default {
       this.$modal.hide('more-info')
     },
     currentSeason() {
-      return document.getElementById('app').classList.contains('fall-background-image') ? 'fall-background-color' : 'winter-background-color'
+      var image = ''
+      var app = document.getElementById('app').classList
+      if(app.contains('fall-background-image')) {
+        var image = 'fall-background-color'
+      } else if (app.contains('winter-background-image')) {
+        var image = 'winter-background-color'
+      } else {
+        var image = 'spring-background-color'
+      }
+      return image
     }
   }, 
 }

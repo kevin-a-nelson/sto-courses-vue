@@ -54,7 +54,7 @@
             <span v-if="props.row.reviews == 0" class="my-blue">N/A</span>
             <span v-else :class="reviewsColor(props.row.reviews)"> {{ props.row.reviews }}</span>
           </div> -->
-          <div v-if="props.column.label==='Status'" style="font-weight: 700; font-size: 15px; text-align: center; line-height: 50px;">
+          <div v-if="props.column.label==='Status'" style="font-weight: 700; font-size: 15px; text-align: center; line-height: 50px;" >
             <span>
               {{props.formattedRow[props.column.field]}}
             </span>

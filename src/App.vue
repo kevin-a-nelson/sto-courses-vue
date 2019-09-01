@@ -69,6 +69,24 @@ html {
   overflow: scroll;
 }
 
+tr {
+  /*border: solid lightgreen;*/
+  border: linear-gradient(315deg, #00cc00 0%, #339933 60%);
+}
+
+.spring-background-color {
+  background-image: linear-gradient(200deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%) !important;
+}
+
+.spring-background-image {
+  background: url(https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2019/03/5c949b2d45ead_5c949a57947db_1937238489.jpg) no-repeat center center fixed; 
+  /*background: url(https://ak8.picdn.net/shutterstock/videos/14673928/thumb/1.jpg) no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -94,6 +112,8 @@ html {
   min-height: 1000px;
 }
 
+
+
 .winter-background-image {
   background: url(https://wallpaperbro.com/img/352195.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -113,6 +133,7 @@ html {
 
 .fall-background-color {
   background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
+  background-color: #00b712;
 }
 
 .winter-background-color {
@@ -131,21 +152,17 @@ html {
 }
 
 table {
-  background: transparent;
+  border: none;
 }
 
 td {
     color: white !important;
-    /*border: solid blue;*/
+    /*border: solid darkgreen;*/
 }
 
 th {
   color: white !important;
   background: transparent !important;
-}
-
-tr {
-  border: solid lightblue;
 }
 
 .solid-orange {

@@ -27,11 +27,13 @@ export default {
       ],
       seasonBackgroundColors: {
         winter: 'winter-background-color',
-        fall: 'fall-background-color'
+        fall: 'fall-background-color',
+        spring: 'spring-background-color',
       },
       seasonBackgroundImages: {
         winter: 'winter-background-image',
-        fall: 'fall-background-image'
+        fall: 'fall-background-image',
+        spring: 'spring-background-image'
       },
       seasonBorderColors: {
         winter: 'lightblue',
@@ -74,11 +76,7 @@ export default {
       var paginationFooter = document.getElementsByClassName('vgt-wrap__footer')
       var navbar = document.getElementsByClassName('navbar')[0]
       var contact = document.getElementById('contact')
-      var tr = document.getElementsByTagName('tr')
-      var td = document.getElementsByTagName('td')
 
-      // this.changeElementsBorder(season, tr)
-      // this.changeElementsBorder(season, td)
       this.changeElementSeason(season, stolafActionBtns[0])
       this.changeElementSeason(season, stolafActionBtns[1])
       this.changeElementSeason(season, userActionBtns[0])
@@ -94,7 +92,7 @@ export default {
       this.changeElementSeasonImage(season, app)
     },
     changeElementSeason(inputSeason, element) {
-      var seasonBackgrounds = ['winter-background-color', 'fall-background-color']
+      var seasonBackgrounds = ['winter-background-color', 'fall-background-color', 'spring-background-color']
       seasonBackgrounds.forEach(season => {
         if (element.classList.contains(season)) {
           element.classList.remove(season); 
@@ -103,7 +101,7 @@ export default {
       element.classList.add(this.seasonBackgroundColors[inputSeason])
     },
     changeElementSeasonImage(inputSeason, element) {
-      var seasonBackgrounds = ['winter-background-image', 'fall-background-image']
+      var seasonBackgrounds = ['winter-background-image', 'fall-background-image', 'spring-background-image']
       seasonBackgrounds.forEach(season => {
         if (element.classList.contains(season)) {
           element.classList.remove(season); 
@@ -113,8 +111,10 @@ export default {
     },
     changeElementsBorder(season, elements) {
       var borderColor = `solid ${this.seasonBorderColors[season]} !important`
+      console.log(tbody)
       for(var i = 0; i < elements.length; i++) {
-        elements[i].classList.add('solid-orange')
+        // elements[i].style.border = 'solid lightblue !important'
+        // elements[i].style.background = 'black'
       }
     }
   }
