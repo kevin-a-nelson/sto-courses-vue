@@ -1,6 +1,6 @@
 <template>
   <div id="stolaf-courses-table"
-    rel="stolafTable" 
+    ref="stolafTable" 
     class="my-opacity" 
     @mouseover="updateMousePosition" 
     @mouseleave="onMouseLeave" 
@@ -27,9 +27,6 @@
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
-        <div v-if="props.row.index === 0" rel="firstRow">
-          {{props.formattedRow[props.column.field]}}
-        </div>
         <div>
           <div v-if="props.column.field == 'actions'">
             <div v-if="hoveredRowId === props.row.id">
@@ -188,19 +185,33 @@ export default {
       
       var reviewsHeader = this.$refs.reviewsHeader
       var reviewsHeaderX = reviewsHeader.getBoundingClientRect().x
-      
+
       var statusHeader = this.$refs.statusHeader
       var statusHeaderX = statusHeader.getBoundingClientRect().x
-      var statusHeaderY = statusHeader.getBoundingClientRect().y
 
-        this.$refs.AddBtn.setAttribute('style',
-          `top: ${this.y - 25}px;
-           left: ${statusHeaderX - 40}px;`
-        )
-        this.$refs.InfoBtn.setAttribute('style',
-          `top: ${this.y - 25}px;
-           left: ${reviewsHeaderX + 60}px;`
-        )
+      var stolafTable = this.$refs.stolafTable
+
+      console.log(stolafTable.getBoundingClientRect().width)
+      console.log(stolafTable.getBoundingClientRect().x)
+
+      var stolafTableBegin = stolafTable.getBoundingClientRect().x
+      var stolafTableWidth = stolafTable.getBoundingClientRect().width
+      var stolafTableEnd = stolafTableWidth + stolafTableBegin
+
+      if(this.y < 1050) {
+        this.$refs.addBtn.setAttribute('style',
+          `top: 1050px;`)
+        return
+      }
+
+      this.$refs.AddBtn.setAttribute('style',
+        `top: ${this.y - 25}px;
+         left: ${stolafTableBegin - 25}px;`
+      )
+      this.$refs.InfoBtn.setAttribute('style',
+        `top: ${this.y - 25 }px;
+         left: ${stolafTableEnd - 25}px;`
+      )
     },
     ratingColor(rating) {
       rating = Number(rating)
