@@ -92,7 +92,6 @@
     <div>
       <button @click="moreInfo" class="absolute-table-btn" ref="InfoBtn"><eye-icon /></button>
     </div>
-
   </div>
 </template>
 
@@ -183,11 +182,8 @@ export default {
 
 
       var stolafTable = this.$refs.stolafTable.getBoundingClientRect()
-
-
       var stolafTableBegin = stolafTable.x
       var stolafTableWidth = stolafTable.width
-      var stolafTableHeight = stolafTable.height
       var stolafTableEnd = stolafTableWidth + stolafTableBegin
 
       var addBtn = this.$refs.AddBtn
@@ -311,8 +307,6 @@ export default {
 <style>
 
 .absolute-table-btn {
-  color: white;
-  font-weight: 600px;
   height: 50px;
   width: 50px;
   position: absolute;

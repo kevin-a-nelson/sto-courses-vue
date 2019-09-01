@@ -315,17 +315,6 @@ export default {
           field: 'dept',
           hidden: false,
         },
-        { 
-          label: 'Num', 
-          field: 'num',
-          type: 'number',
-          hidden: false,
-        },
-        {
-          label: 'Sec',
-          field: 'sec',
-          hidden: false,
-        },
         {
           label: 'Gereqs', 
           field: 'gereqs',
@@ -359,10 +348,6 @@ export default {
           field: 'reviews',
           hidden: false,
           type: 'number'
-        },
-        { label: 'Actions', 
-          field: 'actions',
-          hidden: false
         },
       ],
       /* Makes column multiselect visible when Hide columns button is pressed */

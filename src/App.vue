@@ -24,7 +24,6 @@ export default {
     }
   },
   created() {
-    console.log(window)
   },
   methods: {
     methodToRunOnSelect(payload) {

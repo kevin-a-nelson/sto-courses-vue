@@ -1,5 +1,9 @@
 <template>
-  <div id="user-courses-table" class="my-opacity">
+  <div id="user-courses-table" 
+      ref="myTable"
+      class="my-opacity"
+      @mouseover="updateActionButtonsPosition"
+      @mouseleave="hideActionButtons">
     <vue-good-table
       @on-row-mouseenter="onRowMouseover"
       @on-row-mouseleave="onRowMouseleave"
@@ -59,7 +63,12 @@
          </span>
       </template>
     </vue-good-table>
-    <!-- <more-info-modal v-bind:moreInfoData="moreInfoData"/> -->
+    <div>
+      <button class="user-action-button" ref="removeBtn"><plus-icon /></button>
+    </div>
+    <div>
+      <button class="user-action-button" ref="infoBtn"><eye-icon /></button>
+    </div>
   </div>
 </template>
 
@@ -91,8 +100,42 @@ export default {
     }
   },
   methods: {
+    updateActionButtonsPosition(event) {
+      var y = event.pageY
+
+      var infoBtn = this.$refs.infoBtn
+      var removeBtn = this.$refs.removeBtn
+
+      var myTable = this.$refs.myTable.getBoundingClientRect()
+      var myTableY = myTable.y
+      var myTableWidth = myTable.width
+      var myTableBegin = myTable.x
+      var myTableEnd = myTableBegin + myTableWidth
+
+      var clientY = event.clientY
+      console.log(clientY - myTableY)
+
+      if(clientY - myTableY < 50) {
+        this.hideActionButtons()
+        return
+      }
+
+      infoBtn.setAttribute('style', `top: ${y - 25}px; left: ${myTableBegin - 25}px;`)
+      removeBtn.setAttribute('style', `top: ${y - 25}px; left: ${myTableEnd - 25}px;`)
+
+    },
+    hideActionButtons() {
+      var infoBtn = this.$refs.infoBtn
+      var removeBtn = this.$refs.removeBtn
+
+      infoBtn.setAttribute('style', 'visibility: hidden;')
+      removeBtn.setAttribute('style', 'visibility: hidden;')
+    },
     onRowMouseleave(props) {
       this.hoveredRowId = ''
+    },
+    onRowMouseOver(props) {
+      this.hoveredRow = props.row
     },
     hoveredOverRow(props) {
       return this.hoveredRowId === props.row.id
@@ -202,6 +245,16 @@ export default {
 </script>
 
 <style>
+
+.user-action-button {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  background: #167df0;
+  border-radius: 5px;
+  border: none;
+  top: 0px;
+}
 
 .action-button {
   margin: 3px;
