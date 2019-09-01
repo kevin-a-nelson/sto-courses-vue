@@ -44,7 +44,7 @@
                 {{ props.row.prof }}
               </span>
           </div>
-          <div v-else-if="props.column.field == 'status'" style="font-size: 30px; text-align: center; font-weight: 900;">
+          <div v-else-if="props.column.field == 'status'" style="font-size: 30px; text-align: center; font-weight: 900;" ref="statusColumn">
             <span v-if="props.row.status === 'C'" class="red">{{ props.row.status }}</span>
             <span v-else class="green">{{ props.row.status }}</span>
           </div>
@@ -66,11 +66,26 @@
         </div>
       </template>
       <template slot="table-column" slot-scope="props">
-        <span style="font-weight: 900;">
+        <div v-if="props.column.label === 'Status'" ref="statusHeader">
           {{ props.column.label }}
-        </span>
+        </div>
+        <div v-else-if="props.column.label === 'Reviews'" ref="reviewsHeader">
+          {{ props.column.label }}
+        </div>
+        <div v-else class="my-column">
+          <span style="font-weight: 900;">
+            {{ props.column.label }}
+          </span>
+        </div>
       </template>
     </vue-good-table>
+    <div>
+      <button class="absolute-table-btn" ref="AddBtn"><plus-icon /></button>
+    </div>
+    <div>
+      <button class="absolute-table-btn" ref="InfoBtn"><plus-icon /></button>
+    </div>
+
   </div>
 </template>
 
@@ -103,11 +118,15 @@ export default {
   },
   data() {
     return {
+      mousePos: {
+        x: 0,
+        y: 0,
+      },
       hoveredRowId: '',
       paginationOptions: {
-        enabled: false,
+        enabled: true,
         mode: 'pages',
-        perPage: 1000,
+        perPage: 5,
         position: 'top',
         perPageDropdown: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         dropdownAllowAll: true,
@@ -132,6 +151,11 @@ export default {
     }
   },
   methods: {
+    addCourseBtnPosition() {
+      var style = 
+      `background: red; position: absolute; width: 100px; height: 100px; top: ${this.y}px;`
+      return style
+    },
     onRowMouseleave(props) {
       this.hoveredRowId = ''
     },
@@ -139,7 +163,30 @@ export default {
       return this.hoveredRowId === rowId
     },
     onRowMouseover(props) {
+      window.addEventListener('mouseover', this.updateMousePosition)
       this.hoveredRowId = props.row.id
+    },
+    updateMousePosition(event) {
+      this.x = event.pageX
+      this.y = event.pageY
+      
+      var reviewsHeader = this.$refs.reviewsHeader
+      var reviewsHeaderX = reviewsHeader.getBoundingClientRect().x
+      
+      var statusHeader = this.$refs.statusHeader
+      var statusHeaderX = statusHeader.getBoundingClientRect().x
+
+      console.log(reviewsHeaderX)
+
+      this.$refs.AddBtn.setAttribute('style',
+        `top: ${this.y - 25}px;
+         left: ${statusHeaderX - 80}px;`
+      )
+      this.$refs.InfoBtn.setAttribute('style',
+        `top: ${this.y - 25}px;
+         left: ${reviewsHeaderX + 100}px;`
+      )
+
     },
     ratingColor(rating) {
       rating = Number(rating)
@@ -233,6 +280,23 @@ export default {
 </script>
 
 <style>
+
+.absolute-table-btn {
+  color: white;
+  font-weight: 600px;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  background: #167df0;
+  border-radius: 5px;
+  border: none;
+}
+
+.my-column {
+  width: 0px;
+}
+
+
 
 .action-button {
   border-radius: 100%;

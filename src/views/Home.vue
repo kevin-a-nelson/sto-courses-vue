@@ -20,7 +20,7 @@
             <h1 class="website-header-title">My Courses</h1>
           </div>
           <div>
-            <draft-selector v-on:newDraftSelected="updateSelectedValuesAndRows"/>
+            <draft-selector style="margin-top: 20px;" v-on:newDraftSelected="updateSelectedValuesAndRows"/>
           </div>
         </div>
         <user-courses-table
@@ -293,10 +293,10 @@ export default {
             enabled: true,
           }
         },
-        { label: 'Actions', 
-          field: 'actions',
-          hidden: false
-        },
+        // { label: 'Actions', 
+        //   field: 'actions',
+        //   hidden: false
+        // },
       ],
       /* Number used to switch stolafColumns1 to stolafColumns2 and vise versa */
       userColumns: [
@@ -497,12 +497,6 @@ export default {
 #desktop {
   padding-top: 50px;
 }
-
-user-courses-table {
-  max-width: 500px;
-}
-
-
 
 #reset-filters-btn {
   top: 32px;

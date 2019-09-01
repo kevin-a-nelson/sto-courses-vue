@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="modal-container">
     <modal :name="modalName"
            width="80%"
            height="auto"
@@ -37,6 +37,8 @@ export default {
 </script>
 
 <style>
+
+
 
 #name {
   font-size: 20px;

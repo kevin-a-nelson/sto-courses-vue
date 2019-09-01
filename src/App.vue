@@ -19,13 +19,21 @@ export default {
   },
   data() {
     return {
+      x: 0,
+      y: 0,
     }
+  },
+  created(event) {
+    console.log(event)
   },
   methods: {
     methodToRunOnSelect(payload) {
       console.log(payload)
       this.object = payload;
     }
+  },
+  mouseIsMoving() {
+    console.log('hello world')
   }
 }
 </script>
@@ -46,6 +54,11 @@ export default {
   background: url(http://getwallpapers.com/wallpaper/full/6/5/d/560817.jpg) fixed;
   background: url(https://wallpapercave.com/wp/wp4078020.jpg) fixed;
   min-height: 1000px;
+  padding-top: 20px;
+}
+
+.filter-th {
+  background: blue;
 }
 
 .my-opacity {
