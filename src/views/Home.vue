@@ -449,7 +449,7 @@ export default {
       var term = `${year}${semester}`
 
       this.stolafTableRows = []
-      axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
+      axios.get(`api/courses?term=${20191}&type=${type}`).then(response => {
         this.stolafTableRows = response.data.courses
       })
     },

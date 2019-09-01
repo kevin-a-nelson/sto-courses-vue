@@ -71,11 +71,28 @@ html {
 
 tr {
   /*border: solid lightgreen;*/
-  border: linear-gradient(315deg, #00cc00 0%, #339933 60%);
+  /*border: linear-gradient(315deg, #00cc00 0%, #339933 60%);*/
+}
+.summer-session-1-background-image {
+  /*background: url(https://images.theconversation.com/files/243439/original/file-20181101-83635-1xcrr39.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip) no-repeat center center fixed; */
+  /*background: url(https://www.subsource.com/ContentPages/images/application/sandwich-artist.png) no-repeat center center fixed; */
+  /*background: url(http://www.gsfdcy.com/data/img1/83/2113790-summer-wallpaper.jpg) no-repeat center center fixed; */
+  background: url(https://i.pinimg.com/originals/83/ca/0b/83ca0bba91f42a2caf59abcb7cccd3b9.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;  
 }
 
+.summer-session-1-background-color {
+
+background-color: #fefefe;
+background-image: linear-gradient(315deg, #fefefe 0%, #00a4e4 74%) !important;
+}
+
+
 .spring-background-color {
-  background-image: linear-gradient(200deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%) !important;
+  background-image: linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%) !important;
 }
 
 .spring-background-image {
@@ -133,12 +150,35 @@ tr {
 
 .fall-background-color {
   background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
+
   background-color: #00b712;
 }
 
 .winter-background-color {
-  background-color: #abe9cd;
-  background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%) !important;
+  /*background-color: #abe9cd;*/
+  /*background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%) !important;*/
+
+  background-image: linear-gradient(to right top, #05a2c8, #08a9d1, #0bb0d9, #0fb7e2, #12beeb) !important;
+}
+
+.winter-table-color {
+  background: lightblue;
+}
+
+.summer-table-color {
+  background: orange;
+}
+
+.spring-table-color {
+  background: pink;
+}
+
+.summer1-table-color {
+  background: blue;
+}
+
+.summer2-table-color {
+  background: blue;
 }
 
 
