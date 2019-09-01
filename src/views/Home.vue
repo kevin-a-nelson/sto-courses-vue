@@ -4,7 +4,7 @@
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
-      <div id="website-header" class="my-opacity">
+      <div id="website-header" class="my-opacity fall-background-color">
         <h1 class="website-header-title">Rate my Professor Course Planner</h1>
         <div id="top-section">
           <div id="top-section-selectors">
@@ -15,7 +15,7 @@
       </div>
       <!-- User Table -->
       <div id="user-section">
-        <div id="user-courses-table-options" class="my-opacity">
+        <div id="user-courses-table-options" class="my-opacity fall-background-color">
           <div>
             <h1 class="website-header-title">My Courses</h1>
           </div>
@@ -33,7 +33,7 @@
       </div>
       <!-- Stolaf Table -->
       <div id="stolaf-section" name="stolaf-courses">
-        <div id="stolaf-courses-table-options" class="my-opacity">
+        <div id="stolaf-courses-table-options" class="my-opacity fall-background-color">
           <div>
             <h1 class="website-header-title">Stolaf Courses</h1>
           </div>
@@ -50,7 +50,7 @@
           />
       </div>
     </div>
-    <div id="contact">
+    <div class="fall-background-color" id="contact">
       <div id="my-contacts">
         <p>nelson67@stolaf.edu</p>
         <p>612-236-5220</p>
@@ -466,19 +466,20 @@ export default {
 <style>
 
 #my-contacts {
-  padding-top: 25px;
+  /*padding: 30px;*/
+  padding-top: 15px;
+  color: #eee;
 }
+
+#contact {
+  height: 75px;
+}
+
 
 #body-container {
   padding: 0 5%;
 }
 
-#contact {
-  color: white;
-  margin-top: 100px;
-  background: #2c3e50;
-  height: 100px;
-}
 
 #desktop {
   padding-top: 50px;
@@ -491,13 +492,12 @@ export default {
 #website-header {
   padding: 20px 20px;
   max-width: 950px;
-  background: #2c3e50;
   margin: 0px auto;
-  margin-bottom: 30px;
+  margin-bottom: 70px;
   margin-top: 50px;
   width: 100%;
   border-radius: 10px;
-  /*background: blue;*/
+  background-color: #ff4e00;
 }
 
 .website-header-title {
@@ -555,20 +555,20 @@ export default {
 #user-section {
   margin: 0px auto;
   max-width: 950px;
-  margin-bottom: 30px;
+  margin-bottom: 70px;
 }
 
 #stolaf-section {
   max-width: 950px;
   margin: 0px auto;
+  margin-bottom: 750px;
 }
 
 #user-courses-table-options {
   padding: 20px;
   width: 100%;
   margin: 0px auto;
-  margin-bottom: 30px;
-  background: #2c3e50;
+  margin-bottom: 70px;
   border-radius: 5px;
   /*display: flex;*/
   /*justify-content: space-between;*/
@@ -583,8 +583,7 @@ export default {
   padding: 20px;
   width: 100%;
   margin: 0px auto;
-  margin-bottom: 30px;
-  background: #2c3e50;
+  margin-bottom: 70px;
   border-radius: 5px;
 }
 

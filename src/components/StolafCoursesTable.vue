@@ -1,20 +1,20 @@
 <template>
   <div id="stolaf-courses-table"
     @mouseleave="onMouseLeave"
-    ref="stolafTable" 
-    class="my-opacity" 
+    ref="stolafTable"
+    class="my-opacity"
     @mouseover="updateMousePosition"
     >
     <!-- Notifications -->
     <notifications group="foo" position="top right"/>
     <!-- Table -->
     <vue-good-table
+      theme="blue;"
       @on-row-mouseenter="onRowMouseover"
-      theme="nocturnal"
       :columns="columns"
       :rows="rows"
       :fixed-header="false"
-      styleClass="vgt-table condensed bordered"
+      styleClass="vgt-table condensed fall-background-color"
       :pagination-options="paginationOptions"
       :sort-options="{
         initialSortBy: [
@@ -27,17 +27,7 @@
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
         <div>
-          <div v-if="props.column.field == 'actions'">
-            <div v-if="hoveredRowId === props.row.id">
-              <b-button class="action-button" type="is-info" v-on:click="moreInfo(props.row)">
-                <eye-icon /> 
-              </b-button>
-              <b-button class="action-button" type="is-info" v-on:click="addCourse(props.row)" >
-                <plus-icon />
-              </b-button>
-            </div>
-          </div>
-          <div v-else-if="props.column.field == 'prof'" style="font-weight: 600;">
+<!--           <div v-else-if="props.column.field == 'prof'" style="font-weight: 600;">
               <a v-if="props.row.prof_url"
                  target="_blank"
                  :href="`${props.row.prof_url}`"
@@ -47,8 +37,8 @@
               <span v-else>
                 {{ props.row.prof }}
               </span>
-          </div>
-          <div v-else-if="props.column.field == 'status'" style="font-size: 30px; text-align: center; font-weight: 900;" ref="statusColumn">
+          </div> -->
+<!--           <div v-else-if="props.column.field == 'status'" style="font-size: 30px; text-align: center; font-weight: 900;" ref="statusColumn">
             <span v-if="props.row.status === 'C'" class="red">{{ props.row.status }}</span>
             <span v-else class="green">{{ props.row.status }}</span>
           </div>
@@ -63,24 +53,29 @@
           <div v-else-if="props.column.label == 'Reviews'" style="font-size: 30px; text-align: center; font-weight: 900;">
             <span v-if="props.row.reviews == 0" class="my-blue">N/A</span>
             <span v-else :class="reviewsColor(props.row.reviews)"> {{ props.row.reviews }}</span>
+          </div> -->
+          <div v-if="props.column.label==='Status'" style="font-weight: 700; font-size: 15px; text-align: center; line-height: 50px;">
+            <span>
+              {{props.formattedRow[props.column.field]}}
+            </span>
           </div>
-          <span v-else style="font-weight: 900;">
+          <span v-else-if="props.column.label === 'Rating'" style="font-weight: 700; font-size: 15px;">
+            {{props.formattedRow[props.column.field]}}
+          </span>
+          <span v-else style="font-weight: 700; font-size: 15px;">
             {{props.formattedRow[props.column.field]}}
           </span>
         </div>
       </template>
       <template slot="table-column" slot-scope="props">
-        <div v-if="props.column.label === 'Status'" ref="statusHeader">
+        <div v-if="props.column.label === 'Status'" ref="statusHeader" style="width: 40px;">
           {{ props.column.label }}
         </div>
-        <div v-else-if="props.column.label === 'Reviews'" ref="reviewsHeader">
-          {{ props.column.label }}
-        </div>
-        <div v-else-if="props.column.label === 'Difficulty'" style="font-size: 15px; font-weight: 900;">
+        <div v-else-if="props.column.label === 'Reviews'" ref="reviewsHeader" style="width: 40px;">
           {{ props.column.label }}
         </div>
         <div v-else class="my-column">
-          <span style="font-weight: 900;">
+          <span style="font-weight: 900; ">
             {{ props.column.label }}
           </span>
         </div>
@@ -311,6 +306,7 @@ export default {
   width: 50px;
   position: absolute;
   background: #167df0;
+  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
   border-radius: 5px;
   border: none;
   top: 0px;

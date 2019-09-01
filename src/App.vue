@@ -25,6 +25,10 @@ export default {
   },
   created() {
   },
+  mounted() {
+    var table = document.getElementsByTagName('table')
+    table = table[0]
+  },
   methods: {
     methodToRunOnSelect(payload) {
       this.object = payload;
@@ -51,9 +55,54 @@ export default {
   /*background: url(https://wallpaperplay.com/walls/full/a/4/1/191258.jpg) fixed;*/
   background: url(http://getwallpapers.com/wallpaper/full/6/5/d/560817.jpg) fixed;
   background: url(https://wallpapercave.com/wp/wp4078020.jpg) fixed;
+  background: url(https://i.pinimg.com/originals/cb/5d/c5/cb5dc599b22b6854496d53b4ab8133a3.jpg) fixed;
+
+  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed; 
+  /*background: url(http://hdwpro.com/wp-content/uploads/2017/10/Awesome-Fall-Wallpaper.jpg) no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
   min-height: 1000px;
-  padding-top: 20px;
 }
+
+.fall-background-color {
+  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
+}
+
+.vgt-wrap__footer {
+  border: none !important;
+  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
+}
+
+.vgt-wrap__footer * {
+  color: white !important;
+  font-weight: 600;
+}
+
+table {
+  background: transparent;
+}
+
+td {
+    color: white !important;
+}
+
+th {
+  color: white !important;
+  background: transparent !important;
+}
+
+.vgt-table {
+  /*background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);*/
+}
+
+tr {
+  border: solid orange;
+}
+
+
 
 .filter-th {
   background: blue;

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-navbar type="is-black"
-              :fixed-top="true">    
+    <b-navbar
+              :fixed-top="false">    
         <template slot="brand">
             <b-navbar-item href="/">
                 <img
@@ -9,31 +9,31 @@
                     alt="Lightweight UI components for Vue.js based on Bulma"
                 >
             </b-navbar-item>
-            <b-navbar-item v-if="screenWidthBreakpoint()">
-                <strong>Home</strong>
+<!--             <b-navbar-item v-if="screenWidthBreakpoint()">
+                <strong class="nav-link">Home</strong>
             </b-navbar-item>
             <b-navbar-item href="#user-section" v-if="screenWidthBreakpoint()">
-                <strong>My Courses</strong>
+                <strong class="nav-link">My Courses</strong>
             </b-navbar-item>
             <b-navbar-item href="#stolaf-section" v-if="screenWidthBreakpoint()">
-                <strong>Stolaf Courses</strong>
+                <strong class="nav-link">Stolaf Courses</strong>
             </b-navbar-item>
             <b-navbar-item href="#stolaf-section" v-if="screenWidthBreakpoint()">
-                <strong>Contact</strong>
-            </b-navbar-item>
+                <strong class="nav-link">Contact</strong>
+            </b-navbar-item> -->
         </template>
         <template slot="start">
             <b-navbar-item href="/">
-                <strong>Home</strong>
+                <strong class="nav-link">Home</strong>
             </b-navbar-item>
             <b-navbar-item href="#user-section">
-                <strong>My Courses</strong>
+                <strong class="nav-link">My Courses</strong>
             </b-navbar-item>
             <b-navbar-item href="#stolaf-section">
-                <strong>Stolaf Courses</strong>
+                <strong class="nav-link">Stolaf Courses</strong>
             </b-navbar-item>
             <b-navbar-item href="#contact">
-                <strong>Contact</strong>
+                <strong class="nav-link">Contact</strong>
             </b-navbar-item>
 
         </template>
@@ -86,6 +86,17 @@
 
 <style>
 
+b-navbar-item {
+  color: white !important;
+}
 
+.nav-link {
+  color: white;
+}
+
+.navbar {
+  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
+  color: white !important;
+}
 
 </style>

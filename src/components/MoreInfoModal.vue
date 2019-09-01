@@ -44,15 +44,13 @@ export default {
 
 <style>
 
-
-
 #name {
   font-size: 20px;
   font-weight: 900;
 }
 
 .modal-label {
-  color: #ccc;
+  color: #eee;
   font-size: 20px;
   font-weight: 900;
 }
@@ -79,9 +77,15 @@ export default {
 }
 
 #info-container {
+  max-height: 500px;
+  /*max-width: 400px;*/
+  overflow-y: scroll;
   color: #eee;
-  background: url(https://wallpapercave.com/wp/wp4078020.jpg) fixed;
+  /*background: url(https://wallpapercave.com/wp/wp4078020.jpg) fixed;*/
+  background-image: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
+  /*background: transparent;*/
   padding: 30px;
+  /*margin: 50%;*/
 }
 
 </style>

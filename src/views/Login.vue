@@ -1,6 +1,6 @@
 <template>
   <div id="signup-container">
-    <section id="signup-box">
+    <section class="fall-background-color" id="signup-box">
       <div>
         <p class="errors" v-for="error in errors"> {{ error }} </p>
         <div class="label-container">
@@ -23,7 +23,7 @@
               </b-input>
           </b-field>
         </div>
-        <b-button class="my-signup-btn is-info" style="width: 100%;" v-on:click="submit">Login</b-button>
+        <b-button class="my-signup-btn" style="width: 100%;" v-on:click="submit">Login</b-button>
       </div>
     </section>
   </div>
