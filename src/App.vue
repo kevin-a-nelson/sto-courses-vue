@@ -73,38 +73,6 @@ tr {
   /*border: solid lightgreen;*/
   /*border: linear-gradient(315deg, #00cc00 0%, #339933 60%);*/
 }
-.summerOne-img {
-  background: url(https://i.pinimg.com/originals/83/ca/0b/83ca0bba91f42a2caf59abcb7cccd3b9.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;  
-}
-
-.spring-img {
-  background: url(https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2019/03/5c949b2d45ead_5c949a57947db_1937238489.jpg) no-repeat center center fixed; 
-  /*background: url(https://ak8.picdn.net/shutterstock/videos/14673928/thumb/1.jpg) no-repeat center center fixed; */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;  
-}
-
-.winter-img {
-  background: url(https://wallpaperbro.com/img/352195.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;  
-}
-
-.fall-img {
-  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
 
 .summer-session-1-background-color {
 background-color: #fefefe;
@@ -120,6 +88,10 @@ background-image: linear-gradient(315deg, #fefefe 0%, #00a4e4 74%) !important;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   text-align: center;
   color: #2c3e50;
   height: 100%;

@@ -304,7 +304,6 @@ export default {
   height: 50px;
   width: 50px;
   position: absolute;
-  background: #167df0;
   border-radius: 5px;
   border: none;
   top: 0px;
