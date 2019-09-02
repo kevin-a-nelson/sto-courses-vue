@@ -25,67 +25,60 @@ export default {
         { text: 'Summer Session 1', value: 4 },
         { text: 'Summer Session 2', value: 5 },
       ],
-      tables1: [
-        'blue',
-        'red',
+      navbar: [
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
-        'purple',
-      ],
-      tables2: [
-        'blue',
-        'red',
-        "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
+        "linear-gradient(315deg, #dffaff 0%, #1ebbf9 74%)",
         'purple',
       ],
       header: [
-        'blue',
-        'red',
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
+        "linear-gradient(315deg, #eeaeca 0%, #94bbe9 74%)",
         'purple',
       ],
-      app: [
-        'blue',
-        'red',
-        "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
-        'purple',
+      tables1: [
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",                                                      // Interem Color
+        "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)", // Spring Color
+        "linear-gradient(315deg, #eeaeca 0%, #94bbe9 74%)", // Summer 1 Color
+        'purple',                                                                                             // Summer 2 Color
       ],
       myCourses: [
-        'blue',
-        'red',
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
+        "linear-gradient(315deg, #eeaeca 0%, #94bbe9 74%)",
         'purple',
       ],
       stolafCourses: [
-        'blue',
-        'red',
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
+        "linear-gradient(315deg, #dffaff 0%, #1ebbf9 74%)",
         'purple',
       ],
       pagination: [
-        'blue',
-        'red',
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
+        "linear-gradient(315deg, #dffaff 0%, #1ebbf9 74%)",
         'purple',
       ],
-      navbar: [
-        'blue',
-        'red',
+      tables2: [
+        "linear-gradient(to left, #ffa200, #fa9a05, #f5920a, #f08b0f, #eb8312)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
+        "linear-gradient(315deg, #eeaeca 0%, #94bbe9 74%)",
         'purple',
       ],
       contact: [
-        'blue',
-        'red',
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        'yellow',
+        "linear-gradient(315deg, #dffaff 0%, #1ebbf9 74%)",
         'purple',
       ],
       app: [
@@ -121,6 +114,7 @@ export default {
 
 
     changeSeasonTheme(semester) {
+      // Get Elements
       var app = document.getElementById('app')
       var tables = document.getElementsByTagName('table')
       var header = document.getElementById('website-header')
@@ -134,6 +128,7 @@ export default {
 
       semester -= 1
 
+      // Set style of elements 
       tables[0].style.background = this.tables1[semester]
       tables[1].style.background = this.tables2[semester]
       header.style.background = this.header[semester]
@@ -143,6 +138,7 @@ export default {
       navbar[0].style.background = this.navbar[semester]
       contact.style.background = this.contact[semester]
 
+      // Set classes of elements
       this.addSeasonClass(semester, stolafActionBtns[0], this.actionBtnClasses)
       this.addSeasonClass(semester, stolafActionBtns[1], this.actionBtnClasses)
       this.addSeasonClass(semester, userActionBtns[0], this.actionBtnClasses)
@@ -165,10 +161,10 @@ export default {
 <style>
 
 .fall-btn {
-  background: blue;
+  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)
 }
 .interim-btn {
-  background: red;
+  background: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);
 }
 .spring-btn {
   background: orange;
