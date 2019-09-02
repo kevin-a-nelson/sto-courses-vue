@@ -5,10 +5,12 @@
       <more-info-modal v-bind:moreInfoData="moreInfoData"
                        v-bind:modalName="'more-info'"/>
       <div id="website-header" class="my-opacity ">
-        <h1 class="website-header-title">Rate my Professor Course Planner</h1>
+
         <div id="top-section">
           <div id="top-section-selectors">
+          <p class="website-header-title">Rate my Professor Course Planner</p>
             <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
+            <p class="website-header-title" v-if="coursesUnavailable">Courses for this term are currently unavailable</p>
             <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
           </div>
         </div>
@@ -103,6 +105,7 @@ export default {
   },
   data() {
     return {
+      coursesUnavailable: false,
       selectedSemester: 1,
       selectedYear: 2019,
       window: {
@@ -447,10 +450,15 @@ export default {
       var draft = this.selectedValues.draft
       var type = this.selectedValues.type
       var term = `${year}${semester}`
+      this.coursesUnavailable = false;
 
       this.stolafTableRows = []
-      axios.get(`api/courses?term=${20191}&type=${type}`).then(response => {
+      axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
         this.stolafTableRows = response.data.courses
+        if(this.stolafTableRows.length === 0) {
+          console.log('ran')
+          this.coursesUnavailable = true;
+        }
       })
     },
     /* Get User Courses from backend API */

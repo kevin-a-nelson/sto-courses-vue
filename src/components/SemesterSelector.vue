@@ -17,7 +17,6 @@ export default {
   name: 'semester-selector',
   data() {
     return {
-      selectedSemester: 1,
       semesters: [
         { text: 'Fall', value: 1 },
         { text: 'Interim', value: 2 },
@@ -25,68 +24,62 @@ export default {
         { text: 'Summer Session 1', value: 4 },
         { text: 'Summer Session 2', value: 5 },
       ],
+      selectedSemester: 1,
       navbar: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        "linear-gradient(315deg, #dffaff 0%, #1ebbf9 74%)",
-        'purple',
+        "transparent",
+        "transparent",
       ],
       header: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        "linear-gradient(315deg, #eeaeca 0%, #94bbe9 74%)",
-        'purple',
-      ],
-      tables1: [
-        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
-        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",                                                      // Interem Color
-        "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)", // Spring Color
-        "linear-gradient(315deg, #eeaeca 0%, #94bbe9 74%)", // Summer 1 Color
-        'purple',                                                                                             // Summer 2 Color
+        "transparent",
+        "transparent",
       ],
       myCourses: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        "linear-gradient(315deg, #eeaeca 0%, #94bbe9 74%)",
-        'purple',
+        "transparent",
+        "transparent",
+      ],
+      tables1: [
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",                                                      // Interem Color
+        "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)", // Spring Color
+        "transparent", // Summer 1 Color
+        "transparent",                                                                                           // Summer 2 Color
       ],
       stolafCourses: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        "linear-gradient(315deg, #dffaff 0%, #1ebbf9 74%)",
-        'purple',
+        "transparent",
+        "transparent",
       ],
       pagination: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        "linear-gradient(315deg, #dffaff 0%, #1ebbf9 74%)",
-        'purple',
+        "transparent",
+        "transparent",
       ],
       tables2: [
         "linear-gradient(to left, #ffa200, #fa9a05, #f5920a, #f08b0f, #eb8312)",
-        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
-        "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        "linear-gradient(315deg, #eeaeca 0%, #94bbe9 74%)",
-        'purple',
+        "linear-gradient(to bottom, #3eadcf, #3eadcf, #3eadcf, #3eadcf, #3eadcf)",
+        "linear-gradient(to bottom, #ff8177, #fe857a, #fc897e, #fb8d81, #f99185)",
+        "transparent",
+        "transparent",
       ],
       contact: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
-        "linear-gradient(315deg, #dffaff 0%, #1ebbf9 74%)",
-        'purple',
-      ],
-      app: [
-        'url(https://i.pinimg.com/originals/83/ca/0b/83ca0bba91f42a2caf59abcb7cccd3b9.jpg) no-repeat center center fixed;',
-        'url(https://i.pinimg.com/originals/83/ca/0b/83ca0bba91f42a2caf59abcb7cccd3b9.jpg) no-repeat center center fixed;',
-        'url(https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2019/03/5c949b2d45ead_5c949a57947db_1937238489.jpg) no-repeat center center fixed;',
-        'url(https://wallpaperbro.com/img/352195.jpg) no-repeat center center fixed;',
-        'url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed;'
+        "transparent",
+        "transparent",
       ],
       actionBtnClasses: [
         'fall-btn',
@@ -105,14 +98,10 @@ export default {
     }
   },
   methods: {
-    created() {
-    },
     newSemesterSelected() {
       this.$emit('newSemesterSelected', 'semester' , this.selectedSemester)
       this.changeSeasonTheme(this.selectedSemester)
     },
-
-
     changeSeasonTheme(semester) {
       // Get Elements
       var app = document.getElementById('app')
@@ -167,20 +156,21 @@ export default {
   background: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);
 }
 .spring-btn {
-  background: orange;
+  background: linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
 }
 .summer1-btn {
-  background: green;
+  background: linear-gradient(147deg, #000000 0%, #04619f 74%);
 }
 .summer2-btn {
-  background: purple;
+  background: linear-gradient(147deg, #000000 0%, #04619f 74%);
 }
 
 .summerOne-img {
-  background: url(https://i.pinimg.com/originals/83/ca/0b/83ca0bba91f42a2caf59abcb7cccd3b9.jpg) no-repeat center center fixed;  
+  background: url(https://wallpapersite.com/images/pages/pic_w/7935.jpg) no-repeat center center fixed;  
 }
+
 .summerTwo-img {
-  background: url(https://i.pinimg.com/originals/83/ca/0b/83ca0bba91f42a2caf59abcb7cccd3b9.jpg) no-repeat center center fixed;   
+  background: black;
 }
 
 .spring-img {

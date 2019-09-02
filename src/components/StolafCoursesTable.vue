@@ -26,58 +26,33 @@
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
-        <div>
-<!--           <div v-else-if="props.column.field == 'prof'" style="font-weight: 600;">
-              <a v-if="props.row.prof_url"
-                 target="_blank"
-                 :href="`${props.row.prof_url}`"
-                 style="color: #167df0; text-decoration: underline;">
-                 {{ props.row.prof }}
-              </a>
-              <span v-else>
-                {{ props.row.prof }}
-              </span>
-          </div> -->
-<!--           <div v-else-if="props.column.field == 'status'" style="font-size: 30px; text-align: center; font-weight: 900;" ref="statusColumn">
-            <span v-if="props.row.status === 'C'" class="red">{{ props.row.status }}</span>
-            <span v-else class="green">{{ props.row.status }}</span>
-          </div>
-          <div v-else-if="props.column.field == 'rating'" style="font-size: 30px; text-align: center; font-weight: 900;">
-            <span v-if="props.row.rating == 0" class="my-blue">N/A</span>
-            <span v-else :class="ratingColor(props.row.rating)">{{ props.row.rating }}</span>
-          </div>
-          <div v-else-if="props.column.field == 'difficulty'" style="font-size: 30px; text-align: center; font-weight: 900;">
-            <span v-if="props.row.rating == 0" class="my-blue">N/A</span>
-            <span v-else :class="difficultyColor(props.row.difficulty)">{{ props.row.difficulty }}</span>
-          </div>
-          <div v-else-if="props.column.label == 'Reviews'" style="font-size: 30px; text-align: center; font-weight: 900;">
-            <span v-if="props.row.reviews == 0" class="my-blue">N/A</span>
-            <span v-else :class="reviewsColor(props.row.reviews)"> {{ props.row.reviews }}</span>
-          </div> -->
-          <div v-if="props.column.label==='Status'" style="font-weight: 700; font-size: 15px; text-align: center; line-height: 50px;" >
+        <div :style="greyOrWhite()">
+          <div v-if="props.column.label==='Status'" style="font-weight: 800; font-size: 15px; text-align: center; line-height: 50px;" >
             <span>
               {{props.formattedRow[props.column.field]}}
             </span>
           </div>
-          <span v-else-if="props.column.label === 'Rating'" style="font-weight: 700; font-size: 15px;">
+          <span v-else-if="props.column.label === 'Rating'" style="font-weight: 800; font-size: 15px;">
             {{props.formattedRow[props.column.field]}}
           </span>
-          <span v-else style="font-weight: 700; font-size: 15px;">
+          <span v-else style="font-weight: 800; font-size: 15px;">
             {{props.formattedRow[props.column.field]}}
           </span>
         </div>
       </template>
       <template slot="table-column" slot-scope="props">
-        <div v-if="props.column.label === 'Status'" ref="statusHeader" style="width: 40px;">
-          {{ props.column.label }}
-        </div>
-        <div v-else-if="props.column.label === 'Reviews'" ref="reviewsHeader" style="width: 40px;">
-          {{ props.column.label }}
-        </div>
-        <div v-else class="my-column">
-          <span style="font-weight: 900; ">
+        <div :style="greyOrWhite()">
+          <div v-if="props.column.label === 'Status'" ref="statusHeader" style="width: 40px;">
             {{ props.column.label }}
-          </span>
+          </div>
+          <div v-else-if="props.column.label === 'Reviews'" ref="reviewsHeader" style="width: 40px;">
+            {{ props.column.label }}
+          </div>
+          <div v-else class="my-column">
+            <span style="font-weight: 900;" >
+              {{ props.column.label }}
+            </span>
+          </div>
         </div>
       </template>
     </vue-good-table>
@@ -152,6 +127,9 @@ export default {
     }
   },
   methods: {
+    greyOrWhite() {
+      return [4,5].includes(this.selectedValues.semester) ? 'color: #BEBEBE;' : 'color: white;'
+    },
     addCourseBtnPosition() {
       var style = 
       `background: red; position: absolute; width: 100px; height: 100px; top: ${this.y}px;`

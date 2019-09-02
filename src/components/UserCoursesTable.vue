@@ -41,20 +41,24 @@
 <!--         <span v-if="props.column.label==='status'" style="text-align: center;">
           {{props.formattedRow[props.column.field]}}
         </span> -->
-        <div v-if="props.column.label==='Status'" style="font-weight: 700; font-size: 15px; text-align: center; line-height: 50px;">
-          <span>
+        <div :style="greyOrWhite()">
+          <div v-if="props.column.label==='Status'" style="font-weight: 700; font-size: 15px; text-align: center; line-height: 50px;">
+            <span>
+              {{props.formattedRow[props.column.field]}}
+            </span>
+          </div>
+          <span v-else style="font-weight: 700; font-size: 15px;">
             {{props.formattedRow[props.column.field]}}
           </span>
         </div>
-        <span v-else style="font-weight: 700; font-size: 15px;">
-          {{props.formattedRow[props.column.field]}}
-        </span>
       </template>
       <template slot="table-column" slot-scope="props">
-        <div style="width: 40px;">
-         <span style="font-weight: 900;">
-            {{props.column.label}}
-         </span>
+        <div :style="greyOrWhite()"> 
+          <div style="width: 40px;">
+           <span style="font-weight: 900;">
+              {{props.column.label}}
+           </span>
+          </div>
         </div>
       </template>
     </vue-good-table>
@@ -95,6 +99,9 @@ export default {
     }
   },
   methods: {
+    greyOrWhite() {
+      return [4,5].includes(this.selectedValues.semester) ? 'color: #BEBEBE;' : 'color: white;'
+    },
     updateActionButtonsPosition(event) {
       var y = event.pageY
 

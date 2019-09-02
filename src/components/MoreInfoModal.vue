@@ -25,7 +25,6 @@
             {{ moreInfoData.notes }}
           </div>
         </div>
-        <!-- <button @click="close" id="modal-close-btn">Close</button> -->
     </modal>
   </div>
 </template>
@@ -39,22 +38,43 @@ export default {
       this.$modal.hide('more-info')
     },
     currentSeason() {
-      var image = ''
+      var background = ''
       var app = document.getElementById('app').classList
-      if(app.contains('fall-background-image')) {
-        var image = 'fall-background-color'
-      } else if (app.contains('winter-background-image')) {
-        var image = 'winter-background-color'
+      if(app.contains('fall-img')) {
+        var background = 'fall-color'
+      } else if (app.contains('winter-img')) {
+        var background = 'winter-color'
       } else {
-        var image = 'spring-background-color'
+        var background = 'summer1-color'
       }
-      return image
+      return background
     }
   }, 
 }
 </script>
 
 <style>
+
+.winter-color {
+  background: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);
+}
+
+.fall-color {
+  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)
+}
+
+.spring-color {
+  background: linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)
+}
+
+.summer1-color {
+  background: black;
+}
+
+.summer2-color {
+  background: black;
+}
+
 
 #name {
   font-size: 20px;
@@ -72,8 +92,6 @@ export default {
   color: #ddd;
   border: none;
   margin: 0px;
-  /*border: solid blue;*/
-  /*border-width: 3px;*/
   height: 50px;
   width: 100%;
   background: #2c3e50;
@@ -85,7 +103,6 @@ export default {
 
 #name {
   text-align: center;
-  /*font-size: 10px;*/
 }
 
 #info-container {

@@ -70,6 +70,7 @@ html {
 }
 
 tr {
+  border: 1px solid black;
   /*border: solid lightgreen;*/
   /*border: linear-gradient(315deg, #00cc00 0%, #339933 60%);*/
 }
@@ -184,7 +185,7 @@ th {
 
 
 .my-opacity {
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .red {
