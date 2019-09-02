@@ -56,6 +56,9 @@ export default {
       name: '',
     };
   },
+  created() {
+    
+  },
   methods: {
     submit: function() {
       var params = {
@@ -101,9 +104,9 @@ export default {
 .signup-box {
   opacity: 0.9;
   border-radius: 5px;
-  background: #2c3e50;
   padding: 35px;
   /*padding: 40px 7%;*/
+  background: black;
   width: 100%;
   max-width: 400px;
   margin: 0px auto;

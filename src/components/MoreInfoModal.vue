@@ -13,16 +13,16 @@
           </div>
           <div class="spacing" ref="testSpace">
             <h5 class="modal-label">Prereqs</h5>
-              {{ moreInfoData.prereqs }}
+              <p class="modal-p">{{ moreInfoData.prereqs }}</p>
           </div>
           <div class="spacing">
             <h5 class="modal-label">Description</h5>
-            {{ moreInfoData.description }}
+            <p class="modal-p">{{ moreInfoData.description }}</p>
           </div>
 
           <div class="spacing">
             <h5 class="modal-label">Notes</h5>
-            {{ moreInfoData.notes }}
+            <p class="modal-p">{{ moreInfoData.notes }}</p>
           </div>
         </div>
     </modal>
@@ -44,6 +44,8 @@ export default {
         var background = 'fall-color'
       } else if (app.contains('winter-img')) {
         var background = 'winter-color'
+      } else if (app.contains('spring-img')) {
+        var background = 'spring-color'
       } else {
         var background = 'summer1-color'
       }
@@ -56,11 +58,16 @@ export default {
 <style>
 
 .winter-color {
-  background: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%);
+  /*background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);*/
+  background: linear-gradient(315deg, #abe9cd 0%, #3eadcf 30%);
 }
 
 .fall-color {
-  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)
+  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
+  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 30%);
+  background: linear-gradient(315deg, #ec9f05 0%,#ff4e00 30%);
+  background: linear-gradient(315deg, #ec9e05 0%, #ec6b05 30%);
+  background: #ff8f00,
 }
 
 .spring-color {
@@ -75,6 +82,10 @@ export default {
   background: black;
 }
 
+.modal-p {
+  font-weight: 500;
+}
+
 
 #name {
   font-size: 20px;
@@ -82,6 +93,7 @@ export default {
 }
 
 .modal-label {
+  font-weight: 900;
   color: #eee;
   font-size: 20px;
   font-weight: 900;

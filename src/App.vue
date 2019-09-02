@@ -31,35 +31,6 @@ export default {
       }
     }
   },
-  created() {
-  },
-  mounted() {
-    var paginationFooter = document.getElementsByClassName('vgt-wrap__footer')[0]
-    paginationFooter.classList.add('fall-background-color')
-  },
-  methods: {
-    methodToRunOnSelect(payload) {
-      this.object = payload;
-    },
-    changeElementSeason(inputSeason, element) {
-      var seasonBackgrounds = ['winter-background-color', 'fall-background-color']
-      seasonBackgrounds.forEach(season => {
-        if (element.classList.contains(season)) {
-          element.classList.remove(season); 
-        }
-      })
-      element.classList.add(this.seasonBackgroundColors[inputSeason])
-    },
-    changeElementSeasonImage(inputSeason, element) {
-      var seasonBackgrounds = ['winter-background-image', 'fall-background-image']
-      seasonBackgrounds.forEach(season => {
-        if (element.classList.contains(season)) {
-          element.classList.remove(season); 
-        }
-      })
-      element.classList.add(this.seasonBackgroundImages[inputSeason])
-    }
-  },
 }
 </script>
 
@@ -70,20 +41,8 @@ html {
 }
 
 tr {
-  border: 1px solid black;
-  /*border: solid lightgreen;*/
-  /*border: linear-gradient(315deg, #00cc00 0%, #339933 60%);*/
 }
 
-.summer-session-1-background-color {
-background-color: #fefefe;
-background-image: linear-gradient(315deg, #fefefe 0%, #00a4e4 74%) !important;
-}
-
-
-.spring-background-color {
-  background-image: linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%) !important;
-}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -96,38 +55,10 @@ background-image: linear-gradient(315deg, #fefefe 0%, #00a4e4 74%) !important;
   text-align: center;
   color: #2c3e50;
   height: 100%;
-/*  background: url(https://images4.alphacoders.com/106/thumb-1920-106826.jpg) fixed;
-  background: url(https://wallpaperaccess.com/full/202978.jpg) fixed;*/
-  /*background: url(https://wallpapercave.com/wp/nCJZmyI.jpg) fixed;*/
-  /*background: url(https://wallpaperplay.com/walls/full/a/4/1/191258.jpg) fixed;*/
-/*  background: url(http://getwallpapers.com/wallpaper/full/6/5/d/560817.jpg) fixed;
-  background: url(https://wallpapercave.com/wp/wp4078020.jpg) fixed;
-  background: url(https://i.pinimg.com/originals/cb/5d/c5/cb5dc599b22b6854496d53b4ab8133a3.jpg) fixed;*/
-
-/*  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed; 
-  background: url(http://hdwpro.com/wp-content/uploads/2017/10/Awesome-Fall-Wallpaper.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;*/
-
   min-height: 1000px;
 }
 
-
-
-
-
-/*.fall-background-color {
-  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%) !important;
-
-  background-color: #00b712;
-}
-*/
 .winter-background-color {
-  /*background-color: #abe9cd;*/
-  /*background-image: linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%) !important;*/
-
   background-image: linear-gradient(to right top, #05a2c8, #08a9d1, #0bb0d9, #0fb7e2, #12beeb) !important;
 }
 

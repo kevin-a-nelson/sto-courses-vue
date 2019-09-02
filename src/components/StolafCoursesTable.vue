@@ -27,15 +27,15 @@
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
         <div :style="greyOrWhite()">
-          <div v-if="props.column.label==='Status'" style="font-weight: 800; font-size: 15px; text-align: center; line-height: 50px;" >
+          <div v-if="props.column.label==='Status'" class="my-row status-column">
             <span>
               {{props.formattedRow[props.column.field]}}
             </span>
           </div>
-          <span v-else-if="props.column.label === 'Rating'" style="font-weight: 800; font-size: 15px;">
+          <span v-else-if="props.column.label === 'Rating'" class="my-row">
             {{props.formattedRow[props.column.field]}}
           </span>
-          <span v-else style="font-weight: 800; font-size: 15px;">
+          <span v-else class="my-row">
             {{props.formattedRow[props.column.field]}}
           </span>
         </div>

@@ -10,7 +10,7 @@
           <div id="top-section-selectors">
           <p class="website-header-title">Rate my Professor Course Planner</p>
             <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
-            <p class="website-header-title" v-if="coursesUnavailable">Courses for this term are currently unavailable</p>
+            <p class="website-header-title" v-if="coursesUnavailable">Courses for this term arn't avaiable yet</p>
             <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
           </div>
         </div>

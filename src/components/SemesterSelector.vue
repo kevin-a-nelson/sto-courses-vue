@@ -8,6 +8,7 @@
           {{ semester.text }}
         </option>
       </b-select>
+      <b-switch v-model="nightMode" @input="modeChanged"><p id="night-mode-text">Night Mode</p></b-switch>
     </form>
   </div>
 </template>
@@ -17,6 +18,11 @@ export default {
   name: 'semester-selector',
   data() {
     return {
+      nightMode: false,
+      modes: [
+        { text: 'Night Mode Off', value: false },
+        { text: 'Night Mode On', value: true },
+      ],
       semesters: [
         { text: 'Fall', value: 1 },
         { text: 'Interim', value: 2 },
@@ -48,10 +54,10 @@ export default {
       ],
       tables1: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
-        "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",                                                      // Interem Color
-        "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)", // Spring Color
-        "transparent", // Summer 1 Color
-        "transparent",                                                                                           // Summer 2 Color
+        "linear-gradient(to bottom, #3eadcf, #3eadcf, #3eadcf, #3eadcf, #3eadcf)",                               
+        "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)", 
+        "transparent",
+        "transparent",
       ],
       stolafCourses: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
@@ -67,8 +73,9 @@ export default {
         "transparent",
         "transparent",
       ],
+        // "#FFA500",
       tables2: [
-        "linear-gradient(to left, #ffa200, #fa9a05, #f5920a, #f08b0f, #eb8312)",
+        "#ff8f00",
         "linear-gradient(to bottom, #3eadcf, #3eadcf, #3eadcf, #3eadcf, #3eadcf)",
         "linear-gradient(to bottom, #ff8177, #fe857a, #fc897e, #fb8d81, #f99185)",
         "transparent",
@@ -97,12 +104,22 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.changeSeasonTheme(1)
+  },
   methods: {
+    modeChanged() {
+      this.nightMode ? this.changeSeasonTheme(5) : this.changeSeasonTheme(this.selectedSemester)
+    },
     newSemesterSelected() {
       this.$emit('newSemesterSelected', 'semester' , this.selectedSemester)
-      this.changeSeasonTheme(this.selectedSemester)
+      if (!this.nightMode) {
+        this.changeSeasonTheme(this.selectedSemester)
+      }
     },
     changeSeasonTheme(semester) {
+
+
       // Get Elements
       var app = document.getElementById('app')
       var tables = document.getElementsByTagName('table')
@@ -127,6 +144,18 @@ export default {
       navbar[0].style.background = this.navbar[semester]
       contact.style.background = this.contact[semester]
 
+      if(semester === 4) {
+        console.log('hello')
+        tables[0].classList.add('grey-font')
+        tables[1].classList.add('grey-font')
+        header.classList.add('grey-font')
+        myCourses.classList.add('grey-font')
+        stolafCourses.classList.add('grey-font')
+        pagination[0].classList.add('grey-font')
+        navbar[0].classList.add('grey-font')
+        contact.classList.add('grey-font')
+      }
+
       // Set classes of elements
       this.addSeasonClass(semester, stolafActionBtns[0], this.actionBtnClasses)
       this.addSeasonClass(semester, stolafActionBtns[1], this.actionBtnClasses)
@@ -149,6 +178,15 @@ export default {
 
 <style>
 
+.grey-font {
+  color: #BEBEBE !important;
+}
+
+#night-mode-text {
+  font-weight: 500;
+  color: white;
+}
+
 .fall-btn {
   background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)
 }
@@ -162,7 +200,9 @@ export default {
   background: linear-gradient(147deg, #000000 0%, #04619f 74%);
 }
 .summer2-btn {
-  background: linear-gradient(147deg, #000000 0%, #04619f 74%);
+  /*background: linear-gradient(147deg, #000000 0%, #04619f 74%);*/
+  background: #BEBEBE;
+  border: 1px solid black;
 }
 
 .summerOne-img {

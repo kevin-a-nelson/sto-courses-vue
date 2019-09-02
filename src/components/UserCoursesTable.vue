@@ -11,43 +11,16 @@
       styleClass="vgt-table condensed fall-background-color"
       >
       <template slot="table-row" slot-scope="props">
-<!--         <div v-if="props.column.field == 'prof'" style="font-weight: 600;">
-            <a v-if="props.row.prof_url"
-               target="_blank"
-               :href="`${props.row.prof_url}`"
-               style="color: #167df0; text-decoration: underline;">
-               {{ props.row.prof }}
-            </a>
-            <span v-else>
-              {{ props.row.prof }}
-            </span>
-        </div> -->
-<!--         <div v-else-if="props.column.field == 'status'" style="font-size: 30px; text-align: center; font-weight: 900;">
-          <span v-if="props.row.status === 'C'" class="red">{{ props.row.status }}</span>
-          <span v-else class="green">{{ props.row.status }}</span>
-        </div>
-        <div v-else-if="props.column.field == 'rating'" style="font-size: 30px; text-align: center; font-weight: 900;">
-          <span v-if="props.row.rating == 0" class="my-blue">N/A</span>
-          <span v-else :class="ratingColor(props.row.rating)">{{ props.row.rating }}</span>
-        </div>
-        <div v-else-if="props.column.field == 'difficulty'" style="font-size: 30px; text-align: center; font-weight: 900;">
-          <span v-if="props.row.rating == 0" class="my-blue">N/A</span>
-          <span v-else :class="difficultyColor(props.row.difficulty)">{{ props.row.difficulty }}</span>
-        </div>
-        <div v-else-if="props.column.label == 'Reviews'" style="font-size: 30px; text-align: center; font-weight: 900;">
-          <span v-if="props.row.reviews == 0" class="my-blue">N/A</span>
-          <span v-else :class="reviewsColor(props.row.reviews)"> {{ props.row.reviews }}</span>
-        </div> -->
-<!--         <span v-if="props.column.label==='status'" style="text-align: center;">
-          {{props.formattedRow[props.column.field]}}
-        </span> -->
         <div :style="greyOrWhite()">
-          <div v-if="props.column.label==='Status'" style="font-weight: 700; font-size: 15px; text-align: center; line-height: 50px;">
+          <div v-if="props.column.label==='Prof'" class="my-row">
+            {{ props.formattedRow[props.column.field]}}
+          </div>
+          <div v-if="props.column.label==='Status'" class="my-row status-column">
             <span>
               {{props.formattedRow[props.column.field]}}
             </span>
           </div>
-          <span v-else style="font-weight: 700; font-size: 15px;">
+          <span v-else class="my-row">
             {{props.formattedRow[props.column.field]}}
           </span>
         </div>
@@ -190,42 +163,6 @@ export default {
       this.$emit('showMoreInfo', this.hoveredRow)
     }
   },
-  //   getSelectedValues() {
-  //     var query = this.$route.query
-  //     this.selectedValues.year = query.year || 2019
-  //     this.selectedValues.semester = query.semester || 1
-  //     this.selectedValues.draft = query.draft || 1
-  //     this.selectedValues.type = query.type || 'class'
-  //   },
-  //   setSelectedValue(key, value) {
-  //     this.selectedValues[key] = value
-  //     this.getUserTermCourses()
-  //   },
-  //   moreInfo(row) {
-  //     this.moreInfoData.description = row.description
-  //     this.moreInfoData.prereqs = row.prereqs
-  //     this.moreInfoData.notes = row.notes
-  //     this.moreInfoData.prof = row.prof
-  //     this.$modal.show('more-info')
-  //   },
-  //   url() {
-  //     var year = this.selectedValues.year
-  //     var semester = this.selectedValues.semester
-  //     var draft = this.selectedValues.draft
-  //     var type = this.selectedValues.type
-
-  //     return `/?year=${year}&semester=${semester}&type=${type}&draft=${draft}`
-  //   },
-  //   getUserTermCourses() {
-  //     var year = this.selectedValues.year
-  //     var semester = this.selectedValues.semester
-  //     var draft = this.selectedValues.draft
-  //     var term = `${year}${semester}`
-
-  //     axios.get(`api/terms?term=${term}&order=${draft}`).then(response => {
-  //       this.rows = response.data[0].courses
-  //     })
-  //   },
     removeCourse(course_id) {
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester
@@ -236,11 +173,20 @@ export default {
         this.$emit('rowsChanged')
       })
     }
-  // }
 }
 </script>
 
 <style>
+
+.status-column {
+  text-align: center; 
+  line-height: 50px;
+}
+
+.my-row {
+  font-size: 15px;
+  font-weight: 700;
+}
 
 .user-action-btn {
   height: 50px;
@@ -248,7 +194,7 @@ export default {
   position: absolute;
   border-radius: 5px;
   border: none;
-  top: 0px;
+  top: -200px;
 }
 
 .action-button {
