@@ -26,7 +26,7 @@
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
-        <div class="table-rows">
+        <div :class="isNightMode()">
           <div v-if="props.column.label==='Status'" class="my-row status-column">
             <span>
               {{props.formattedRow[props.column.field]}}
@@ -81,7 +81,7 @@ import Logo from '@/assets/logo.png'
 
 export default {
   name: 'stolaf-courses-table',
-  props: ['rows', 'selectedValues', 'visibleColumns', 'columns'],
+  props: ['rows', 'selectedValues', 'visibleColumns', 'columns', 'nightMode'],
   components: {
     WhosCoursesSelector,
     HideOptions,
@@ -127,6 +127,9 @@ export default {
     }
   },
   methods: {
+    isNightMode() {
+      return this.nightMode ? 'grey-color' : 'white-color'
+    },
     greyOrWhite() {
       return [4,5].includes(this.selectedValues.semester) ? 'color: #BEBEBE;' : 'color: white;'
     },
@@ -277,6 +280,14 @@ export default {
 </script>
 
 <style>
+
+.white-color {
+  color: white;
+}
+
+.grey-color {
+  color: #BEBEBE;
+}
 
 .stolaf-table-btn {
   height: 50px;

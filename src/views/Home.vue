@@ -3,7 +3,8 @@
     <div id="body-container" @mouseover="mouseOverBody">
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
-                       v-bind:modalName="'more-info'"/>
+                       v-bind:modalName="'more-info'"
+                       v-bind:nightMode="nightMode"/>
       <div id="website-header" class="my-opacity ">
 
         <div id="top-section">
@@ -11,7 +12,7 @@
           <p class="website-header-title">Rate my Professor Course Planner</p>
             <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
             <p class="website-header-title" v-if="coursesUnavailable">Courses for this term arn't avaiable yet</p>
-            <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows"/>
+            <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows" v-on:newModeSelected="newModeSelected"/>
           </div>
         </div>
       </div>
@@ -27,6 +28,7 @@
         </div>
         <user-courses-table
           v-bind:rows="userTableRows"
+          v-bind:nightMode="nightMode"
           v-bind:selectedValues="selectedValues"
           v-on:rowsChanged="getUserTableRows"
           v-bind:columns="userColumns"
@@ -44,6 +46,7 @@
           </div>
         </div>
         <stolaf-courses-table
+          v-bind:nightMode="nightMode"
           v-on:showMoreInfo="showMoreInfo"
           v-bind:rows="stolafTableRows"
           v-bind:selectedValues="selectedValues"
@@ -105,6 +108,7 @@ export default {
   },
   data() {
     return {
+      nightMode: false,
       coursesUnavailable: false,
       selectedSemester: 1,
       selectedYear: 2019,
@@ -373,6 +377,9 @@ export default {
     }
   },
   methods: {
+    newModeSelected(mode) {
+      this.nightMode = mode
+    },
     mouseOverBody(event) {
     },
     newYearSelected() {

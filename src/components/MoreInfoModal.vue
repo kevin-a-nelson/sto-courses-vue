@@ -6,23 +6,24 @@
            style="margin-bottom: 0px;"
     >
         <div id="info-container" :class="currentSeason()" ref="modalRef">
-          <div class="spacing">
-            <h5 id="name">
-              {{ moreInfoData.name }}
-            </h5>
-          </div>
-          <div class="spacing" ref="testSpace">
-            <h5 class="modal-label">Prereqs</h5>
-              <p class="modal-p">{{ moreInfoData.prereqs }}</p>
-          </div>
-          <div class="spacing">
-            <h5 class="modal-label">Description</h5>
-            <p class="modal-p">{{ moreInfoData.description }}</p>
-          </div>
-
-          <div class="spacing">
-            <h5 class="modal-label">Notes</h5>
-            <p class="modal-p">{{ moreInfoData.notes }}</p>
+          <div :class="isNightMode()">
+            <div class="spacing">
+              <h5 id="name">
+                {{ moreInfoData.name }}
+              </h5>
+            </div>
+            <div class="spacing" ref="testSpace">
+              <h5 class="modal-label">Prereqs</h5>
+                <p class="modal-p">{{ moreInfoData.prereqs }}</p>
+            </div>
+            <div class="spacing">
+              <h5 class="modal-label">Description</h5>
+              <p class="modal-p">{{ moreInfoData.description }}</p>
+            </div>
+            <div class="spacing">
+              <h5 class="modal-label">Notes</h5>
+              <p class="modal-p">{{ moreInfoData.notes }}</p>
+            </div>
           </div>
         </div>
     </modal>
@@ -32,10 +33,17 @@
 <script>
 export default {
   name: 'more-info-modal',
-  props: ['moreInfoData', 'modalName'],
+  props: ['moreInfoData', 'modalName', 'nightMode'],
   methods: {
     close() {
       this.$modal.hide('more-info')
+    },
+    isNightMode() {
+      console.log(this.nightMode)
+      return this.nightMode ? 'night-theme' : 'day-theme'
+    },
+    nightThemeContainer() {
+      return this.nightMode ? 'night-theme-container' : 'day-theme-container'
     },
     currentSeason() {
       var background = ''
@@ -49,6 +57,10 @@ export default {
       } else {
         var background = 'summer1-color'
       }
+
+      if(this.nightMode) {
+        background += ' night-theme-container'
+      }
       return background
     }
   }, 
@@ -56,11 +68,6 @@ export default {
 </script>
 
 <style>
-
-#modal-outside-container {
-  max-width: 800px;
-  background: blue;
-}
 
 .winter-color {
   /*background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);*/
@@ -73,6 +80,18 @@ export default {
   background: linear-gradient(315deg, #ec9f05 0%,#ff4e00 30%);
   background: linear-gradient(315deg, #ec9e05 0%, #ec6b05 30%);
   background: #ff8f00,
+}
+
+.night-theme {
+  color: #BEBEBE;
+}
+
+.day-theme {
+  color: white;
+}
+
+.night-theme-container {
+  border: 2px solid #BEBEBE;
 }
 
 .spring-color {
@@ -99,7 +118,7 @@ export default {
 
 .modal-label {
   font-weight: 900;
-  color: #eee;
+  /*color: #eee;*/
   font-size: 20px;
   font-weight: 900;
 }
@@ -123,9 +142,8 @@ export default {
 }
 
 #info-container {
-  max-height: 500px;
+  max-height: 800px;
   overflow-y: scroll;
-  color: #eee;
   padding: 30px;
 }
 

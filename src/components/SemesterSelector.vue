@@ -106,6 +106,7 @@ export default {
   methods: {
     modeChanged() {
       this.nightMode ? this.changeSeasonTheme(5) : this.changeSeasonTheme(this.selectedSemester)
+      this.$emit('newModeSelected', this.nightMode)
     },
     newSemesterSelected() {
       this.$emit('newSemesterSelected', 'semester' , this.selectedSemester)
@@ -154,6 +155,9 @@ export default {
       if(semester > 3) {
         this.changeElementsStyle(vgtSelect, 'backgroundColor', '#BEBEBE')
         this.changeElementsStyle(vgtInput, 'background', '#BEBEBE')
+        this.changeElementsStyle(vgtSelect, 'color', 'black')
+        this.changeElementsStyle(vgtInput, 'color', 'black')
+
         this.changeElementsStyle(tableColumns, 'color', '#BEBEBE')
         this.changeElementsStyle(tableRows, 'color', '#BEBEBE')
       } else {
@@ -161,6 +165,8 @@ export default {
         this.changeElementsStyle(vgtInput, 'background', 'white')
         this.changeElementsStyle(tableColumns, 'color', 'white')
         this.changeElementsStyle(tableRows, 'color', 'white')
+        this.changeElementsStyle(vgtSelect, 'color', '#606266')
+        this.changeElementsStyle(vgtInput, 'color', '#606266')
       }
 
       // Set classes of elements
