@@ -54,8 +54,12 @@ export default {
         var background = 'winter-color'
       } else if (app.contains('spring-img')) {
         var background = 'spring-color'
-      } else {
+      } else if (app.contains('summer-one-img')){
         var background = 'summer1-color'
+      } else if (app.contains('summer-two-img')){
+        var background = 'summer2-color'
+      } else {
+        var background = 'night-mode-color'
       }
 
       if(this.nightMode) {
@@ -99,11 +103,15 @@ export default {
 }
 
 .summer1-color {
-  background: black;
+  background-image: linear-gradient(147deg, #000000 0%, #04619f 74%) !important;
 }
 
 .summer2-color {
-  background: black;
+  background-image: linear-gradient(316deg, #6c33a3 0%, #8241b8 74%) !important;
+}
+
+.night-mode-color {
+  background: black !important;
 }
 
 .modal-p {

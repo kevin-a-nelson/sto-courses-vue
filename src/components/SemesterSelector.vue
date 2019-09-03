@@ -33,11 +33,13 @@ export default {
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
         "transparent",
         "transparent",
+        "transparent",
       ],
       header: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
+        "transparent",
         "transparent",
         "transparent",
       ],
@@ -47,11 +49,13 @@ export default {
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
         "transparent",
         "transparent",
+        "transparent",
       ],
       tables1: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(to bottom, #3eadcf, #3eadcf, #3eadcf, #3eadcf, #3eadcf)",                               
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)", 
+        "transparent",
         "transparent",
         "transparent",
       ],
@@ -61,11 +65,13 @@ export default {
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
         "transparent",
         "transparent",
+        "transparent",
       ],
       pagination: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
+        "transparent",
         "transparent",
         "transparent",
       ],
@@ -76,11 +82,13 @@ export default {
         "linear-gradient(to bottom, #ff8177, #fe857a, #fc897e, #fb8d81, #f99185)",
         "transparent",
         "transparent",
+        "transparent",
       ],
       contact: [
         "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(315deg, #abe9cd 0%, #3eadcf 74%)",
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)",
+        "transparent",
         "transparent",
         "transparent",
       ],
@@ -95,8 +103,9 @@ export default {
         'fall-img',
         'winter-img',
         'spring-img',
-        'summerOne-img',
-        'summerTwo-img',
+        'summer-one-img',
+        'summer-two-img',
+        'night-mode-img',
       ]
     }
   },
@@ -120,7 +129,7 @@ export default {
     },
     changeSeasonTheme(semester) {
       if(this.nightMode) {
-        semester = 5
+        semester = 6
       }
 
       // Get Elements
@@ -152,7 +161,7 @@ export default {
       navbar[0].style.background = this.navbar[semester]
       contact.style.background = this.contact[semester]
 
-      if(semester > 3) {
+      if(this.nightMode) {
         this.changeElementsStyle(vgtSelect, 'backgroundColor', '#BEBEBE')
         this.changeElementsStyle(vgtInput, 'background', '#BEBEBE')
         this.changeElementsStyle(vgtSelect, 'color', 'black')
@@ -211,18 +220,24 @@ export default {
 }
 .summer1-btn {
   background: linear-gradient(147deg, #000000 0%, #04619f 74%);
+  background-image: linear-gradient(147deg, #000000 0%, #04619f 74%) !important;
 }
 .summer2-btn {
-  /*background: linear-gradient(147deg, #000000 0%, #04619f 74%);*/
-  background: #BEBEBE;
   border: 1px solid black;
+  background-color: #6c33a3;
+  background-image: linear-gradient(316deg, #6c33a3 0%, #8241b8 74%);
 }
 
-.summerOne-img {
+.summer-one-img {
   background-image: linear-gradient(147deg, #000000 0%, #04619f 74%) !important;
 }
 
-.summerTwo-img {
+.summer-two-img {
+  background-color: #6c33a3;
+  background-image: linear-gradient(316deg, #6c33a3 0%, #8241b8 74%) !important;
+}
+
+.night-mode-img {
   background: black !important;
 }
 
