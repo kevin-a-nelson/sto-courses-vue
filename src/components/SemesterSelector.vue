@@ -49,7 +49,7 @@ export default {
         "transparent",
       ],
       tables1: [
-        "hsl(45, 100%, 40%)",
+        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
         "linear-gradient(to bottom, #3eadcf, #3eadcf, #3eadcf, #3eadcf, #3eadcf)",                               
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)", 
         "transparent",
@@ -71,7 +71,7 @@ export default {
       ],
         // "#FFA500",
       tables2: [
-        "hsl(45, 100%, 40%)",
+        "linear-gradient(315deg, #ff8000 0%, #ec9f05 74%)",
         "linear-gradient(to bottom, #3eadcf, #3eadcf, #3eadcf, #3eadcf, #3eadcf)",
         "linear-gradient(to bottom, #ff8177, #fe857a, #fc897e, #fb8d81, #f99185)",
         "transparent",
