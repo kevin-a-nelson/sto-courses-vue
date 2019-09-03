@@ -97,7 +97,8 @@ export default {
         'interim-btn',
         'spring-btn',
         'summer1-btn',
-        'summer2-btn'
+        'summer2-btn',
+        'night-mode-btn'
       ],
       backgroundImages: [
         'fall-img',
@@ -226,6 +227,10 @@ export default {
   border: 1px solid black;
   background-color: #6c33a3;
   background-image: linear-gradient(316deg, #6c33a3 0%, #8241b8 74%);
+}
+
+.night-mode-btn {
+  background: #BEBEBE;
 }
 
 .summer-one-img {
