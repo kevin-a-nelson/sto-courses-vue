@@ -505,7 +505,7 @@ export default {
 
 #website-header {
   padding: 20px 20px;
-  max-width: 950px;
+  max-width: 1000px;
   margin: 0px auto;
   margin-bottom: 70px;
   margin-top: 70px;
@@ -567,12 +567,12 @@ export default {
 
 #user-section {
   margin: 0px auto;
-  max-width: 950px;
+  max-width: 1000px;
   margin-bottom: 70px;
 }
 
 #stolaf-section {
-  max-width: 950px;
+  max-width: 1000px;
   margin: 0px auto;
   margin-bottom: 750px;
 }

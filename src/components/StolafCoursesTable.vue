@@ -26,7 +26,7 @@
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
-        <div :style="greyOrWhite()">
+        <div class="table-rows">
           <div v-if="props.column.label==='Status'" class="my-row status-column">
             <span>
               {{props.formattedRow[props.column.field]}}
@@ -41,7 +41,7 @@
         </div>
       </template>
       <template slot="table-column" slot-scope="props">
-        <div :style="greyOrWhite()">
+        <div class="table-columns">
           <div v-if="props.column.label === 'Status'" ref="statusHeader" style="width: 40px;">
             {{ props.column.label }}
           </div>

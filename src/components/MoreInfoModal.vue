@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="modal-outside-container">
     <modal name="more-info"
            width="60%"
            height="auto"
@@ -56,6 +56,11 @@ export default {
 </script>
 
 <style>
+
+#modal-outside-container {
+  max-width: 800px;
+  background: blue;
+}
 
 .winter-color {
   /*background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);*/

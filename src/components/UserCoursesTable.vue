@@ -11,7 +11,7 @@
       styleClass="vgt-table condensed fall-background-color"
       >
       <template slot="table-row" slot-scope="props">
-        <div :style="greyOrWhite()">
+        <div class="table-rows">
           <div v-if="props.column.label==='Prof'" class="my-row">
             {{ props.formattedRow[props.column.field]}}
           </div>
@@ -26,7 +26,7 @@
         </div>
       </template>
       <template slot="table-column" slot-scope="props">
-        <div :style="greyOrWhite()"> 
+        <div class="table-columns"> 
           <div style="width: 40px;">
            <span style="font-weight: 900;">
               {{props.column.label}}

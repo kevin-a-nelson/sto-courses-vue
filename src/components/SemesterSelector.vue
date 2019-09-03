@@ -19,10 +19,6 @@ export default {
   data() {
     return {
       nightMode: false,
-      modes: [
-        { text: 'Night Mode Off', value: false },
-        { text: 'Night Mode On', value: true },
-      ],
       semesters: [
         { text: 'Fall', value: 1 },
         { text: 'Interim', value: 2 },
@@ -53,7 +49,7 @@ export default {
         "transparent",
       ],
       tables1: [
-        "linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%)",
+        "hsl(45, 100%, 40%)",
         "linear-gradient(to bottom, #3eadcf, #3eadcf, #3eadcf, #3eadcf, #3eadcf)",                               
         "linear-gradient(150deg, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%)", 
         "transparent",
@@ -75,7 +71,7 @@ export default {
       ],
         // "#FFA500",
       tables2: [
-        "#ff8f00",
+        "hsl(45, 100%, 40%)",
         "linear-gradient(to bottom, #3eadcf, #3eadcf, #3eadcf, #3eadcf, #3eadcf)",
         "linear-gradient(to bottom, #ff8177, #fe857a, #fc897e, #fb8d81, #f99185)",
         "transparent",
@@ -113,12 +109,18 @@ export default {
     },
     newSemesterSelected() {
       this.$emit('newSemesterSelected', 'semester' , this.selectedSemester)
-      if (!this.nightMode) {
-        this.changeSeasonTheme(this.selectedSemester)
+      this.changeSeasonTheme(this.selectedSemester)
+    },
+    changeElementsStyle(elements, styleName, styling) {
+      for(var i = 0; i < elements.length; i++) {
+        elements[i].style[styleName] = styling
+        elements[i].style[styleName] = styling
       }
     },
     changeSeasonTheme(semester) {
-
+      if(this.nightMode) {
+        semester = 5
+      }
 
       // Get Elements
       var app = document.getElementById('app')
@@ -131,6 +133,11 @@ export default {
       var pagination = document.getElementsByClassName('vgt-wrap__footer')
       var navbar = document.getElementsByClassName('navbar')
       var contact = document.getElementById('contact')
+      var tableColumns = document.getElementsByClassName("table-columns")
+      var tableRows = document.getElementsByClassName("table-rows")
+      var vgtSelect = document.getElementsByClassName("vgt-select")
+      var vgtInput = document.getElementsByClassName("vgt-input")
+
 
       semester -= 1
 
@@ -144,16 +151,16 @@ export default {
       navbar[0].style.background = this.navbar[semester]
       contact.style.background = this.contact[semester]
 
-      if(semester === 4) {
-        console.log('hello')
-        tables[0].classList.add('grey-font')
-        tables[1].classList.add('grey-font')
-        header.classList.add('grey-font')
-        myCourses.classList.add('grey-font')
-        stolafCourses.classList.add('grey-font')
-        pagination[0].classList.add('grey-font')
-        navbar[0].classList.add('grey-font')
-        contact.classList.add('grey-font')
+      if(semester > 3) {
+        this.changeElementsStyle(vgtSelect, 'backgroundColor', '#BEBEBE')
+        this.changeElementsStyle(vgtInput, 'background', '#BEBEBE')
+        this.changeElementsStyle(tableColumns, 'color', '#BEBEBE')
+        this.changeElementsStyle(tableRows, 'color', '#BEBEBE')
+      } else {
+        this.changeElementsStyle(vgtSelect, 'backgroundColor', 'white')
+        this.changeElementsStyle(vgtInput, 'background', 'white')
+        this.changeElementsStyle(tableColumns, 'color', 'white')
+        this.changeElementsStyle(tableRows, 'color', 'white')
       }
 
       // Set classes of elements
