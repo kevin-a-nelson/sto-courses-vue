@@ -1,6 +1,6 @@
 <template>
   <div class="signup-container">
-    <section class="fall-background-color signup-box">
+    <section class="signup-box">
       <div id="signup">
         <p class="errors" v-for="error in errors"> {{ error }} </p>
         <div class="label-container">
@@ -105,8 +105,7 @@ export default {
   opacity: 0.9;
   border-radius: 5px;
   padding: 35px;
-  /*padding: 40px 7%;*/
-  background: black;
+  background: linear-gradient(315deg, #ff4e00 0%, #ec9f05 74%);
   width: 100%;
   max-width: 400px;
   margin: 0px auto;

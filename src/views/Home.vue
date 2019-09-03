@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <my-nav-bar />
     <div id="body-container" @mouseover="mouseOverBody">
       <!-- Top Section Above Table -->
       <more-info-modal v-bind:moreInfoData="moreInfoData"
@@ -11,7 +12,6 @@
           <div id="top-section-selectors">
           <p class="website-header-title">Rate my Professor Course Planner</p>
             <year-selector v-on:newYearSelected="updateSelectedValuesAndRows"/>
-            <p class="website-header-title" v-if="coursesUnavailable">Courses for this term arn't avaiable yet</p>
             <semester-selector v-on:newSemesterSelected="updateSelectedValuesAndRows" v-on:newModeSelected="newModeSelected"/>
           </div>
         </div>
@@ -45,6 +45,7 @@
             <type-selector v-on:newTypeSelected="updateSelectedValuesAndRows"/>
           </div>
         </div>
+        <p class="website-header-title" v-if="coursesUnavailable">Courses for this term arn't avaiable yet</p>
         <stolaf-courses-table
           v-bind:nightMode="nightMode"
           v-on:showMoreInfo="showMoreInfo"
@@ -59,6 +60,7 @@
       <div id="my-contacts">
         <p>nelson67@stolaf.edu</p>
         <p>612-236-5220</p>
+        <a href="#top">Back to top</a>
       </div>
     </div>
   </div>
@@ -493,7 +495,7 @@ export default {
 }
 
 #contact {
-  height: 75px;
+  height: 100px;
 }
 
 
@@ -590,8 +592,6 @@ export default {
   margin: 0px auto;
   margin-bottom: 70px;
   border-radius: 5px;
-  /*display: flex;*/
-  /*justify-content: space-between;*/
 }
 
 #user-courses-table-options * {

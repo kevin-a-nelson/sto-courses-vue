@@ -1,6 +1,6 @@
 <template>
   <div class="signup-container">
-    <section :class="`${currentSeason()} signup-box`">
+    <section class="signup-box">
       <div id="login">
         <p class="errors" v-for="error in errors"> {{ error }} </p>
         <div class="label-container">
@@ -61,6 +61,8 @@ export default {
         });
     },
     currentSeason() {
+      console.log(document.getElementById('app').classList)
+      return ''
       return document.getElementById('app').classList.contains('fall-background-image') ? 'fall-background-color' : 'winter-background-color'
     }
   }

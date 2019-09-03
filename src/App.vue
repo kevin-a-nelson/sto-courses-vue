@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <my-nav-bar />
-      <!-- <router-link to="/signup">Signup</router-link> | -->
-      <!-- <router-link to="/login">Login</router-link> | -->
+      <!-- <my-nav-bar /> -->
     </div>
     <router-view/>
   </div>
@@ -56,6 +54,7 @@ tr {
   color: #2c3e50;
   height: 100%;
   min-height: 1000px;
+  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed; 
 }
 
 .winter-background-color {

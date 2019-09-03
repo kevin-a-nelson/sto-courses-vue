@@ -295,7 +295,7 @@ export default {
   position: absolute;
   border-radius: 5px;
   border: none;
-  top: 0px;
+  /*top: -50px;*/
 }
 
 .my-column {

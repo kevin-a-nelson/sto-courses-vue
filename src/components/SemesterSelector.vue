@@ -223,19 +223,19 @@ export default {
 }
 
 .summerTwo-img {
-  background: black;
+  background: black !important;
 }
 
 .spring-img {
-  background: url(https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2019/03/5c949b2d45ead_5c949a57947db_1937238489.jpg) no-repeat center center fixed;
+  background: url(https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2019/03/5c949b2d45ead_5c949a57947db_1937238489.jpg) no-repeat center center fixed !important;
 }
 
 .winter-img {
-  background: url(https://wallpaperbro.com/img/352195.jpg) no-repeat center center fixed;  
+  background: url(https://wallpaperbro.com/img/352195.jpg) no-repeat center center fixed !important;  
 }
 
 .fall-img {
-  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed; 
+  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed !important; 
 }
 
 </style>

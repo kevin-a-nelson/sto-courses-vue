@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar
-              :fixed-top="false">    
+              :fixed-top="false" transparent>    
         <template slot="brand">
             <b-navbar-item href="/">
                 <img
@@ -9,18 +9,6 @@
                     alt="Lightweight UI components for Vue.js based on Bulma"
                 >
             </b-navbar-item>
-<!--             <b-navbar-item v-if="screenWidthBreakpoint()">
-                <strong class="nav-link">Home</strong>
-            </b-navbar-item>
-            <b-navbar-item href="#user-section" v-if="screenWidthBreakpoint()">
-                <strong class="nav-link">My Courses</strong>
-            </b-navbar-item>
-            <b-navbar-item href="#stolaf-section" v-if="screenWidthBreakpoint()">
-                <strong class="nav-link">Stolaf Courses</strong>
-            </b-navbar-item>
-            <b-navbar-item href="#stolaf-section" v-if="screenWidthBreakpoint()">
-                <strong class="nav-link">Contact</strong>
-            </b-navbar-item> -->
         </template>
         <template slot="start">
             <b-navbar-item href="/">
@@ -44,7 +32,7 @@
                     <a class="button is-info" tag="router-link" href="/signup">
                         <strong>Sign up</strong>
                     </a>
-                    <a class="button is-light">
+                    <a class="button is-light" tag="router-link" href="/login">
                         <strong>Log in</strong>
                     </a>
                 </div>
@@ -87,7 +75,7 @@
 <style>
 
 b-navbar-item {
-  color: white !important;
+  /*color: white !important;*/
 }
 
 .nav-link {
