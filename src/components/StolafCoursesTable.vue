@@ -237,7 +237,7 @@ export default {
 
       axios.post(`api/course_terms?term=${term}&order=${draft}&course_id=${course_id}`)
            .then(response => {
-              // this.showNotification('foo', 'success' , text)
+              this.showNotification('foo', 'success' , text)
               this.$emit('rowsChanged')
            })
            .catch(error => {
