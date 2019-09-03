@@ -219,7 +219,7 @@ export default {
 }
 
 .summerOne-img {
-  background: url(https://wallpapersite.com/images/pages/pic_w/7935.jpg) no-repeat center center fixed;  
+  background-image: linear-gradient(147deg, #000000 0%, #04619f 74%) !important;
 }
 
 .summerTwo-img {
