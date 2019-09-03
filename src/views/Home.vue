@@ -446,7 +446,6 @@ export default {
       }
       else if (key === 'type') {
         this.getStolafTableRows()
-        this.resetFilters()
       }
       else if (key === 'draft') {
         this.getUserTableRows()

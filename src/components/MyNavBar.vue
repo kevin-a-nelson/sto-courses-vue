@@ -23,18 +23,22 @@
             <b-navbar-item href="#contact">
                 <strong class="nav-link">Contact</strong>
             </b-navbar-item>
-
         </template>
 
         <template slot="end">
             <b-navbar-item tag="div">
-                <div class="buttons">
+                <div class="buttons" v-if="!loggedIn()">
                     <a class="button is-info" tag="router-link" href="/signup">
                         <strong>Sign up</strong>
                     </a>
                     <a class="button is-light" tag="router-link" href="/login">
                         <strong>Log in</strong>
                     </a>
+                </div>
+                <div v-else >
+                  <a class="button is-info" tag="router-link" href="/logout">
+                      <strong>Logout</strong>
+                  </a>
                 </div>
             </b-navbar-item>
         </template>
@@ -61,6 +65,9 @@
       window.removeEventListener('resize', this.handleResize)
     },
     methods: {
+      loggedIn() {
+        return localStorage.jwt
+      },
       handleResize() {
         this.window.width = window.innerWidth;
         this.window.height = window.innerHeight;

@@ -57,10 +57,10 @@
       </template>
     </vue-good-table>
     <div>
-      <button @click="addCourse" class="stolaf-table-btn" ref="AddBtn"><plus-icon /></button>
+      <button @click="addCourse" class="stolaf-table-btn" ref="AddBtn"><i class="material-icons">add</i></button>
     </div>
     <div>
-      <button @click="moreInfo" class="stolaf-table-btn" ref="InfoBtn"><eye-icon /></button>
+      <button @click="moreInfo" class="stolaf-table-btn" ref="InfoBtn"><i class="material-icons">zoom_in</i></button>
     </div>
   </div>
 </template>
@@ -225,6 +225,10 @@ export default {
       return color
     },
     addCourse() {
+      if(!localStorage.jwt) {
+        this.$router.push('/signup')
+        return
+      }
       var course_id = this.hoveredRow.id
       var year = this.selectedValues.year
       var semester = this.selectedValues.semester

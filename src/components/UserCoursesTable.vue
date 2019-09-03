@@ -36,10 +36,10 @@
       </template>
     </vue-good-table>
     <div>
-      <button @click="removeCourse" class="user-action-btn" ref="removeBtn"><plus-icon /></button>
+      <button @click="removeCourse" class="user-action-btn" ref="removeBtn"><i class="material-icons">close</i></button>
     </div>
     <div>
-      <button @click="showMoreInfo" class="user-action-btn" ref="infoBtn"><eye-icon /></button>
+      <button @click="showMoreInfo" class="user-action-btn" ref="infoBtn"><i class="material-icons">zoom_in</i></button>
     </div>
   </div>
 </template>
