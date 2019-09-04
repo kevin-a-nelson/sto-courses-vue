@@ -24,7 +24,6 @@
                 <strong class="nav-link">Contact</strong>
             </b-navbar-item>
         </template>
-
         <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons" v-if="!loggedIn()">
@@ -87,6 +86,22 @@ b-navbar-item {
 
 .nav-link {
   color: white;
+}
+
+.nav-link:hover {
+  color: black;
+}
+
+a .navbar-item:hover {
+  .nav-link {
+    color: black;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .navbar-menu {
+    background: transparent !important;
+  }
 }
 
 .navbar {

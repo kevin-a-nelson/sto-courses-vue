@@ -20,6 +20,18 @@
               {{props.formattedRow[props.column.field]}}
             </span>
           </div>
+          <div v-else-if="props.column.label === 'Rating'" class="my-row">
+            <span v-if="props.row.rating===0"> N/A </span>
+            <span v-else>{{props.formattedRow[props.column.field]}}</span>
+          </div>
+          <div v-else-if="props.column.label === 'Difficulty'" class="my-row">
+            <span v-if="props.row.difficulty===0"> N/A </span>
+            <span v-else>{{props.formattedRow[props.column.field]}}</span>
+          </div>
+          <div v-else-if="props.column.label === 'Reviews'" class="my-row">
+            <span v-if="props.row.reviews===0"> N/A </span>
+            <span v-else>{{props.formattedRow[props.column.field]}}</span>
+          </div>
           <span v-else class="my-row">
             {{props.formattedRow[props.column.field]}}
           </span>

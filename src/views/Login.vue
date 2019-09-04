@@ -8,6 +8,7 @@
               type="is-danger"
               :message="message">
               <b-input type="email"
+                  @keyup.native.enter="submit"
                   placeholder="Email"
                   :value="email"
                   v-model="email">
@@ -17,13 +18,14 @@
         <div class="label-container">
           <b-field class="signup-label" v-model="password">
               <b-input type="password"
+                  @keyup.native.enter="submit"
                   placeholder="Password"
                   :value="password"
                   v-model="password">
               </b-input>
           </b-field>
         </div>
-        <b-button class="my-signup-btn" style="width: 100%;" v-on:click="submit">Login</b-button>
+        <b-button class="my-signup-btn" style="width: 100%;" @keyup.native.enter="submit" v-on:click="submit">Login</b-button>
       </div>
     </section>
   </div>

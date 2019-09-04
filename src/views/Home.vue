@@ -60,7 +60,7 @@
       <div id="my-contacts">
         <p>nelson67@stolaf.edu</p>
         <p>612-236-5220</p>
-        <a href="#top">Back to top</a>
+        <a id="back-to-top" href="#top">Back to top</a>
       </div>
     </div>
   </div>
@@ -463,7 +463,6 @@ export default {
       this.stolafTableRows = []
       axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
         this.stolafTableRows = response.data.courses
-        console.log(this.stolafTableRows)
         if(this.stolafTableRows.length === 0) {
           this.coursesUnavailable = true;
         }
@@ -486,6 +485,11 @@ export default {
 </script>
 
 <style>
+
+#back-to-top {
+  color: white;
+  text-decoration: underline;
+}
 
 #my-contacts {
   /*padding: 30px;*/

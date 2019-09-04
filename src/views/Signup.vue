@@ -5,9 +5,10 @@
         <p class="errors" v-for="error in errors"> {{ error }} </p>
         <div class="label-container">
           <b-field class="signup-label"
-              type="is-danger"
+              type="is-white"
               :message="message">
               <b-input type="email"
+                  @keyup.native.enter="submit"
                   placeholder="Email"
                   :value="email"
                   v-model="email">
@@ -17,6 +18,7 @@
         <div class="label-container">
           <b-field class="signup-label" v-model="password">
               <b-input type="password"
+                  @keyup.native.enter="submit"
                   placeholder="Password"
                   :value="password"
                   v-model="password">
@@ -26,6 +28,7 @@
         <div class="label-container">
           <b-field class="signup-label">
               <b-input type="password"
+                  @keyup.native.enter="submit"
                   placeholder="Password Confirmation"
                   :value="password"
                   password-reveal
@@ -34,7 +37,7 @@
               </b-input>
           </b-field>
         </div>
-        <b-button class="my-signup-btn" style="width: 100%;" v-on:click="submit">Signup</b-button>
+        <b-button class="my-signup-btn" style="width: 100%;" @keyup.enter="submit" @click="submit">Signup</b-button>
       </div>
     </section>
   </div>
@@ -44,6 +47,8 @@
 
 <script>
 import axios from "axios";
+
+
 
 export default {
   data: function() {
@@ -92,7 +97,7 @@ export default {
 }
 
 .errors {
-  color: red;
+  color: white;
   font-size: 18px;
 }
 
