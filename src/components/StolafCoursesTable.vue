@@ -48,7 +48,6 @@
             <span v-if="props.row.reviews===0"> N/A </span>
             <span v-else>{{props.formattedRow[props.column.field]}}</span>
           </div>
-
           <span v-else class="my-row">
             {{props.formattedRow[props.column.field]}}
           </span>
@@ -77,9 +76,11 @@
     </vue-good-table>
     <div>
       <button @click="addCourse" class="stolaf-table-btn" ref="AddBtn"><i class="material-icons">add</i></button>
+      <!-- <button @click="addCourse" class="stolaf-table-btn" ref="AddBtn">ADD</button> -->
     </div>
     <div>
       <button @click="moreInfo" class="stolaf-table-btn" ref="InfoBtn"><i class="material-icons">zoom_in</i></button>
+      <!-- <button @click="moreInfo" class="stolaf-table-btn" ref="InfoBtn">MORE</button> -->
     </div>
   </div>
 </template>
@@ -320,6 +321,9 @@ export default {
 }
 
 .stolaf-table-btn {
+  font-size: 18px;
+  font-weight: 900;
+  color: white;
   height: 50px;
   width: 50px;
   position: absolute;

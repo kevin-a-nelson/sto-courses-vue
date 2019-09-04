@@ -306,28 +306,7 @@ export default {
             ]
           },
           type: 'number'
-        },
-        {
-          label: 'Rating Difficulty Reviews',
-          field: 'rating_difference_reviews',
-          hidden: true,
-          filterOptions: {
-            filterValue: '',
-          }
-        },
-        { label: 'Prereqs', 
-          field: 'has_prereqs',
-          hidden: true,
-          filterOptions: {
-            filterValue: '',
-            placeholder: 'All',
-            enabled: true,
-          }
-        },
-        // { label: 'Actions', 
-        //   field: 'actions',
-        //   hidden: false
-        // },
+        }
       ],
       /* Number used to switch stolafColumns1 to stolafColumns2 and vise versa */
       userColumns: [
