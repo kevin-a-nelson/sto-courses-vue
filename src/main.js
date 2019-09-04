@@ -12,7 +12,9 @@ import 'vue-good-table/dist/vue-good-table.css';
 
 import EyeOutline from 'mdi-vue/EyeOutline.vue'
 import Plus from 'mdi-vue/Plus.vue'
+import vueSmoothScroll from 'vue2-smooth-scroll'
 
+Vue.use(vueSmoothScroll)
 Vue.component('eye-icon', EyeOutline)
 Vue.component('plus-icon', Plus)
 

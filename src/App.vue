@@ -2,7 +2,6 @@
   <div id="app">
     <div id="nav">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!-- <my-nav-bar /> -->
     </div>
     <router-view/>
   </div>

@@ -1,7 +1,6 @@
 <template>
   <div>
-    <b-navbar
-              :fixed-top="false" transparent>    
+    <b-navbar :fixed-top="false">    
         <template slot="brand">
             <b-navbar-item href="/">
                 <img
@@ -14,13 +13,13 @@
             <b-navbar-item href="/">
                 <strong class="nav-link">Home</strong>
             </b-navbar-item>
-            <b-navbar-item href="#user-section">
+            <b-navbar-item href="#user-section" v-smooth-scroll>
                 <strong class="nav-link">My Courses</strong>
             </b-navbar-item>
-            <b-navbar-item href="#stolaf-section">
+            <b-navbar-item href="#stolaf-section" v-smooth-scroll>
                 <strong class="nav-link">Stolaf Courses</strong>
             </b-navbar-item>
-            <b-navbar-item href="#contact">
+            <b-navbar-item href="#contact" v-smooth-scroll>
                 <strong class="nav-link">Contact</strong>
             </b-navbar-item>
         </template>
@@ -80,6 +79,15 @@
 
 <style>
 
+
+#fixed-nav {
+  /*display: fixed;*/
+  /*position: fixed;*/
+  /*position: absolute;*/
+  /*position: fixed;*/
+  /*top: 40px;*/
+  /*width: 100%;*/
+}
 
 .nav-link {
   color: white;

@@ -56,7 +56,7 @@
       </div>
     </div>
     <div id="up-arrow-container">
-      <a href="#top">
+      <a href="#home" v-smooth-scroll>
         <div id="up-arrow-circle">
           <i id="up-arrow-icon" class="material-icons">arrow_upward</i>
         </div>
