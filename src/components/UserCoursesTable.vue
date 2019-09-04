@@ -13,9 +13,10 @@
       <template slot="table-row" slot-scope="props">
         <div class="table-rows">
           <div v-if="props.column.label==='Prof'" class="my-row">
-            {{ props.formattedRow[props.column.field]}}
+            <span id="prof-column" v-if="props.row.prof_url"><a :href="props.row.prof_url" target="blank">{{props.formattedRow[props.column.field]}}</a></span>
+            <span v-else>{{props.formattedRow[props.column.field]}}</span>
           </div>
-          <div v-if="props.column.label==='Status'" class="my-row status-column">
+          <div v-else-if="props.column.label==='Status'" class="my-row status-column">
             <span>
               {{props.formattedRow[props.column.field]}}
             </span>
