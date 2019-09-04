@@ -3,7 +3,7 @@
            height="auto" -->
   <div id="modal-outside-container">
     <modal name="more-info"
-           max-width="800"
+           :max-width="800"
            :adaptive="true"
            height="auto"
            width="80%"
@@ -47,7 +47,6 @@ export default {
       this.$modal.hide('more-info')
     },
     isNightMode() {
-      console.log(this.nightMode)
       return this.nightMode ? 'night-theme' : 'day-theme'
     },
     nightThemeContainer() {

@@ -95,8 +95,6 @@ import DraftSelector from './DraftSelector.vue'
 
 import { departments } from './dropDownItems/Departments'
 import { ges } from './dropDownItems/Ges'
-import Plus from '@/assets/plus.png'
-import Logo from '@/assets/logo.png'
 
 export default {
   name: 'stolaf-courses-table',

@@ -7,7 +7,6 @@
                        v-bind:modalName="'more-info'"
                        v-bind:nightMode="nightMode"/>
       <div id="website-header" class="my-opacity ">
-
         <div id="top-section">
           <div id="top-section-selectors">
           <p class="website-header-title">Rate my Professor Course Planner</p>
@@ -57,10 +56,19 @@
       </div>
     </div>
     <div id="contact">
-      <div id="my-contacts">
-        <p>nelson67@stolaf.edu</p>
-        <p>612-236-5220</p>
-        <a id="back-to-top" href="#top">Back to top</a>
+      <div id="contact-container">
+        <div id="contact-left">
+          <p id="contact-middle-top1"><i class="material-icons">email</i></p>
+          <p><i class="material-icons">phone</i></p>
+        </div>
+        <div id="contact-middle">
+          <p id="contact-middle-top2"><span>nelson67@stolaf.edu</span></p>
+          <p><span>612-236-5220</span></p>
+        </div>
+        <div id="contact-right">
+          <p><img src="../assets/github-light-32.png"></p>
+          <p><img src="../assets/github-light-32.png"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -486,6 +494,14 @@ export default {
 
 <style>
 
+#contact-middle-top1 {
+  margin-bottom: 12px;
+}
+
+#contact-middle-top2 {
+  margin-bottom: 19px;
+}
+
 #back-to-top {
   color: white;
   text-decoration: underline;
@@ -497,8 +513,33 @@ export default {
   color: #eee;
 }
 
+#logo-list {
+/*  width: 50%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;*/
+  margin-left: 20px;
+}
+/**/
 #contact {
+  color: white;
   height: 100px;
+  padding-top: 15px;
+}
+
+#contact-container {
+  display: flex;
+  width: 300px;
+  margin: 0px auto;
+}
+
+#contact-left {
+  margin-right: 20px;
+  text-align: left;
+}
+
+#contact-middle {
+  margin-right: 20px;
 }
 
 
