@@ -505,9 +505,21 @@ export default {
 
 <style>
 
-/*#up-arrow-circle-container {
-  margin: 0px auto;
-}*/
+#up-button-circle {
+  background: orange;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: fixed;
+  top: 25px;
+  right: 50%;
+  z-index: 99;
+}
+
+#up-arrow-icon2 {
+  color: white;
+  margin-top: 12px;
+}
 
 #up-arrow-icon {
   color: white;

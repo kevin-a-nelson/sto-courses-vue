@@ -149,6 +149,7 @@ export default {
       var tableRows = document.getElementsByClassName("table-rows")
       var vgtSelect = document.getElementsByClassName("vgt-select")
       var vgtInput = document.getElementsByClassName("vgt-input")
+      var upArrowCircle2 = document.getElementById("up-button-circle")
 
 
       semester -= 1
@@ -169,7 +170,6 @@ export default {
         this.changeElementsStyle(vgtInput, 'background', '#BEBEBE')
         this.changeElementsStyle(vgtSelect, 'color', 'black')
         this.changeElementsStyle(vgtInput, 'color', 'black')
-
         this.changeElementsStyle(tableColumns, 'color', '#BEBEBE')
         this.changeElementsStyle(tableRows, 'color', '#BEBEBE')
       } else {
