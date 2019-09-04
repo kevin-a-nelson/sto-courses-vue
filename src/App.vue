@@ -30,6 +30,8 @@ export default {
       }
     }
   },
+  methods: {
+  }
 }
 </script>
 
@@ -42,6 +44,9 @@ html {
 tr {
 }
 
+.footer__navigation__page-info__current-entry {
+  color: black !important;
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -88,8 +93,24 @@ tr {
 }
 
 .vgt-wrap__footer * {
-  color: white !important;
+  /*color: white !important;*/
   font-weight: 600;
+}
+
+.footer__navigation__page-info {
+  color: white !important
+}
+
+.footer__navigation__page-btn {
+  color: white !important;
+} 
+
+.footer__row-count__label {
+  color: white !important;
+}
+
+.footer__row-count__select {
+  color: white !important;
 }
 
 table {

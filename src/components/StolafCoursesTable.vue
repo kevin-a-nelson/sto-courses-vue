@@ -32,12 +32,31 @@
               {{props.formattedRow[props.column.field]}}
             </span>
           </div>
-          <span v-else-if="props.column.label === 'Rating'" class="my-row">
-            {{props.formattedRow[props.column.field]}}
-          </span>
+          <div v-else-if="props.column.label==='Prof'" class="my-row">
+            <span id="prof-column" v-if="props.row.prof_url"><a :href="props.row.prof_url" target="blank">{{props.formattedRow[props.column.field]}}</a></span>
+            <span v-else>{{props.formattedRow[props.column.field]}}</span>
+          </div>
+          <div v-else-if="props.column.label === 'Rating'" class="my-row">
+            <span v-if="props.row.rating===0"> N/A </span>
+            <span v-else>{{props.formattedRow[props.column.field]}}</span>
+          </div>
+          <div v-else-if="props.column.label === 'Difficulty'" class="my-row">
+            <span v-if="props.row.difficulty===0"> N/A </span>
+            <span v-else>{{props.formattedRow[props.column.field]}}</span>
+          </div>
+          <div v-else-if="props.column.label === 'Reviews'" class="my-row">
+            <span v-if="props.row.reviews===0"> N/A </span>
+            <span v-else>{{props.formattedRow[props.column.field]}}</span>
+          </div>
+
           <span v-else class="my-row">
             {{props.formattedRow[props.column.field]}}
           </span>
+          <div v-else-if="['Rating', 'Difficulty', 'Reviews'].includes(props.column.label)">
+            <span>Macaroni</span>
+            <!-- <span v-if="props.formattedRow[props.column.field] === '0'">N/A</span> -->
+            <!-- <span v-else>{{ props.formattedRow[props.column.field] }}</span> -->
+          </div>
         </div>
       </template>
       <template slot="table-column" slot-scope="props">
@@ -127,6 +146,9 @@ export default {
     }
   },
   methods: {
+    test(props) {
+      console.log(props.row)
+    },
     isNightMode() {
       return this.nightMode ? 'grey-color' : 'white-color'
     },
@@ -145,6 +167,7 @@ export default {
       this.hoveredRow = props.row
     },
     updateMousePosition(event) {
+      // console.log('moving')
 
       this.x = event.pageX
       this.y = event.pageY
@@ -284,6 +307,11 @@ export default {
 </script>
 
 <style>
+
+#prof-column {
+  text-decoration: underline;
+  color: blue;
+}
 
 .white-color {
   color: white;

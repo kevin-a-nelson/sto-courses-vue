@@ -463,8 +463,8 @@ export default {
       this.stolafTableRows = []
       axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
         this.stolafTableRows = response.data.courses
+        console.log(this.stolafTableRows)
         if(this.stolafTableRows.length === 0) {
-          console.log('ran')
           this.coursesUnavailable = true;
         }
       })
