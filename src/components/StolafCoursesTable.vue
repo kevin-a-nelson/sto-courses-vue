@@ -23,6 +23,9 @@
         ]
       }"
       >
+      <div slot="emptystate">
+        <p class="no-rows-msg">Their are no classes with the filters above</p>
+      </div>
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
     <!-- Actions Column -->
@@ -76,11 +79,9 @@
     </vue-good-table>
     <div>
       <button @click="addCourse" class="stolaf-table-btn" ref="AddBtn"><i class="material-icons">add</i></button>
-      <!-- <button @click="addCourse" class="stolaf-table-btn" ref="AddBtn">ADD</button> -->
     </div>
     <div>
       <button @click="moreInfo" class="stolaf-table-btn" ref="InfoBtn"><i class="material-icons">zoom_in</i></button>
-      <!-- <button @click="moreInfo" class="stolaf-table-btn" ref="InfoBtn">MORE</button> -->
     </div>
   </div>
 </template>
@@ -321,12 +322,10 @@ export default {
 }
 
 .stolaf-table-btn {
-  font-size: 18px;
-  font-weight: 900;
-  color: white;
   height: 50px;
   width: 50px;
   position: absolute;
+  left: 20000px;
   border-radius: 5px;
   border: none;
   /*top: -50px;*/

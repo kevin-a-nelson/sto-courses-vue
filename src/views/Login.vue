@@ -62,6 +62,8 @@ export default {
           this.password = "";
         });
     },
+    mounted() {
+    },
     currentSeason() {
       console.log(document.getElementById('app').classList)
       return ''

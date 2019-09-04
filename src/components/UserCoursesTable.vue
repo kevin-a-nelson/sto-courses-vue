@@ -10,6 +10,13 @@
       :rows="rows"
       styleClass="vgt-table condensed fall-background-color"
       >
+      <div slot="emptystate">
+        <p class="no-rows-msg">To Add Courses Login and click the</p>
+        <div id="show-btn-container">
+          <button id="show-btn"><i class="material-icons">add</i></button>
+        </div>
+        <p class="no-rows-msg">Symbol When Hovering over the rows in the table below</p>
+      </div>
       <template slot="table-row" slot-scope="props">
         <div class="table-rows">
           <div v-if="props.column.label==='Prof'" class="my-row">
@@ -191,6 +198,12 @@ export default {
 
 <style>
 
+.no-rows-msg {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 900;
+}
+
 .status-column {
   text-align: center; 
   line-height: 50px;
@@ -208,6 +221,21 @@ export default {
   border-radius: 5px;
   border: none;
   top: -200px;
+}
+
+#show-btn-container {
+  width: 50px;
+  margin: 0px auto;
+}
+
+#show-btn {
+  margin: 0px auto;
+  right: 50%;
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  border: none;
+  margin: 0px auto;
 }
 
 .action-button {

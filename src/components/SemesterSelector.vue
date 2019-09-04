@@ -150,6 +150,7 @@ export default {
       var vgtSelect = document.getElementsByClassName("vgt-select")
       var vgtInput = document.getElementsByClassName("vgt-input")
       var upArrowCircle2 = document.getElementById("up-button-circle")
+      var showBtn = document.getElementById("show-btn")
 
 
       semester -= 1
@@ -184,6 +185,7 @@ export default {
       // Set classes of elements
       this.addSeasonClass(semester, stolafActionBtns[0], this.actionBtnClasses)
       this.addSeasonClass(semester, stolafActionBtns[1], this.actionBtnClasses)
+      this.addSeasonClass(semester, showBtn, this.actionBtnClasses)
       this.addSeasonClass(semester, userActionBtns[0], this.actionBtnClasses)
       this.addSeasonClass(semester, userActionBtns[1], this.actionBtnClasses)
 
