@@ -1,16 +1,24 @@
 <template>
+<!--            width="80%"
+           height="auto" -->
   <div id="modal-outside-container">
     <modal name="more-info"
-           width="60%"
+           max-width="800"
+           :adaptive="true"
            height="auto"
+           width="80%"
            style="margin-bottom: 0px;"
     >
         <div id="info-container" :class="currentSeason()" ref="modalRef">
           <div :class="isNightMode()">
-            <div class="spacing">
-              <h5 id="name">
-                {{ moreInfoData.name }}
-              </h5>
+            <div id="modal-top" class="spacing">
+              <div id="modal-center">
+                <h5 id="name">{{ moreInfoData.name }} {{ moreInfoData.num }} {{ moreInfoData.sec }} </h5>
+                <span id="credits">Credits - {{ moreInfoData.credits }}</span>
+              </div>
+              <div id="modal-right">
+                <b-button id="close-btn" @click="close"><i class="material-icons">close</i></b-button>
+              </div>
             </div>
             <div class="spacing" ref="testSpace">
               <h5 class="modal-label">Prereqs</h5>
@@ -73,6 +81,11 @@ export default {
 
 <style>
 
+#modal-center {
+  margin: 0px auto;
+  text-align: center;
+}
+
 .winter-color {
   /*background-image: linear-gradient(315deg, #045de9 0%, #09c6f9 74%);*/
   background: linear-gradient(315deg, #abe9cd 0%, #3eadcf 30%);
@@ -86,8 +99,23 @@ export default {
   background: #ff8f00,
 }
 
+#modal-top {
+  display: flex;
+}
+
 .night-theme {
   color: #BEBEBE;
+}
+
+#close-btn {
+  width: 40px;
+  height: 40px;
+  line-height: 0px;
+}
+
+#credits {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .day-theme {
@@ -151,6 +179,7 @@ export default {
 
 #info-container {
   max-height: 800px;
+  /*max-width: 600px;*/
   overflow-y: scroll;
   padding: 30px;
 }
