@@ -144,6 +144,7 @@ export default {
       var pagination = document.getElementsByClassName('vgt-wrap__footer')
       var navbar = document.getElementsByClassName('navbar')
       var contact = document.getElementById('contact')
+      var upArrowCircle = document.getElementById('up-arrow-circle')
       var tableColumns = document.getElementsByClassName("table-columns")
       var tableRows = document.getElementsByClassName("table-rows")
       var vgtSelect = document.getElementsByClassName("vgt-select")
@@ -161,6 +162,7 @@ export default {
       pagination[0].style.background = this.pagination[semester]
       navbar[0].style.background = this.navbar[semester]
       contact.style.background = this.contact[semester]
+      upArrowCircle.style.background = this.contact[semester]
 
       if(this.nightMode) {
         this.changeElementsStyle(vgtSelect, 'backgroundColor', '#BEBEBE')

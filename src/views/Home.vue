@@ -55,6 +55,13 @@
           />
       </div>
     </div>
+    <div id="up-arrow-container">
+      <a href="#top">
+        <div id="up-arrow-circle">
+          <i id="up-arrow-icon" class="material-icons">arrow_upward</i>
+        </div>
+      </a>
+    </div>
     <div id="contact">
       <div id="contact-container">
         <div id="contact-left">
@@ -66,8 +73,12 @@
           <p><span>612-236-5220</span></p>
         </div>
         <div id="contact-right">
-          <p><img src="../assets/github-light-32.png"></p>
-          <p><img src="../assets/github-light-32.png"></p>
+          <a target="blank" href="https://github.com/SamuraiViking">
+            <p><img src="../assets/github-light-32.png"></p>
+          </a>
+          <a href="https://www.linkedin.com/in/kevin-nelson1/" target="blank">
+            <p><img src="../assets/linkedin-32.png"></p>
+          </a>
         </div>
       </div>
     </div>
@@ -494,6 +505,24 @@ export default {
 
 <style>
 
+/*#up-arrow-circle-container {
+  margin: 0px auto;
+}*/
+
+#up-arrow-icon {
+  color: white;
+  margin-top: 12px;
+}
+
+#up-arrow-circle {
+  margin: 0px auto;
+  background: orange;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+}
+
 #contact-middle-top1 {
   margin-bottom: 12px;
 }
@@ -503,6 +532,8 @@ export default {
 }
 
 #back-to-top {
+  line-height: 30px;
+  margin-top: 50px;
   color: white;
   text-decoration: underline;
 }
@@ -528,8 +559,9 @@ export default {
 }
 
 #contact-container {
+  /*background: blue;*/
   display: flex;
-  width: 300px;
+  width: 240px;
   margin: 0px auto;
 }
 
