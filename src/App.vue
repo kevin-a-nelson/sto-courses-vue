@@ -31,7 +31,7 @@ export default {
   },
   created() {
     if(navigator.userAgent.search("Chrome") === -1 ) {
-      alert('The website is VERY glitchy if you are not using chrome. Please use chrome for the best user experience')
+      alert('PLEASE USE CHROME !!! On your current browser the website will be very slow and ugly')
     }
   }
 }
