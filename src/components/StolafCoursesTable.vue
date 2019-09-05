@@ -23,8 +23,11 @@
         ]
       }"
       >
+      <div id="stolaf-courses-footer" slot="table-actions-bottom">
+        <p class="no-rows-msg">Expected more courses? Check the Filters!</p>
+      </div>
       <div slot="emptystate">
-        <p class="no-rows-msg">Their are no classes with the filters above</p>
+        <p id="no-data">none</p>
       </div>
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
@@ -307,6 +310,14 @@ export default {
 </script>
 
 <style>
+
+#expected-more-courses {
+  background: blue;
+}
+
+#no-data {
+  text-align: center;
+} 
 
 #prof-column {
   text-decoration: underline;

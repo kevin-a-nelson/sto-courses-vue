@@ -213,6 +213,7 @@ export default {
 }
 
 .no-rows-msg {
+  color: white;
   text-align: center;
   font-size: 30px;
   font-weight: 900;

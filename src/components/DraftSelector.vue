@@ -10,11 +10,11 @@
 
 <script>
   export default {
-    props: ['defaultDraft'],
+    props: ['selectedDraft'],
     name: 'draft-selector',
     data() {
       return {
-        selectedDraft: 1,
+        // selectedDraft: 1,
         drafts: [
           { text: 'Draft 1', value: 1 },
           { text: 'Draft 2', value: 2 },

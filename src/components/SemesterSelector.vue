@@ -151,6 +151,7 @@ export default {
       var vgtInput = document.getElementsByClassName("vgt-input")
       var upArrowCircle2 = document.getElementById("up-button-circle")
       var showBtn = document.getElementById("show-btn")
+      var stolafCoursesFooter = document.getElementById('stolaf-courses-footer')
 
 
       semester -= 1
@@ -165,6 +166,7 @@ export default {
       navbar[0].style.background = this.navbar[semester]
       contact.style.background = this.contact[semester]
       upArrowCircle.style.background = this.contact[semester]
+      stolafCoursesFooter.style.background = this.contact[semester]
 
       if(this.nightMode) {
         this.changeElementsStyle(vgtSelect, 'backgroundColor', '#BEBEBE')

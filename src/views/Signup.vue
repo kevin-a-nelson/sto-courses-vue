@@ -39,6 +39,7 @@
         </div>
         <b-button class="my-signup-btn" style="width: 100%;" @keyup.enter="submit" @click="submit">Signup</b-button>
       </div>
+      <p class="signup-login-msg">Already a user? <router-link to="/login">login</router-link></p>
     </section>
   </div>
 </template>
@@ -60,6 +61,10 @@ export default {
       errors: [],
       name: '',
     };
+  },
+  mounted() {
+    var app = document.getElementById('app')
+    app.classList.add('fall-img')
   },
   methods: {
     submit: function() {

@@ -22,7 +22,8 @@
             <h1 id="my-courses-header" class="website-header-title">My Courses</h1>
           </div>
           <div>
-            <draft-selector style="margin-top: 20px;" v-on:newDraftSelected="updateSelectedValuesAndRows"/>
+            <draft-selector style="margin-top: 20px;" v-on:newDraftSelected="updateSelectedValuesAndRows"
+                                                      v-bind:selectedDraft="selectedValues.draft"/>
           </div>
         </div>
         <user-courses-table
@@ -439,8 +440,9 @@ export default {
       this.selectedValues[key] = value
 
       if(key === 'year' || key === 'semester') {
-        this.getUserTableRows()
+        this.selectedValues.draft = 1
         this.getStolafTableRows()
+        this.getUserTableRows()
       }
       else if (key === 'type') {
         this.getStolafTableRows()

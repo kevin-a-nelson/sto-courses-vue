@@ -27,6 +27,7 @@
         </div>
         <b-button class="my-signup-btn" style="width: 100%;" @keyup.native.enter="submit" v-on:click="submit">Login</b-button>
       </div>
+      <p class="signup-login-msg">Don't have an account? <router-link to="/signup">Sign up</router-link></p>
     </section>
   </div>
 </template>
@@ -72,3 +73,13 @@ export default {
   }
 };
 </script>
+
+<style>
+
+.signup-login-msg {
+  font-weight: 900;
+  margin-top: 20px;
+  color: white;
+}
+
+</style>

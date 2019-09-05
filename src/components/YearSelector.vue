@@ -30,7 +30,6 @@
     },
     methods: {
       newYearSelected() {
-        console.log(this.selectedYear)
         this.$emit('newYearSelected', 'year' ,this.selectedYear)
       },
     }
