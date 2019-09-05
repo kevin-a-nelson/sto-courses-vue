@@ -230,6 +230,7 @@ export default {
 }
 
 .user-action-btn {
+  background: white;
   height: 50px;
   width: 50px;
   position: absolute;
@@ -244,6 +245,7 @@ export default {
 }
 
 #show-btn {
+  background: white;
   margin: 0px auto;
   right: 50%;
   height: 50px;

@@ -29,7 +29,10 @@ export default {
       }
     }
   },
-  methods: {
+  created() {
+    if(navigator.userAgent.search("Chrome") === -1 ) {
+      alert('The website is VERY glitchy if you are not using chrome. Please use chrome for the best user experience')
+    }
   }
 }
 </script>

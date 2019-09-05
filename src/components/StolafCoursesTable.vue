@@ -333,6 +333,7 @@ export default {
 }
 
 .stolaf-table-btn {
+  background: white;
   height: 50px;
   width: 50px;
   position: absolute;
