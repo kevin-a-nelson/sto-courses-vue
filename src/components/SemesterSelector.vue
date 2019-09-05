@@ -183,11 +183,11 @@ export default {
       }
 
       // Set classes of elements
-      this.addSeasonClass(semester, stolafActionBtns[0], this.actionBtnClasses)
-      this.addSeasonClass(semester, stolafActionBtns[1], this.actionBtnClasses)
-      this.addSeasonClass(semester, showBtn, this.actionBtnClasses)
-      this.addSeasonClass(semester, userActionBtns[0], this.actionBtnClasses)
-      this.addSeasonClass(semester, userActionBtns[1], this.actionBtnClasses)
+      // this.addSeasonClass(semester, stolafActionBtns[0], this.actionBtnClasses)
+      // this.addSeasonClass(semester, stolafActionBtns[1], this.actionBtnClasses)
+      // this.addSeasonClass(semester, showBtn, this.actionBtnClasses)
+      // this.addSeasonClass(semester, userActionBtns[0], this.actionBtnClasses)
+      // this.addSeasonClass(semester, userActionBtns[1], this.actionBtnClasses)
 
       this.addSeasonClass(semester, app, this.backgroundImages)
     },

@@ -458,7 +458,6 @@ export default {
       var term = `${year}${semester}`
       this.coursesUnavailable = false;
 
-      this.stolafTableRows = []
       axios.get(`api/courses?term=${term}&type=${type}`).then(response => {
         this.stolafTableRows = response.data.courses
         if(this.stolafTableRows.length === 0) {

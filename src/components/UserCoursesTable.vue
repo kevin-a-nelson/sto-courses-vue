@@ -11,7 +11,14 @@
       styleClass="vgt-table condensed fall-background-color"
       >
       <div slot="emptystate">
-        <p class="no-rows-msg">To Add Courses Login and click the</p>
+        <p class="no-rows-msg">To Add Courses
+          <span v-if="loggedOut()">
+            <router-link class="login-signup" to="/signup">Signup</router-link> 
+            or
+            <router-link class="login-signup" to="/login">Login</router-link> 
+            and
+          </span>
+         click the</p>
         <div id="show-btn-container">
           <button id="show-btn"><i class="material-icons">add</i></button>
         </div>
@@ -92,6 +99,9 @@ export default {
     }
   },
   methods: {
+    loggedOut() {
+      return !localStorage.jwt
+    },
     greyOrWhite() {
       return [4,5].includes(this.selectedValues.semester) ? 'color: #BEBEBE;' : 'color: white;'
     },
@@ -197,6 +207,10 @@ export default {
 </script>
 
 <style>
+
+.login-signup {
+  text-decoration: underline; 
+}
 
 .no-rows-msg {
   text-align: center;
