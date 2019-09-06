@@ -253,17 +253,15 @@ export default {
 }
 
 .spring-img {
-  background: url(https://imgcp.aacdn.jp/img-a/1720/auto/global-aaj-front/article/2019/03/5c949b2d45ead_5c949a57947db_1937238489.jpg) no-repeat center center fixed !important;
-  background: url(https://www.japan-guide.com/blog/sakura18/g/180406_fujigoko_21.jpg) no-repeat center center fixed !important;
-  background: url(https://motaen.com/upload/wallpapers/source/2013/12/19/17/02/38525/W4VqZxTf7p.jpg) no-repeat center center fixed !important;
+   background: url(../assets/spring-img.jpg) !important
 }
 
 .winter-img {
-  background: url(https://wallpaperbro.com/img/352195.jpg) no-repeat center center fixed !important;  
+  background: url('../assets/winter-img.jpg') !important;
 }
 
 .fall-img {
-  background: url(https://wallpapercave.com/wp/wp3663415.jpg) no-repeat center center fixed !important; 
+  background: url('../assets/fall-img.jpg') no-repeat center center fixed !important; 
 }
 
 </style>
