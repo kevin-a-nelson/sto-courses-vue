@@ -6,8 +6,6 @@ import axios from 'axios'
 import VModal from 'vue-js-modal'
 import Multiselect from 'vue-multiselect'
 import Notifications from 'vue-notification'
-import DropDown from 'vue-dropdowns'
-import VueDropdown from 'vue-dynamic-dropdown'
 import 'vue-good-table/dist/vue-good-table.css';
 
 import EyeOutline from 'mdi-vue/EyeOutline.vue'
@@ -33,7 +31,7 @@ Vue.config.productionTip = false
 Vue.use(VueGoodTablePlugin);
 Vue.use(VModal)
 Vue.component('multiselect', Multiselect) 
-Vue.component('dropdown', DropDown)
+// Vue.component('dropdown', DropDown)
 Vue.use(Notifications)
 // Vue.use(BootstrapVue)
 

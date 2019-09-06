@@ -253,11 +253,11 @@ export default {
 }
 
 .spring-img {
-   background: url(../assets/spring-img.jpg) !important
+   background: url(../assets/spring-img.jpg) no-repeat center center fixed !important
 }
 
 .winter-img {
-  background: url('../assets/winter-img.jpg') !important;
+  background: url('../assets/winter-img.jpg') no-repeat center center fixed !important;
 }
 
 .fall-img {

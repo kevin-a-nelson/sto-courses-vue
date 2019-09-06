@@ -26,12 +26,12 @@
         <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons" v-if="!loggedIn()">
-                    <a class="button is-info" tag="router-link" href="/signup">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light" tag="router-link" href="/login">
-                        <strong>Log in</strong>
-                    </a>
+                  <b-button type="is-info">
+                    <router-link id="signup-btn" to="/signup">Signup</router-link>
+                  </b-button>
+                  <b-button type="is-light">
+                    <router-link id="login-btn" to="/login">Login</router-link>
+                  </b-button>
                 </div>
                 <div v-else >
                   <a class="button is-info" tag="router-link" href="/logout">
@@ -73,13 +73,17 @@
 <style>
 
 
+#signup-btn {
+  color: white;
+  font-weight: 500;
+}
+
+#login-btn {
+  color: black;
+  font-weight: 500;
+}
+
 #fixed-nav {
-  /*display: fixed;*/
-  /*position: fixed;*/
-  /*position: absolute;*/
-  /*position: fixed;*/
-  /*top: 40px;*/
-  /*width: 100%;*/
 }
 
 .nav-link {
