@@ -34,9 +34,9 @@
                   </b-button>
                 </div>
                 <div v-else >
-                  <a class="button is-info" tag="router-link" href="/logout">
-                      <strong>Logout</strong>
-                  </a>
+                  <b-button type="is-info">
+                    <router-link id="logout-btn" to="/logout">Logout</router-link>
+                  </b-button>
                 </div>
             </b-navbar-item>
         </template>
@@ -80,6 +80,11 @@
 
 #login-btn {
   color: black;
+  font-weight: 500;
+}
+
+#logout-btn {
+  color: white;
   font-weight: 500;
 }
 
