@@ -34,7 +34,6 @@ Vue.component('multiselect', Multiselect)
 // Vue.component('dropdown', DropDown)
 Vue.use(Notifications)
 // Vue.use(BootstrapVue)
-
 new Vue({
   router,
   render: h => h(App)

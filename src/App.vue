@@ -57,6 +57,12 @@ tr {
   color: black !important;
 }
 
+.spinner {
+  width: 500px;
+  height: 500px;
+  display: none;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
