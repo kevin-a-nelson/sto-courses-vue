@@ -60,6 +60,7 @@ export default {
       passwordConfirmation: "",
       errors: [],
       name: '',
+      signingUp: false,
     };
   },
   mounted() {
@@ -68,6 +69,7 @@ export default {
   },
   methods: {
     submit: function() {
+      this.errors = ["signing up ..."]
       var params = {
         name: this.name,
         email: this.email,
@@ -88,6 +90,13 @@ export default {
 </script>
 
 <style>
+
+#signingUpText {
+  color: white;
+  font-weight: 900;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
 
 .signup-container {
   padding-top: 200px;

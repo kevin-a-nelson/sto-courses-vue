@@ -27,7 +27,7 @@
         <p class="no-rows-msg">Expected more courses? Check the Filters!</p>
       </div>
       <div slot="emptystate">
-        <p id="no-data">none</p>
+        <p id="no-data">loading...</p>
       </div>
     <!-- Table Modifileications -->
       <template slot="table-row" slot-scope="props">
@@ -316,6 +316,7 @@ export default {
 }
 
 #no-data {
+  font-weight: 900;
   text-align: center;
 } 
 
