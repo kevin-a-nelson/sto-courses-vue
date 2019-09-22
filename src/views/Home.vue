@@ -119,12 +119,10 @@ export default {
     HideOptions
   },
   created() {
+    axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.jwt;
     document.title = "StoCoursesPlus";
-    // window.addEventListener('resize', this.handleResize)
-    // this.handleResize();
     this.getStolafTableRows()
     this.getUserTableRows()
-    // this.updateHideOptions(this.visibleColumns)
   },
   destroyed() {
     // window.removeEventListener('resize', this.handleResize)
